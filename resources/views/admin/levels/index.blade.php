@@ -1,4 +1,4 @@
-@extends('admin.master')
+@extends('admin.layouts.master')
 
 @section('content')
     <div class="page-inner">
@@ -12,9 +12,9 @@
                 </ol>
             </nav>
             <div class="d-md-flex align-items-md-start">
-                <h1 class="page-title mr-sm-auto">Quản Lý Tổ</h1>
+                <h1 class="page-title mr-sm-auto">Cấp độ khóa học</h1>
                 <div class="btn-toolbar">
-                    <a href="https://thptatuc-backend.quanlythietbitruonghoc.com/nests/create" class="btn btn-primary mr-2">
+                    <a href="{{ route('levels.create') }}" class="btn btn-primary mr-2">
                         <i class="fa-solid fa fa-plus"></i>
                         <span class="ml-1">Thêm Mới</span>
                     </a>
@@ -47,7 +47,7 @@
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col">
-                            <form action="https://thptatuc-backend.quanlythietbitruonghoc.com/nests" method="GET"
+                            <form action="{{ route('levels.index') }}" method="GET"
                                 id="form-search">
                                 <div class="row">
                                     <div class="col">
@@ -67,19 +67,26 @@
                             <thead>
                                 <tr>
                                     <th> STT </th>
-                                    <th> Tên tổ </th>
+                                    <th> Tên khóa học</th>
+                                    <th> Cấp độ </th>
+                                    <th> Trạng thái </th>
                                     <th> Chức năng </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="align-middle"> 1 </td>
-                                    <td class="align-middle"> Tổ 1 </td>
+                                @foreach ($items as $key => $item )
+                                    
+                                @endforeach
+                                <tr>    
+                                    <td class="align-middle"> {{ ++$key }}</td>
+                                    <td class="align-middle"> {{ $item->name }} </td>
+                                    <td class="align-middle"> {{ $item->level }} </td>
+                                    <td class="align-middle"> {{ $item->status }} </td>
 
                                     <td>
-                                        <form action="https://thptatuc-backend.quanlythietbitruonghoc.com/nests/1"
+                                        <form action=""
                                             style="display:inline" method="post">
-                                            <button onclick="return confirm('Xóa Tổ 1 ?')"
+                                            <button onclick="return confirm('Bạn có chắc chắn muốn xóa không ?')"
                                                 class="btn btn-sm btn-icon btn-secondary"><i
                                                     class="far fa-trash-alt"></i></button>
                                             <input type="hidden" name="_token"
@@ -87,7 +94,7 @@
                                                 name="_method" value="delete">
                                         </form>
                                         <span class="sr-only">Edit</span> <a
-                                            href="https://thptatuc-backend.quanlythietbitruonghoc.com/nests/1/edit"
+                                            href=""
                                             class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i>
                                             <span class="sr-only">Remove</span></a>
                                     </td>

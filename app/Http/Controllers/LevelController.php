@@ -17,7 +17,6 @@ class LevelController extends Controller
     public function index(Request $request)
     {
         $query = Level::select('*');
-        $limit = $request->limit ? $request->limit : 10;
         if (isset($request->s)) {
             $query->where('name', 'like', "%$request->s%")
                 ->orWhere('level', 'like', "%$request->s%")
@@ -33,7 +32,7 @@ class LevelController extends Controller
         }
 
         $query->orderBy('id', 'DESC');
-        $items = $query->paginate($limit);
+        $items = $query->paginate(3);
         $params = [
             'items' => $items,
         ];
@@ -61,7 +60,7 @@ class LevelController extends Controller
         $item->name = $request->name;
         $item->level = $request->level;
         $item->status = $request->status;
-
+        // dd($item);
        $item->save();
        return redirect()->route('levels.index');
     }

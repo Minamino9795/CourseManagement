@@ -18,18 +18,18 @@
  
     </script><!-- End SEO tag -->
     <!-- FAVICONS -->
-    <link rel="apple-touch-icon" sizes="144x144" href="apple-touch-icon.png">
-    <link rel="shortcut icon" href="assets/favicon.ico">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('apple-touch-icon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/favicon.ico') }}">
     <meta name="theme-color" content="#3063A0"><!-- End FAVICONS -->
     <!-- GOOGLE FONT -->
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" rel="stylesheet"><!-- End GOOGLE FONT -->
     <!-- BEGIN PLUGINS STYLES -->
-    <link rel="stylesheet" href="assets/vendor/open-iconic/font/css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="assets/vendor/@fortawesome/fontawesome-free/css/all.min.css"><!-- END PLUGINS STYLES -->
+    <link rel="stylesheet" href="{{ asset('assets/vendor/open-iconic/font/css/open-iconic-bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/@fortawesome/fontawesome-free/css/all.min.css') }}"><!-- END PLUGINS STYLES -->
     <!-- BEGIN THEME STYLES -->
-    <link rel="stylesheet" href="assets/stylesheets/theme.min.css" data-skin="default">
-    <link rel="stylesheet" href="assets/stylesheets/theme-dark.min.css" data-skin="dark">
-    <link rel="stylesheet" href="assets/stylesheets/custom.css">
+    <link rel="stylesheet" href="{{ asset('assets/stylesheets/theme.min.css') }}" data-skin="default">
+    <link rel="stylesheet" href="{{ asset('assets/stylesheets/theme-dark.min.css') }}" data-skin="dark">
+    <link rel="stylesheet" href="{{ asset('assets/stylesheets/custom.css') }}">
     <script>
       var skin = localStorage.getItem('skin') || 'default';
       var disabledSkinStylesheet = document.querySelector('link[data-skin]:not([data-skin="' + skin + '"])');
@@ -97,7 +97,7 @@
                 <!-- .section-block -->
                 <div class="section-block">
                   <!-- page content goes here -->
-                  @yield('level')
+                  @yield('content')
                 </div><!-- /.section-block -->
               </div><!-- /.page-section -->
             </div><!-- /.page-inner -->
