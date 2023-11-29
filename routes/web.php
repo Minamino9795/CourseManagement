@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/layouts', function () {
+    return view('admin.layouts.master');
 });
 use App\Http\Controllers\TenController;
 
