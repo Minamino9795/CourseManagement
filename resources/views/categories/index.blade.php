@@ -21,25 +21,7 @@
 </head>
 
 <body>
-    <div class="container">
-        <!-- Thông báo -->
-        @if (session('successMessage'))
-            <script>
-                Swal.fire({
-                    icon: 'success',
-                    title: '<h6>{{ session('successMessage') }}</h6>',
-                    showConfirmButton: false,
-                    timer: 2000,
-                    width: '300px',
-                    customClass: {
-                        popup: 'animated bounce',
-                    },
-                    background: '#f4f4f4',
-                    iconColor: '#00a65a',
-                });
-            </script>
-        @endif
-
+    <div class="container">      
         <div class="panel-heading">
             <h2 class="offset-4">DANH MỤC KHÓA HỌC</h2>
         </div>

@@ -67,21 +67,26 @@
         <div class="mb-3">
             <label for="name">Tên danh mục:</label><br>
             <input type="text" name="name" placeholder="Enter category name" value="{{ $categories->name }}"><br>
+            @error('name')
+            <div style="color: red">{{ $message }}</div>
+        @enderror
         </div>
         <div class="mb-3">
-            <label for="name">Mô tả:</label><br>
+            <label for="name">Mô tả:</label>
             <input type="text" name="description" placeholder="Nhập mô tả" value="{{ $categories->description }}"><br>
+            @error('description')
+            <div style="color: red">{{ $message }}</div>
+        @enderror
         </div>
         <div class="mb-3">
-            <label>Trạng thái:</label><br>
-            {{-- <select name="status" class="form-control">
-                <option @if(old('status') == \App\Models\Category::INACTIVE) selected @endif value="{{ \App\Models\Category::INACTIVE }}">Đang Đóng</option>
-                <option @if(old('status') == \App\Models\Category::ACTIVE) selected @endif value="{{ \App\Models\Category::ACTIVE }}">Đang mở</option>
-            </select> --}}
+            <label>Trạng thái:</label>
             <select name="status" class="form-control">
                 <option value="{{ \App\Models\Category::INACTIVE }}" {{ old('status', $categories->status) == \App\Models\Category::INACTIVE ? 'selected' : '' }}>Đang đóng</option>
                 <option value="{{ \App\Models\Category::ACTIVE }}" {{ old('status', $categories->status) == \App\Models\Category::ACTIVE ? 'selected' : '' }}>Đang mở</option>
             </select><br>
+            @error('status')
+            <div style="color: red">{{ $message }}</div>
+        @enderror
             
         </div><br>
 

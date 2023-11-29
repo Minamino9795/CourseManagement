@@ -69,13 +69,16 @@
         <div class="mb-3">
             <label>Tên danh mục:</label>
             <input type="text" name="name" class="form-control" placeholder="Nhập tên">
-            {{-- @error('name')
+            @error('name')
                 <div style="color: red">{{ $message }}</div>
-            @enderror --}}
+            @enderror
         </div>
         <div class="mb-3">
             <label>Mô tả:</label>
             <input type="text" name="description" class="form-control" placeholder="Nhập mô tả">
+            @error('description')
+            <div style="color: red">{{ $message }}</div>
+        @enderror
         </div>
         <div class="mb-3">
             <label>Trạng thái:</label>
