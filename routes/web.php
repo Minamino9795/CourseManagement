@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/layout', function () {
-    return view('admin.master');
+Route::get('/layouts', function () {
+    return view('admin.layouts.master');
 });
