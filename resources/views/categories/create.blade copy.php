@@ -1,4 +1,6 @@
-body>
+@extends('admin.layouts.master')
+@section('content')
+
     <h2>THÊM DANH MỤC KHÓA HỌC</h2>
     <form action="{{ route('categories.store') }}" method="POST">
         @csrf
@@ -27,9 +29,6 @@ body>
             <input type="submit" value="Submit">
         </div>
     </form>
-</body>
+@endsection
 
-</html>
-<style>
 
-</style>

@@ -18,7 +18,7 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
-        $paginate = 5;
+        $paginate = 3;
         $query = Category::select('*');
 
         if (isset($request->name)) {
@@ -55,7 +55,7 @@ class CategoryController extends Controller
         try {
             $categories->save();
             return redirect()->route('categories.index')->with('success', __('sys.store_item_success'));
-        } catch (QueryException  $e) {
+        } catch (QueryException $e) {
             Log::error($e->getMessage());
             return redirect()->route('categories.index')->with('error', __('sys.store_item_error'));
         }
@@ -74,16 +74,13 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        try {
+        
             $categories = Category::findOrFail($id);
             $params = [
                 'categories' => $categories
             ];
             return view('categories.edit', $params);
-        } catch (QueryException  $e) {
-            Log::error($e->getMessage());
-            return redirect()->route('categories.index')->with('error', __('sys.store_item_error'));
-        }
+        
     }
 
     /**
@@ -98,10 +95,10 @@ class CategoryController extends Controller
         $categories->status = $request->status;
         try {
             $categories->save();
-            return redirect()->route('categories.index')->with('success', __('sys.store_item_success'));
-        } catch (QueryException  $e) {
+            return redirect()->route('categories.index')->with('success', __('sys.update_item_success'));
+        } catch (QueryException $e) {
             Log::error($e->getMessage());
-            return redirect()->route('categories.index')->with('error', __('sys.store_item_error'));
+            return redirect()->route('categories.index')->with('error', __('sys.update_item_error'));
         }
     }
 
@@ -112,6 +109,6 @@ class CategoryController extends Controller
     {
         $categories = Category::destroy($id);
 
-        return redirect()->route('categories.index')->with('success', __('sys.store_item_success'));
+        return redirect()->route('categories.index')->with('success', __('sys.destroy_item_success'));
     }
 }
