@@ -39,36 +39,34 @@
         @endif
 
     <div class="panel-heading">
-        <h2 class="offset-4">Lession</h2>
+        <h2 class="offset-4">BÀI HỌC</h2>
     </div>
     <div class="">
         <div class="card-body px-0 pb-2">
             <div class="table-responsive p-0">
                 <form action="{{ route('lession.index') }}" method="GET">
-                    @csrf
                     <div class="input-group">
                         <div class="form-outline">
-                            <input type="text" name="search" placeholder=" Nhập từ tìm kiếm">
+                            <input type="text" name="search" placeholder="Nhập từ tìm kiếm .....">
                             <button type="submit">
-                                Tim kiem
+                            <i class="fas fa-search"></i>
                             </button>
                         </div>
                     </div>
                 </form><br>
-                <a href="{{ route('lession.create') }}" class="btn btn-success"> <i class="fas fa-plus"></i> Thêm
-                    mới</a>
+                <a href="{{ route('lession.create') }}" class="btn btn-success"> <i class="fas fa-plus"></i> Thêm mới</a>
 
                 <table class="table table-hover" border="" width="100%">
                     <thead style="background: rgb(51, 51, 53)">
                         <tr>
                             <th scope="col" style="color: white">Stt</th>
-                            <th scope="col" style="color: white">Name </th>
-                            <th scope="col" style="color: white">type</th>
-                            <th scope="col" style="color: white">content</th>
-                            <th scope="col" style="color: white">image_url</th>
-                            <th scope="col" style="color: white">video_url</th>
-                            <th scope="col" style="color: white">duration</th>
-                            <th scope="col" style="color: white">action</th>
+                            <th scope="col" style="color: white">Tên </th>
+                            <th scope="col" style="color: white">Loại bài học</th>
+                            <th scope="col" style="color: white">Nội dung bài học</th>
+                            <th scope="col" style="color: white">Ảnh</th>
+                            <th scope="col" style="color: white">Video</th>
+                            <th scope="col" style="color: white"> Thời gian</th>
+                            <th scope="col" style="color: white">Hành động</th>
                             <th class="text-secondary opacity-7"></th>
                         </tr>
                     </thead>
@@ -93,7 +91,7 @@
                                 <p class="text-xs font-weight-bold mb-0">{{ $lession->content }}</p>
                             </td>
                             <td>
-                                <p class="text-xs font-weight-bold mb-0">{{ $lession->image_url }}</p>
+                            <img width="90px" height="90px" src="{{ asset($lession->image_url) }}" alt="">
                             </td>
                             <td>
                                 <p class="text-xs font-weight-bold mb-0">{{ $lession->video_url }}</p>
