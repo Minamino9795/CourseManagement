@@ -36,4 +36,12 @@ class LessionController extends Controller
         $lessions->save();
         return redirect()->route('lession.index')->with('successMessage', 'Thêm thành công');
     }
+
+    // xoas
+    public function destroy(string $id)
+    {
+        $lessions = Lession::destroy($id);
+
+        return redirect()->route('lession.index')->with('successMessage', 'Xóa thành công');
+    }
 }
