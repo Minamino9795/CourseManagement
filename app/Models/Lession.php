@@ -18,4 +18,6 @@ class Lession extends Model
    ];
    protected $primaryKey = 'id';
    protected $table = 'lessions';
+   public $timestamps = false;
+
 }
