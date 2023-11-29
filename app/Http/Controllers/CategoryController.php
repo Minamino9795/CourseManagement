@@ -23,7 +23,10 @@ class CategoryController extends Controller
         }
         $query->orderBy('id','DESC');
         $items = $query->paginate($paginate);
-        return view('Categories.index', ['items' => $items]);
+        $params = [
+            'items' => $items
+        ];
+        return view('categories.index', $params);
     }
 
     /**

@@ -47,29 +47,29 @@
             <div class="card-body px-0 pb-2">
                 <div class="table-responsive p-0">
                     <form action="{{ route('categories.index') }}" method="GET">
-                        @csrf
-                    
                         <div class="card border-0 shadow-sm mb-3">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-4 mb-2">
-                                        <input type="text" name="name" value="{{ request()->name }}" class="form-control"
-                                            placeholder="Nhập tên danh mục">
+                                        <input type="text" name="name" value="{{ request()->name }}"
+                                            class="form-control" placeholder="Tìm kiếm danh mục...">
                                     </div>
-                    
                                     <div class="col-md-3 mb-2">
+
+
                                         <select name="status" class="form-control">
+
                                             <option value="{{ \App\Models\Category::INACTIVE }}"
-                                                {{ request()->input('status') == \App\Models\Category::INACTIVE ? 'selected' : '' }}>
-                                                {{ \App\Models\Category::getDescStatus(\App\Models\Category::INACTIVE) }}
+                                                @selected(request()->input('status') == \App\Models\Category::INACTIVE)>
+                                                Đang đóng
                                             </option>
                                             <option value="{{ \App\Models\Category::ACTIVE }}"
-                                                {{ request()->input('status') == \App\Models\Category::ACTIVE ? 'selected' : '' }}>
-                                                {{ \App\Models\Category::getDescStatus(\App\Models\Category::ACTIVE) }}
+                                                @selected(request()->input('status') == \App\Models\Category::ACTIVE)>
+                                                Đang mở
                                             </option>
                                         </select>
                                     </div>
-                    
+
                                     <div class="col-md-2">
                                         <button type="submit"class="btn btn-outline-primary">
                                             <i class="fas fa-search"></i>
@@ -79,7 +79,7 @@
                             </div>
                         </div>
                     </form>
-                    
+
                     <a href="{{ route('categories.create') }}" class="btn btn-success"> <i class="fas fa-plus"></i> Thêm
                         mới</a>
 
