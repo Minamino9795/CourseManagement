@@ -12,16 +12,18 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $categories = Category::paginate(4);
-        $activeStatus = Category::ACTIVE;
-        $inactiveStatus = Category::INACTIVE;
-        if (isset($request->search)) {
-            $search = $request->search;
-            $categories = Category::where('name', 'like', "%$search%")
-                ->paginate();
-        }
+        $paginate = 2;
+        $query = Category::select('*');
 
-        return view('Categories.index', compact('categories', 'activeStatus', 'inactiveStatus'));
+        if (isset($request->name)) {
+            $query->where('name', 'LIKE', "%$request->name%");
+        }
+        if (isset($request->status)) {
+            $query->where('status', $request->status);
+        }
+        $query->orderBy('id','DESC');
+        $items = $query->paginate($paginate);
+        return view('Categories.index', ['items' => $items]);
     }
 
     /**
@@ -37,13 +39,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $activeStatus = Category::ACTIVE;
-        $inactiveStatus = Category::INACTIVE;
+
         $categories = new Category();
 
         $categories->name = $request->name;
         $categories->description = $request->description;
-        $categories->status = ($request->status == '0') ? $activeStatus : $inactiveStatus;
+        $categories->status = $request->status;
         $categories->save();
         return redirect()->route('categories.index')->with('successMessage', 'Thêm thành công');
     }
@@ -70,12 +71,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $activeStatus = Category::ACTIVE;
-        $inactiveStatus = Category::INACTIVE;
+
         $categories = Category::find($id);
         $categories->name = $request->name;
         $categories->description = $request->description;
-        $categories->status = ($request->status == '0') ? $activeStatus : $inactiveStatus;
+        $categories->status = $request->status;
 
         $categories->save();
         return redirect()->route('categories.index')->with('successMessage', 'Cập nhật thành công');

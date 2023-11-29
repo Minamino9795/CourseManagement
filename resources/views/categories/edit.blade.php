@@ -74,10 +74,15 @@
         </div>
         <div class="mb-3">
             <label>Trạng thái:</label><br>
+            {{-- <select name="status" class="form-control">
+                <option @if(old('status') == \App\Models\Category::INACTIVE) selected @endif value="{{ \App\Models\Category::INACTIVE }}">Đang Đóng</option>
+                <option @if(old('status') == \App\Models\Category::ACTIVE) selected @endif value="{{ \App\Models\Category::ACTIVE }}">Đang mở</option>
+            </select> --}}
             <select name="status" class="form-control">
-                <option value="0" {{ $categories->status ? 'selected' : '' }}>Đang mở</option>
-                <option value="1" {{ $categories->status ? 'selected' : '' }}>Đang đóng</option>
+                <option value="{{ \App\Models\Category::INACTIVE }}" {{ old('status', $categories->status) == \App\Models\Category::INACTIVE ? 'selected' : '' }}>Đang đóng</option>
+                <option value="{{ \App\Models\Category::ACTIVE }}" {{ old('status', $categories->status) == \App\Models\Category::ACTIVE ? 'selected' : '' }}>Đang mở</option>
             </select><br>
+            
         </div><br>
 
         <input type="submit" onclick=" return confirm('Bạn chắc chắn muốn thay đổi?')" value="Submit">

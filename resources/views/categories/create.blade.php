@@ -80,8 +80,8 @@
         <div class="mb-3">
             <label>Trạng thái:</label>
             <select name="status" class="form-control">
-                <option value="0">Đang mở</option>
-                <option value="1">Đang đóng</option>
+                <option @selected(request()->status == \App\Models\Category::INACTIVE) value="{{ \App\Models\Category::INACTIVE }}">Đang Đóng</option>
+                <option @selected(request()->status == \App\Models\Category::ACTIVE) value="{{ \App\Models\Category::ACTIVE }}">Đang mở</option>
             </select><br>
         </div><br>
         <div class="mb-3">

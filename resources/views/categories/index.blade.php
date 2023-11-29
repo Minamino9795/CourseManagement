@@ -48,22 +48,45 @@
                 <div class="table-responsive p-0">
                     <form action="{{ route('categories.index') }}" method="GET">
                         @csrf
-                        <div class="input-group">
-                            <div class="form-outline">
-                                <input type="text" name="search" placeholder=" Nhập từ tìm kiếm">
-                                <button type="submit">
-                                    <i class="fas fa-search"></i>
-                                </button>
+                    
+                        <div class="card border-0 shadow-sm mb-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4 mb-2">
+                                        <input type="text" name="name" value="{{ request()->name }}" class="form-control"
+                                            placeholder="Nhập tên danh mục">
+                                    </div>
+                    
+                                    <div class="col-md-3 mb-2">
+                                        <select name="status" class="form-control">
+                                            <option value="{{ \App\Models\Category::INACTIVE }}"
+                                                {{ request()->input('status') == \App\Models\Category::INACTIVE ? 'selected' : '' }}>
+                                                {{ \App\Models\Category::getDescStatus(\App\Models\Category::INACTIVE) }}
+                                            </option>
+                                            <option value="{{ \App\Models\Category::ACTIVE }}"
+                                                {{ request()->input('status') == \App\Models\Category::ACTIVE ? 'selected' : '' }}>
+                                                {{ \App\Models\Category::getDescStatus(\App\Models\Category::ACTIVE) }}
+                                            </option>
+                                        </select>
+                                    </div>
+                    
+                                    <div class="col-md-2">
+                                        <button type="submit"class="btn btn-outline-primary">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </form><br>
+                    </form>
+                    
                     <a href="{{ route('categories.create') }}" class="btn btn-success"> <i class="fas fa-plus"></i> Thêm
                         mới</a>
 
                     <table class="table table-hover" border="1">
                         <thead style="background: rgb(51, 51, 53)">
                             <tr>
-                                <th scope="col" style="color: white">Stt</th>
+                                <th scope="col" style="color: white">STT</th>
                                 <th scope="col" style="color: white">Tên danh mục</th>
                                 <th scope="col" style="color: white">Mô tả</th>
                                 <th scope="col" style="color: white">Trạng thái</th>
@@ -72,7 +95,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($categories as $key => $category)
+                            @foreach ($items as $key => $category)
                                 <tr>
                                     <td>
                                         <div class="d-flex px-2 py-1">
@@ -88,7 +111,7 @@
                                     <td>
                                         <p class="text-xs font-weight-bold mb-0">{{ $category->description }}</p>
                                     </td>
-                                    @if ($category->status == $activeStatus)
+                                    @if ($category->status == \App\Models\Category::ACTIVE)
                                         <td><span class="badge bg-success">
                                                 <i class="fas fa-check-circle"></i> Đang mở
                                             </span></td>
@@ -105,10 +128,10 @@
                                                 <i class="fas fa-ellipsis-v"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item"
+                                                {{-- <a class="dropdown-item"
                                                     href="{{ route('categories.show', $category->id) }}">
                                                     <i class="fas fa-eye"></i> Show
-                                                </a>
+                                                </a> --}}
                                                 <a class="dropdown-item"
                                                     href="{{ route('categories.edit', $category->id) }}">
                                                     <i class="fas fa-edit"></i> Sửa
@@ -131,7 +154,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $categories->links('pagination::bootstrap-5') }}
+                    {{ $items->links('pagination::bootstrap-5') }}
                 </div>
             </div>
         </div>
