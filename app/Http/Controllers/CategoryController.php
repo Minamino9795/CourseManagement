@@ -32,7 +32,7 @@ class CategoryController extends Controller
         $params = [
             'items' => $items
         ];
-        return view('categories.index', $params);
+        return view('admin.categories.index', $params);
     }
 
     /**
@@ -40,7 +40,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        return view('admin.categories.create');
     }
 
     /**
@@ -79,7 +79,7 @@ class CategoryController extends Controller
             $params = [
                 'categories' => $categories
             ];
-            return view('categories.edit', $params);
+            return view('admin.categories.edit', $params);
         
     }
 
