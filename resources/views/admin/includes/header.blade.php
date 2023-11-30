@@ -101,7 +101,7 @@
                                 <!-- .dropdown-item -->
                                 <a href="#" class="dropdown-item">
                                     <div class="user-avatar">
-                                        <img src="assets/images/avatars/uifaces21.jpg" alt="">
+                                        <img src="{{ asset('assets/images/avatars/uifaces21.jpg')}}" alt="">
                                     </div>
                                     <div class="dropdown-item-body">
                                         <p class="text"> Shirley Mason and 3 others followed you </p><span
@@ -126,7 +126,7 @@
                                 <!-- .dropdown-item -->
                                 <a href="#" class="dropdown-item unread">
                                     <div class="user-avatar">
-                                        <img src="assets/images/avatars/team1.jpg" alt="">
+                                        <img src="{{ asset('assets/images/avatars/team1.jpg')}}" alt="">
                                     </div>
                                     <div class="dropdown-item-body">
                                         <p class="subject"> Stilearning </p>
@@ -137,7 +137,7 @@
                                 <!-- .dropdown-item -->
                                 <a href="#" class="dropdown-item">
                                     <div class="user-avatar">
-                                        <img src="assets/images/avatars/team3.png" alt="">
+                                        <img src="{{ asset('assets/images/avatars/team3.png')}}" alt="">
                                     </div>
                                     <div class="dropdown-item-body">
                                         <p class="subject"> Openlane </p>
@@ -166,7 +166,7 @@
                                 <!-- .dropdown-item -->
                                 <a href="#" class="dropdown-item">
                                     <div class="user-avatar">
-                                        <img src="assets/images/avatars/team2.png" alt="">
+                                        <img src="{{ asset('assets/images/avatars/team2.png')}}" alt="">
                                     </div>
                                     <div class="dropdown-item-body">
                                         <p class="subject"> Creative Division </p>
@@ -234,7 +234,7 @@
                 <div class="dropdown d-none d-md-flex">
                     <button class="btn-account" type="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false"><span class="user-avatar user-avatar-md"><img
-                                src="assets/images/avatars/profile.jpg" alt=""></span> <span
+                                src="{{ asset('assets/images/avatars/profile.jpg')}}" alt=""></span> <span
                             class="account-summary pr-lg-4 d-none d-lg-block"><span class="account-name">PTN</span>
                             <span class="account-description">CoureOnline</span></span></button>
                     <!-- .dropdown-menu -->

@@ -72,10 +72,18 @@
                         </div>
                     </div>
                     @if (session('success'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+                    <div id="successAlert" class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                    <script>
+                        var delayTime = 1500;
+                        var successAlert = document.getElementById('successAlert');
+                        setTimeout(function () {
+                            successAlert.style.display = 'none';
+                        }, delayTime);
+                    </script>
+                @endif
+                
 
                     <div class="table-responsive">
                         <table class="table">
