@@ -1,22 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><!-- End Required meta tags -->
     <!-- Begin SEO tag -->
     <title> Starter Template | Looper - Bootstrap 4 Admin Theme </title>
-    <meta property="og:title" content="Starter Template">
-    <meta name="author" content="Beni Arisandi">
-    <meta property="og:locale" content="en_US">
-    <meta name="description" content="Responsive admin theme build on top of Bootstrap 4">
-    <meta property="og:description" content="Responsive admin theme build on top of Bootstrap 4">
-    <link rel="canonical" href="https://uselooper.com">
-    <meta property="og:url" content="https://uselooper.com">
-    <meta property="og:site_name" content="Looper - Bootstrap 4 Admin Theme">
-    <script type="application/ld+json">
- 
-    </script><!-- End SEO tag -->
     <!-- FAVICONS -->
     <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('apple-touch-icon.png') }}">
     <link rel="shortcut icon" href="{{ asset('assets/favicon.ico') }}">
@@ -24,86 +14,90 @@
     <!-- GOOGLE FONT -->
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" rel="stylesheet"><!-- End GOOGLE FONT -->
     <!-- BEGIN PLUGINS STYLES -->
-    <link rel="stylesheet" href="{{ asset('assets/vendor/open-iconic/font/css/open-iconic-bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendor/@fortawesome/fontawesome-free/css/all.min.css') }}"><!-- END PLUGINS STYLES -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <!-- END PLUGINS STYLES -->
     <!-- BEGIN THEME STYLES -->
     <link rel="stylesheet" href="{{ asset('assets/stylesheets/theme.min.css') }}" data-skin="default">
-    <link rel="stylesheet" href="{{ asset('assets/stylesheets/theme-dark.min.css') }}" data-skin="dark">
+    {{-- <link rel="stylesheet" href="{{ asset('assets/stylesheets/theme-dark.min.css') }}" data-skin="dark"> --}}
     <link rel="stylesheet" href="{{ asset('assets/stylesheets/custom.css') }}">
-    <script>
-      var skin = localStorage.getItem('skin') || 'default';
-      var disabledSkinStylesheet = document.querySelector('link[data-skin]:not([data-skin="' + skin + '"])');
-      // Disable unused skin immediately
-      disabledSkinStylesheet.setAttribute('rel', '');
-      disabledSkinStylesheet.setAttribute('disabled', true);
-      // add loading class to html immediately
-      document.querySelector('html').classList.add('loading');
-    </script><!-- END THEME STYLES -->
-  </head>
-  <body>
+	@yield('header')
+</head>
+
+<body class=" default-skin pace-done">
     <!-- .app -->
     <div class="app">
-      <!--[if lt IE 10]>
+        <!--[if lt IE 10]>
       <div class="page-message" role="alert">You are using an <strong>outdated</strong> browser. Please <a class="alert-link" href="http://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</div>
       <![endif]-->
-      <!-- .app-header -->
+        <!-- .app-header -->
+        @include('admin.includes.header');
+        <!-- /.app-header -->
+        <!-- .app-aside -->
+        <aside class="app-aside app-aside-expand-md app-aside-light">
+            <!-- .aside-content -->
+            <div class="aside-content">
+                <!-- .aside-header -->
+                <header class="aside-header d-block d-md-none">
+                    <!-- .btn-account -->
+                    <button class="btn-account" type="button" data-toggle="collapse"
+                        data-target="#dropdown-aside"><span class="user-avatar user-avatar-lg"><img
+                                src="assets/images/avatars/profile.jpg" alt=""></span> <span
+                            class="account-icon"><span class="fa fa-caret-down fa-lg"></span></span> <span
+                            class="account-summary"><span class="account-name">Beni Arisandi</span> <span
+                                class="account-description">Marketing Manager</span></span></button>
+                    <!-- /.btn-account -->
+                    <!-- .dropdown-aside -->
+                    <div id="dropdown-aside" class="dropdown-aside collapse">
+                        <!-- dropdown-items -->
+                        <div class="pb-3">
+                            <a class="dropdown-item" href="user-profile.html"><span
+                                    class="dropdown-icon oi oi-person"></span> Profile</a> <a class="dropdown-item"
+                                href="auth-signin-v1.html"><span class="dropdown-icon oi oi-account-logout"></span>
+                                Logout</a>
+                            <div class="dropdown-divider"></div><a class="dropdown-item" href="#">Help Center</a>
+                            <a class="dropdown-item" href="#">Ask Forum</a> <a class="dropdown-item"
+                                href="#">Keyboard Shortcuts</a>
+                        </div><!-- /dropdown-items -->
+                    </div><!-- /.dropdown-aside -->
+                </header><!-- /.aside-header -->
+                <!-- .sidebar-->
+                @include('admin.includes.sidebar')
+                <!-- /.sidebar-menu -->
+                <!-- Skin changer -->
+                <footer class="aside-footer border-top p-2">
+                    
+                </footer><!-- /Skin changer -->
+            </div><!-- /.aside-content -->
+        </aside><!-- /.app-aside -->
+        <!-- .app-main -->
+        <main class="app-main">
+            <!-- .wrapper -->
+            <div class="wrapper">
+                <!-- .page -->
+                <div class="page">
+                    <!-- .page-inner -->
 
-    @include('admin.includes.header');
+                    @yield('content')
 
-      <!-- /.app-header -->
-      <!-- .app-aside -->
-      <aside class="app-aside app-aside-expand-md app-aside-light">
-        <!-- .aside-content -->
-        <div class="aside-content">
-          <!-- .aside-header -->
-          <header class="aside-header d-block d-md-none">
-            <!-- .btn-account -->
-            <button class="btn-account" type="button" data-toggle="collapse" data-target="#dropdown-aside"><span class="user-avatar user-avatar-lg"><img src="assets/images/avatars/profile.jpg" alt=""></span> <span class="account-icon"><span class="fa fa-caret-down fa-lg"></span></span> <span class="account-summary"><span class="account-name">Beni Arisandi</span> <span class="account-description">Marketing Manager</span></span></button> <!-- /.btn-account -->
-            <!-- .dropdown-aside -->
-            <div id="dropdown-aside" class="dropdown-aside collapse">
-              <!-- dropdown-items -->
-              <div class="pb-3">
-                <a class="dropdown-item" href="user-profile.html"><span class="dropdown-icon oi oi-person"></span> Profile</a> <a class="dropdown-item" href="auth-signin-v1.html"><span class="dropdown-icon oi oi-account-logout"></span> Logout</a>
-                <div class="dropdown-divider"></div><a class="dropdown-item" href="#">Help Center</a> <a class="dropdown-item" href="#">Ask Forum</a> <a class="dropdown-item" href="#">Keyboard Shortcuts</a>
-              </div><!-- /dropdown-items -->
-            </div><!-- /.dropdown-aside -->
-          </header><!-- /.aside-header -->
-          <!-- .sidebar-->
-         
-          @include('admin.includes.sidebar')
-        
-          <!-- /.sidebar-menu -->
-          <!-- Skin changer -->
-          <footer class="aside-footer border-top p-2">
-            <button class="btn btn-light btn-block text-primary" data-toggle="skin"><span class="d-compact-menu-none">Night mode</span> <i class="fas fa-moon ml-1"></i></button>
-          </footer><!-- /Skin changer -->
-        </div><!-- /.aside-content -->
-      </aside><!-- /.app-aside -->
-      <!-- .app-main -->
-      <main class="app-main">
-        <!-- .wrapper -->
-        <div class="wrapper">
-          <!-- .page -->
-          <div class="page">
-            <!-- .page-inner -->
-            <div class="page-inner">
-              <!-- .page-title-bar -->
-              <header class="page-title-bar">
-                <!-- page title stuff goes here -->
-                <h1 class="page-title"></h1>
-              </header><!-- /.page-title-bar -->
-              <!-- .page-section -->
-              <div class="page-section">
-                <!-- .section-block -->
-                <div class="section-block">
-                  <!-- page content goes here -->
-                  @yield('content')
-                </div><!-- /.section-block -->
-              </div><!-- /.page-section -->
-            </div><!-- /.page-inner -->
-          </div><!-- /.page -->
-        </div><!-- /.wrapper -->
-      </main><!-- /.app-main -->
+                    <div class="page-inner">
+                        <!-- .page-title-bar -->
+                        <header class="page-title-bar">
+                            <!-- page title stuff goes here -->
+                            <h1 class="page-title"></h1>
+                        </header><!-- /.page-title-bar -->
+                        <!-- .page-section -->
+                        <div class="page-section">
+                            <!-- .section-block -->
+                            <div class="section-block">
+                                <!-- page content goes here -->
+                            </div><!-- /.section-block -->
+                        </div><!-- /.page-section -->
+                    </div><!-- /.page-inner -->
+                </div><!-- /.page -->
+            </div><!-- /.wrapper -->
+        </main><!-- /.app-main -->
     </div><!-- /.app -->
     <!-- BEGIN BASE JS -->
     <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
@@ -115,17 +109,7 @@
     <script src="{{ asset('assets/vendor/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script> <!-- END PLUGINS JS -->
     <!-- BEGIN THEME JS -->
     <script src="assets/javascript/theme.min.js"></script> <!-- END THEME JS -->
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116692175-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
+	@yield('footer')
+</body>
 
-      function gtag()
-      {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'UA-116692175-1');
-    </script>
-  </body>
 </html>

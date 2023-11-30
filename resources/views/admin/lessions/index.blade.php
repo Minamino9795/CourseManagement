@@ -32,13 +32,30 @@
         </header>
         <div class="page-section">
             <div class="card card-fluid">
+                <div class="col">
+                <form action="{{ route('lession.index') }}" method="GET" class="search-form">
+                        <div class="row">
+                            <div class="col">
+                                <input name="search" class="form-control" type="text" placeholder=" Tên..." value="">
+                            </div>
+                            <div class="col">
+                                <input name="search" class="form-control" type="text" placeholder=" Loại bài học ..." value="">
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="btn btn-secondary" data-toggle="modal" data-target="#modalSaveSearch" type="submit">Tìm Kiếm</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
                         <li class="nav-item">
                             <a class="nav-link active " href="https://thptatuc-backend.quanlythietbitruonghoc.com/users">Tất Cả</a>
                         </li>
-                        </ul>
+                    </ul>
                 </div>
+
                 <form action="{{ route('lession.index') }}" method="GET">
                     <div class="card-body">
                         <div class="row mb-2">

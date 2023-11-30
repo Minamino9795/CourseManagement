@@ -12,9 +12,10 @@ class LessionController extends Controller
     public function index(Request $request)
     {
         $lessions = Lession::paginate(4);
-        if (isset($request->search)) {
+        if ($request->has('search')) {
             $search = $request->search;
             $lessions = Lession::where('name', 'like', "%$search%")
+                ->orWhere('type', 'like', "%$search%")
                 ->paginate();
         }
         return view('admin.lessions.index', compact('lessions'));
@@ -23,21 +24,17 @@ class LessionController extends Controller
     // Thêm
     public function create()
     {
-        return view('lessions.create');
+        return view('admin.lessions.create');
     }
-
     public function store(LessionRequest $request)
     {
-
         $lessions = new Lession();
         $lessions->name = $request->name;
         $lessions->type = $request->type;
         $lessions->content = $request->content;
         $lessions->video_url = $request->video_url;
         $lessions->duration = $request->duration;
-
         // xử lý ảnh
-
         $fieldName = 'image_url';
         if ($request->hasFile($fieldName)) {
             $fullFileNameOrigin = $request->file($fieldName)->getClientOriginalName();
@@ -48,29 +45,22 @@ class LessionController extends Controller
             $path = str_replace('public/', '', $path);
             $lessions->image_url = $path;
         }
-
-
         $lessions->save();
         return redirect()->route('lession.index')->with('successMessage', 'Thêm thành công');
     }
-
     // xoas
     public function destroy(string $id)
     {
         $lessions = Lession::destroy($id);
-        return redirect()->route('lession.index')->with('successMessage', 'Xóa thành công');
+        return redirect()->route('lession.index');
     }
-
-
-    
     //  sua 
     public function edit(string $id)
     {
         $lessions = Lession::find($id);
-        return view('lessions.edit',compact('lessions'));
+        return view('admin.lessions.edit', compact('lessions'));
     }
-
-    public function update(LessionRequest $request,string $id)
+    public function update(LessionRequest $request, string $id)
     {
         $lessions = Lession::find($id);
         $lessions->name = $request->name;
@@ -78,9 +68,7 @@ class LessionController extends Controller
         $lessions->content = $request->content;
         $lessions->video_url = $request->video_url;
         $lessions->duration = $request->duration;
-
         // xử lý ảnh
-
         $fieldName = 'image_url';
         if ($request->hasFile($fieldName)) {
             $fullFileNameOrigin = $request->file($fieldName)->getClientOriginalName();
@@ -91,9 +79,6 @@ class LessionController extends Controller
             $path = str_replace('public/', '', $path);
             $lessions->image_url = $path;
         }
-
-
-
         $lessions->save();
         return redirect()->route('lession.index')->with('successMessage', 'Cập nhật thành công');
     }

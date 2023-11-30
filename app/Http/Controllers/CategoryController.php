@@ -2,26 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Traits\UploadFileTrait;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Log;
 
 class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    use UploadFileTrait;
+
     public function index(Request $request)
     {
-        $categories = Category::paginate(4);
-        $activeStatus = Category::ACTIVE;
-        $inactiveStatus = Category::INACTIVE;
-        if (isset($request->search)) {
-            $search = $request->search;
-            $categories = Category::where('name', 'like', "%$search%")
-                ->paginate();
-        }
+        $paginate = 3;
+        $query = Category::select('*');
 
-        return view('Categories.index', compact('categories', 'activeStatus', 'inactiveStatus'));
+        if (isset($request->name)) {
+            $query->where('name', 'LIKE', "%$request->name%");
+        }
+        if (isset($request->status)) {
+            $query->where('status', $request->status);
+        }
+        $query->orderBy('id', 'DESC');
+        $items = $query->paginate($paginate);
+        $params = [
+            'items' => $items
+        ];
+        return view('admin.categories.index', $params);
     }
 
     /**
@@ -29,23 +40,25 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        return view('admin.categories.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $activeStatus = Category::ACTIVE;
-        $inactiveStatus = Category::INACTIVE;
         $categories = new Category();
-
         $categories->name = $request->name;
         $categories->description = $request->description;
-        $categories->status = ($request->status == '0') ? $activeStatus : $inactiveStatus;
-        $categories->save();
-        return redirect()->route('categories.index')->with('successMessage', 'Thêm thành công');
+        $categories->status = $request->status;
+        try {
+            $categories->save();
+            return redirect()->route('categories.index')->with('success', __('sys.store_item_success'));
+        } catch (QueryException $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('categories.index')->with('error', __('sys.store_item_error'));
+        }
     }
 
     /**
@@ -61,24 +74,32 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        $categories = Category::find($id);
-        return view('categories.edit', compact('categories'));
+        
+            $categories = Category::findOrFail($id);
+            $params = [
+                'categories' => $categories
+            ];
+            return view('admin.categories.edit', $params);
+        
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CategoryRequest $request, string $id)
     {
-        $activeStatus = Category::ACTIVE;
-        $inactiveStatus = Category::INACTIVE;
         $categories = Category::find($id);
+
         $categories->name = $request->name;
         $categories->description = $request->description;
-        $categories->status = ($request->status == '0') ? $activeStatus : $inactiveStatus;
-
-        $categories->save();
-        return redirect()->route('categories.index')->with('successMessage', 'Cập nhật thành công');
+        $categories->status = $request->status;
+        try {
+            $categories->save();
+            return redirect()->route('categories.index')->with('success', __('sys.update_item_success'));
+        } catch (QueryException $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('categories.index')->with('error', __('sys.update_item_error'));
+        }
     }
 
     /**
@@ -88,6 +109,6 @@ class CategoryController extends Controller
     {
         $categories = Category::destroy($id);
 
-        return redirect()->route('categories.index')->with('successMessage', 'Xóa thành công');
+        return redirect()->route('categories.index')->with('success', __('sys.destroy_item_success'));
     }
 }
