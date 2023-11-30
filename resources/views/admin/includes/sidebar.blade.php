@@ -8,7 +8,7 @@
             <li class="menu-header">Danh Mục </li>
             <li class="menu-item has-child" style="">
                 <a href="#" class="menu-link"><span class="menu-icon"><i class="fas fa-users"></i></span>
-                    <span class="menu-text">Danh mục Khóa học</span></a> <!-- child menu -->
+                    <span class="menu-text">Danh mục Khóa học</span></a> 
                 <ul class="menu">
                     <li class="menu-subhead">Danh mục</li>
                     <li class="menu-item">

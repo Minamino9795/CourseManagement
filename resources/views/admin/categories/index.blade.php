@@ -91,7 +91,7 @@
                                 <tr>
                                     <th>STT</th>
                                     <th>Tên danh mục</th>
-                                    <th>Mô tả</th>
+                                    {{-- <th>Mô tả</th> --}}
                                     <th>Trạng thái</th>
                                     <th>Chức năng</th>
                                 </tr>
@@ -109,9 +109,9 @@
                                         <td>
                                             <p>{{ $category->name }}</p>
                                         </td>
-                                        <td>
-                                            <p>{{ $category->description }}</p>
-                                        </td>
+                                        {{-- <td>
+                                            <p>{!! $category->description !!}</p>
+                                        </td> --}}
                                         @if ($category->status == \App\Models\Category::ACTIVE)
                                             <td><span>
                                                     <i class="fas fa-check-circle"></i> Đang mở
@@ -123,7 +123,14 @@
                                         @endif
 
                                         <td>
-
+                                            
+                                                <span class="sr-only">Show</span>
+                                                <a href="{{ route('categories.show', $category->id) }}" class="btn btn-sm btn-icon btn-secondary">
+                                                    <i class="fa fa-eye"></i>
+                                                    <span class="sr-only">Show</span>
+                                                </a>
+                                         
+                                            
                                             <span class="sr-only">Edit</span> <a
                                                 href="{{ route('categories.edit', $category->id) }}"
                                                 class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i>
