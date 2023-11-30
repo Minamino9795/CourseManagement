@@ -32,7 +32,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="tf1">Mô tả <abbr name="Trường bắt buộc">*</abbr></label> 
-                                <textarea class="form-control" rows="4" name="description" id="description" placeholder="Enter description"></textarea>
+                                <textarea class="form-control" rows="4" name="description" id="description" placeholder="Nhập mô tả"></textarea>
                                 <small id="" class="form-text text-muted"></small>
                                 @error('description')
                                 <div style="color: red">{{ $message }}</div>
@@ -65,10 +65,10 @@
         </div>
     </div>
    <!-- Thêm mã CSS của CKEditor -->
-<script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
+{{-- <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
 <script>
     CKEDITOR.replace('description', {
         contentsCss: '/path/to/your/custom-styles.css',
     });
-</script>
+</script> --}}
 @endsection
