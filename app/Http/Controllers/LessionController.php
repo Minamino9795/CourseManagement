@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LessionRequest;
 use App\Models\Lession;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,7 @@ class LessionController extends Controller
             $lessions = Lession::where('name', 'like', "%$search%")
                 ->paginate();
         }
-        return view('lessions.index', compact('lessions'));
+        return view('admin.lessions.index', compact('lessions'));
     }
 
     // Thêm
@@ -25,7 +26,7 @@ class LessionController extends Controller
         return view('lessions.create');
     }
 
-    public function store(Request $request)
+    public function store(LessionRequest $request)
     {
 
         $lessions = new Lession();
@@ -69,7 +70,7 @@ class LessionController extends Controller
         return view('lessions.edit',compact('lessions'));
     }
 
-    public function update(Request $request,string $id)
+    public function update(LessionRequest $request,string $id)
     {
         $lessions = Lession::find($id);
         $lessions->name = $request->name;
