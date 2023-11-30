@@ -20,4 +20,11 @@ class Course extends Model
    ];
    protected $primaryKey = 'id';
    protected $table = 'courses';
+   public $timestamps = false;
+   const ACTIVE = 1;
+    const INACTIVE = 0;
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
 }

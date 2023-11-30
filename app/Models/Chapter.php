@@ -13,4 +13,5 @@ class Chapter extends Model
    ];
    protected $primaryKey = 'id';
    protected $table = 'chapters';
+   
 }
