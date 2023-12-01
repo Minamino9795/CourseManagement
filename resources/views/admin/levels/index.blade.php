@@ -6,8 +6,10 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item active">
-                        <a href=""><i
-                                class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang Chủ</a>
+                        <a href="">
+                            <i class="breadcrumb-icon fa fa-angle-left mr-2"></i>
+                            Trang Chủ
+                        </a>
                     </li>
                 </ol>
             </nav>
@@ -18,8 +20,7 @@
                         <i class="fa-solid fa fa-plus"></i>
                         <span class="ml-1">Thêm Mới</span>
                     </a>
-                    <a href=""
-                        class="btn btn-primary mr-2">
+                    <a href="" class="btn btn-primary mr-2">
                         <i class="fa-solid fa fa-arrow-down"></i>
                         <span class="ml-1">Import Excel</span>
                     </a>
@@ -32,7 +33,7 @@
         </header>
         <div class="page-section">
             <div class="card card-fluid">
-                <div class="card-header">
+                {{-- <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
                         <li class="nav-item">
                             <a class="nav-link active " href="">Tất
@@ -43,9 +44,9 @@
                                 Rác</a>
                         </li>
                     </ul>
-                </div>
+                </div> --}}
                 {{-- alert --}}
-      @include('admin.includes.global.alert')
+                @include('admin.includes.global.alert')
 
                 <div class="card-body">
                     <div class="row mb-2">
@@ -94,25 +95,26 @@
                                         <td class="align-middle"> {{ $item->level }} </td>
                                         <td class="align-middle">
                                             @if ($item->status == \App\Models\Level::ACTIVE)
-                                            <span>
-                                                <i class="fas fa-check-circle"></i> Đang mở
-                                            </span>
-                                        @else
-                                            <span>
-                                                <i class="fas fa-times-circle"></i> Đang đóng
-                                            </span>
+                                                <span>
+                                                    <i class="fas fa-check-circle"></i> Đang mở
+                                                </span>
+                                            @else
+                                                <span>
+                                                    <i class="fas fa-times-circle"></i> Đang đóng
+                                                </span>
                                         </td>
                                 @endif
 
                                 <td>
-                                    <form action="{{ route('levels.destroy',$item->id) }}" style="display:inline" method="post">
+                                    <form action="{{ route('levels.destroy', $item->id) }}" style="display:inline"
+                                        method="post">
                                         @csrf
                                         @method('DELETE')
 
                                         <button onclick="return confirm('Bạn có chắc chắn muốn xóa không ?')"
                                             class="btn btn-sm btn-icon btn-secondary"><i
                                                 class="far fa-trash-alt"></i></button>
-                                       
+
                                     </form>
                                     <span class="sr-only">Edit</span>
                                     <a href="{{ route('levels.edit', $item->id) }}"
