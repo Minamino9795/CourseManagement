@@ -126,7 +126,7 @@
                                             <p>{{ $item->name }}</p>
                                         </td>
                                         <td>
-                                            <p>{{ $item->price }}</p>
+                                            {{number_format($item->price)}} VND
                                         </td>
                                         @if ($item->status == \App\Models\Category::ACTIVE)
                                             <td><span>
