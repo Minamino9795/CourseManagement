@@ -116,8 +116,16 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        $categories = Category::destroy($id);
-
-        return redirect()->route('categories.index')->with('success', __('sys.destroy_item_success'));
+        try {
+            $item = Category::findOrFail($id);
+            $item->delete();
+            return redirect()->route('categories.index')->with('success', __('sys.destroy_item_success'));
+        } catch (QueryException $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('categories.index')->with('error', __('sys.item_not_found'));
+        } catch (QueryException  $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('categories.index')->with('error', __('sys.destroy_item_error'));
+        }
     }
 }
