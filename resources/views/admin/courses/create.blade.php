@@ -20,7 +20,7 @@
                         <div class="card-body">
                             <legend>Thông tin cơ bản</legend>
                             <div class="form-group">
-                                <label for="tf1">Tên khóa học <abbr name="Trường bắt buộc">*</abbr></label>
+                                <label for="name">Tên khóa học <abbr name="Trường bắt buộc">*</abbr></label>
                                 <input name="name" type="text" value="" class="form-control" id=""
                                     placeholder="Nhập tên danh mục khóa học">
                                 <small id="" class="form-text text-muted"></small>
@@ -73,8 +73,8 @@
                                     </select>
                                     <small id="" class="form-text text-muted"></small>
                                     @error('category_id')
-                                        <div style="color: red">{{ $message }}</div>
-                                    @enderror
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <label for="level_id">Cấp độ<abbr name="Trường bắt buộc">*</abbr></label>

@@ -68,7 +68,7 @@
                                 <div class="col-md-6 mb-4">
                                     <label for="category_id">Danh mục<abbr name="Trường bắt buộc">*</abbr></label>
                                     <select name="category_id" class="form-control">
-
+                                        <option>--Vui lòng chọn--</option>
                                         @foreach ($categories as $category)
                                             <<option value="{{ $category->id }}"
                                                 {{ $item->category_id == $category->id ? 'selected' : '' }}>

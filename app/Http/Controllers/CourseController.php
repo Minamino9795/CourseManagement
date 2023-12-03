@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CourseRequest;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\Level;
@@ -62,7 +63,7 @@ class CourseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CourseRequest $request)
     {
         $courses = new Course();
         $courses->name = $request->name;
@@ -137,7 +138,7 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CourseRequest $request, string $id)
     {
         try {
             $item = Course::findOrFail($id);
