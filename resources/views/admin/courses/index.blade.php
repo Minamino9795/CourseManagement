@@ -64,13 +64,17 @@
                                     <div class="col">
                                         <select name="category_id" class="form-control">
                                             <option value="">Danh mục</option>
-
+                                            @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
                                         </select>
                                     </div>
                                     <div class="col">
                                         <select name="level_id" class="form-control">
                                             <option value="">Cấp độ</option>
-
+                                            @foreach ($levels as $level)
+                                            <option value="{{ $level->id }}">{{ $level->name }}</option>
+                                        @endforeach
                                         </select>
                                     </div>
 
@@ -100,13 +104,11 @@
                             <thead>
                                 <tr>
                                     <th>STT</th>
-                                    <th>Tên khóa học</th>
+                                    <th>Khóa học</th>
                                     <th>Giá</th>
                                     <th>Trạng thái</th>
                                     <th>Danh mục</th>
                                     <th>Cấp độ</th>
-                                    <th>Hình ảnh</th>
-                                    <th>Video</th>
                                     <th>Chức năng</th>
                                 </tr>
                             </thead>
@@ -139,16 +141,8 @@
                                             <p>{{ $item->category->name }}</p>
                                         </td>
                                         <td>
-                                            <p>{{ $item->level_id }}</p>
-                                        </td>
-                                        <td>
-                                            <img width="100" height="90" src="{{ asset($item->image_url) }}"
-                                            alt="Image">
-                                        </td>
-                                        <td>
-                                            <img width="100" height="90" src="{{ asset($item->video_url) }}"
-                                            alt="video">
-                                        </td>
+                                            <p>{{ $item->level->name }}</p>
+                                        </td>                                     
                                         <td>
 
                                             <span class="sr-only">Show</span>

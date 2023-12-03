@@ -20,6 +20,8 @@ class CourseController extends Controller
     {
         $paginate = 3;
         $query = Course::select('*');
+        $category = Category::get();
+        $levels = Level::get();
 
         if (isset($request->name)) {
             $query->where('name', 'LIKE', "%$request->name%");
@@ -36,7 +38,9 @@ class CourseController extends Controller
         $query->orderBy('id', 'DESC');
         $items = $query->paginate($paginate);
         $params = [
-            'items' => $items
+            'items' => $items,
+            'categories' => $category,
+            'levels' => $levels
         ];
         return view('admin.courses.index', $params);
     }
@@ -46,10 +50,10 @@ class CourseController extends Controller
      */
     public function create()
     {
-        $categories = Category::get();
+        $category = Category::get();
         $levels = Level::get();
         $params = [
-            'categories' => $categories,
+            'categories' => $category,
             'levels' => $levels
         ];
         return view('admin.courses.create', $params);
@@ -67,18 +71,21 @@ class CourseController extends Controller
         $courses->status = $request->status;
         $courses->category_id = $request->category_id;
         $courses->level_id = $request->level_id;
+        $courses->image_url = $request->image_url;
+
         if ($request->hasFile('image_url')) {
-            $courses->image_url = $this->uploadFile($request->file('image_url'), 'image_url');
+            $courses->image_url = $this->uploadFile($request->file('image_url'), 'uploads');
         }
-        if ($request->hasFile('video_url')) {
-            $courses->video_url = $this->uploadFile($request->file('video_url'), 'video_url');
-        }
-        
+        $courses->video_url = $request->video_url;
+
         // dd($courses);
         try {
             $courses->save();
             return redirect()->route('courses.index')->with('success', __('sys.store_item_success'));
         } catch (QueryException $e) {
+            if ($courses->image_url) {
+                $this->deleteFile([$courses->image_url]);
+            }
             Log::error($e->getMessage());
             return redirect()->route('courses.index')->with('error', __('sys.store_item_error'));
         }
@@ -89,7 +96,20 @@ class CourseController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            $categories = Category::get();
+            $levels = Level::get();
+            $item = Course::findOrFail($id);
+            $params = [
+                'item' => $item,
+                'categories' => $categories,
+                'levels' => $levels
+            ];
+            return view("admin.courses.show", $params);
+        } catch (QueryException $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('asset.index')->with('error', __('sys.item_not_found'));
+        }
     }
 
     /**
@@ -97,7 +117,21 @@ class CourseController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        try {
+            $categories = Category::get();
+            $levels = Level::get();
+            $item = Course::findOrFail($id);
+            // dd($item);
+            $params = [
+                'item' => $item,
+                'categories' => $categories,
+                'levels' => $levels,
+            ];
+            return view("admin.courses.edit", $params);
+        } catch (QueryException $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('courses.index')->with('error', __('sys.item_not_found'));
+        }
     }
 
     /**
@@ -105,7 +139,30 @@ class CourseController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $item = Course::findOrFail($id);
+            $item->name = $request->name;
+            $item->price = $request->price;
+            $item->description = $request->description;
+            $item->status = $request->status;
+            $item->category_id = $request->category_id;
+            $item->level_id = $request->level_id;
+            // $item->image_url = $request->image_url;
+
+            if ($request->hasFile('image_url')) {
+                $item->image_url = $this->uploadFile($request->file('image_url'), 'uploads');
+            }
+            $item->video_url = $request->video_url;
+            // dd($item);
+            $item->save();
+            return redirect()->route('courses.index')->with('success', __('sys.update_item_success'));
+        } catch (QueryException $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('courses.index')->with('error', __('sys.item_not_found'));
+        } catch (QueryException  $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('courses.index')->with('error', __('sys.update_item_error'));
+        }
     }
 
     /**
@@ -113,6 +170,16 @@ class CourseController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $item = Course::findOrFail($id);
+            $item->delete();
+            return redirect()->route('courses.index')->with('success', __('sys.destroy_item_success'));
+        } catch (QueryException $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('courses.index')->with('error', __('sys.item_not_found'));
+        } catch (QueryException  $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('courses.index')->with('error', __('sys.destroy_item_error'));
+        }
     }
 }

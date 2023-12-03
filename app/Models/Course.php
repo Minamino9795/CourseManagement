@@ -27,4 +27,8 @@ class Course extends Model
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
+    public function level()
+    {
+        return $this->belongsTo(Level::class, 'level_id', 'id');
+    }
 }
