@@ -46,37 +46,38 @@
 
                                 <div class="row">
                                     <div class="col">
-                                        <input name="name" value="" class="form-control" type="text"
-                                            placeholder=" Tìm tên khóa học...">
+                                        <input name="searchname" class="form-control" type="text" placeholder=" tên..."
+                                            value="{{ request('searchname') }}" />
                                     </div>
 
                                     <div class="col">
-                                        <select name="status" class="form-control">
-                                            <option value="" {{ old('status') === '' ? 'selected' : '' }}>Trạng thái</option>
+                                        <select name="searchstatus" class="form-control">
+                                            <option value="">Trạng thái</option>
                                             <option value="{{ \App\Models\Course::INACTIVE }}"
-                                                {{ old('status') === \App\Models\Course::INACTIVE ? 'selected' : '' }}>
-                                                Đang đóng
-                                            </option>
+                                                {{ $request->searchstatus == \App\Models\Course::INACTIVE ? 'selected' : '' }}>
+                                                Đang đóng</option>
                                             <option value="{{ \App\Models\Course::ACTIVE }}"
-                                                {{ old('status') === \App\Models\Course::ACTIVE ? 'selected' : '' }}>
-                                                Đang mở
-                                            </option>
+                                                {{ $request->searchstatus == \App\Models\Course::ACTIVE ? 'selected' : '' }}>
+                                                Đang mở</option>
                                         </select>
-
                                     </div>
                                     <div class="col">
-                                        <select name="category_id" class="form-control">
-                                            <option value="">Danh mục</option>
-                                            @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        <select name="searchcategory_id" class="form-control">
+                                            <option value=""> Danh mục</option>
+                                            @foreach ($categories as $key => $catgory)
+                                                <option value="{{ $catgory->id }}"
+                                                    {{ $request->searchcategory_id == $catgory->id ? 'selected' : '' }}>
+                                                    {{ $catgory->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="col">
-                                        <select name="level_id" class="form-control">
+                                        <select name="searchlevel_id" class="form-control">
                                             <option value="">Cấp độ</option>
-                                            @foreach ($levels as $level)
-                                                <option value="{{ $level->id }}">{{ $level->name }}</option>
+                                            @foreach ($levels as $key => $level)
+                                                <option value="{{ $level->id }}"
+                                                    {{ $request->searchlevel_id == $level->id ? 'selected' : '' }}>
+                                                    {{ $level->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>

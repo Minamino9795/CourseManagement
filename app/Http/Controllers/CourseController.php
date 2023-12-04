@@ -25,24 +25,26 @@ class CourseController extends Controller
         $category = Category::get();
         $levels = Level::get();
 
-        if (isset($request->name)) {
-            $query->where('name', 'LIKE', "%$request->name%");
+        if (isset($request->searchname)) {
+            $query->where('name', 'LIKE', "%$request->searchname%");
         }
-        if (isset($request->status)) {
-            $query->where('status', $request->status);
+        if (isset($request->searchstatus)) {
+            $query->where('status', $request->searchstatus);
+            
         }
-        if (isset($request->category_id)) {
-            $query->where('category_id', $request->category_id);
+        if (isset($request->searchcategory_id)) {
+            $query->where('category_id', $request->searchcategory_id);
         }
-        if (isset($request->level_id)) {
-            $query->where('level_id', $request->level_id);
+        if (isset($request->searchlevel_id)) {
+            $query->where('level_id', $request->searchlevel_id);
         }
         $query->orderBy('id', 'DESC');
         $items = $query->paginate($paginate);
         $params = [
             'items' => $items,
             'categories' => $category,
-            'levels' => $levels
+            'levels' => $levels,
+            'request' => $request
         ];
         return view('admin.courses.index', $params);
     }
