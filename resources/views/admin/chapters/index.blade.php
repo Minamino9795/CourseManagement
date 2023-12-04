@@ -6,7 +6,10 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item active">
-                            <a href="{{ route('chapters.index') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang Chủ</a>
+                            <a href="{{ route('chapters.index') }}">
+                                <i class="breadcrumb-icon fa fa-angle-left mr-2"></i>
+                                Trang Chủ
+                            </a>
                         </li>
                     </ol>
                 </nav>
@@ -36,16 +39,17 @@
                                 <form action="" method="GET" id="form-search">
                                     <div class="row">
                                         <div class="col">
-                                            <input name="name" class="form-control" type="text"
+                                            <input name="s" class="form-control" type="text"
                                                 placeholder=" tên..." value="">
                                         </div>
                                         <div class="col-lg-2">
                                             <button class="btn btn-secondary" data-toggle="modal"
-                                                data-target="#modalSaveSearch" type="submit">Tìm Kiếm</button>
+                                                data-target="#modalSaveSearch" type="submit">
+                                                Tìm Kiếm
+                                            </button>
                                         </div>
                                     </div>
                                 </form>
-
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -71,8 +75,9 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <button onclick="return confirm('Bạn có chắc chắn muốn xóa không ?')"
-                                                        class="btn btn-sm btn-icon btn-secondary"><i
-                                                            class="far fa-trash-alt"></i></button>
+                                                        class="btn btn-sm btn-icon btn-secondary">
+                                                        <i class="far fa-trash-alt"></i>
+                                                    </button>
                                                 </form>
                                                 <span class="sr-only">Edit</span>
                                                 <a href="{{ route('chapters.edit', $item->id) }}" class="btn btn-sm btn-icon btn-secondary">

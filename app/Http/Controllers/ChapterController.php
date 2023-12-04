@@ -17,7 +17,7 @@ class ChapterController extends Controller
      */
 	public function index(Request $request)
     {
-        $limit = $request->limit ? $request->limit : 12;
+        $limit = $request->limit ? $request->limit : 2;
         $query = Chapter::select('*');
 	    if (isset($request->s)) {
 			$query->whereHas('course', function ($query) use ($request) {
@@ -63,7 +63,11 @@ class ChapterController extends Controller
        {
         // dd($request->all());
         $item = new Chapter();
-        $item->name = $request->name;
+          $request->validate([
+			'name' => ['required', 'unique:chapters,name,NULL,id,course_id,' . $request->course_id],
+			// Các quy tắc validate khác
+		]);
+		$item->name = $request->name;
         $item->course_id = $request->course_id;
         $item->save();
 		Log::info('Chapter store successfully. ID: ' . $item->id);
