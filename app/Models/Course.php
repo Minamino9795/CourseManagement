@@ -20,4 +20,8 @@ class Course extends Model
    ];
    protected $primaryKey = 'id';
    protected $table = 'courses';
+   public function chapters()
+   {
+       return $this->hasMany(Chapter::class);
+   }
 }

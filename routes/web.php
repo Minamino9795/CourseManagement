@@ -20,4 +20,4 @@ Route::get('/layouts', function () {
 use App\Http\Controllers\TenController;
 
 Route::resource('categories', CategoryController::class);
-Route::resource('chapters', ChapterController::class);
+Route::resource('chapters', \App\Http\Controllers\ChapterController::class);
