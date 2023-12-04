@@ -98,6 +98,8 @@
 =======
 @extends('admin.layouts.master')
 @section('content')
+<link rel="stylesheet" href="https://cdn.ckeditor.com/4.16.0/standard-all/ckeditor.js">
+
     <div class="page">
         <div class="page-inner">
             <header class="page-title-bar">
@@ -127,9 +129,8 @@
                             @enderror
                             </div>
                             <div class="form-group">
-                                <label for="tf1">Mô tả <abbr name="Trường bắt buộc">*</abbr></label> <input
-                                    name="description" type="text" value="" class="form-control" id=""
-                                    placeholder="Nhập mô tả">
+                                <label for="tf1">Mô tả <abbr name="Trường bắt buộc">*</abbr></label> 
+                                <textarea class="form-control" rows="4" name="description" id="description" placeholder="Nhập mô tả"></textarea>
                                 <small id="" class="form-text text-muted"></small>
                                 @error('description')
                                 <div style="color: red">{{ $message }}</div>
@@ -161,5 +162,12 @@
             </div>
         </div>
     </div>
+   <!-- Thêm mã CSS của CKEditor -->
+{{-- <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('description', {
+        contentsCss: '/path/to/your/custom-styles.css',
+    });
+</script> --}}
 @endsection
 >>>>>>> d8072b3b7ec4e6856e99ae85877a3beea806cfb1

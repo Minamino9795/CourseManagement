@@ -120,9 +120,9 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="tf1">Mô tả <abbr name="Trường bắt buộc">*</abbr></label> <input
-                                    name="description" type="text" value="{{ $categories->description }}"
-                                    class="form-control" id="" placeholder="Nhập mô tả">
+                                <label for="tf1">Mô tả <abbr name="Trường bắt buộc">*</abbr></label>
+                                <textarea name="description" type="text"class="form-control" id="" placeholder="Nhập mô tả">{{ $categories->description }}</textarea>
+
                                 <small id="" class="form-text text-muted"></small>
                                 @error('description')
                                     <div style="color: red">{{ $message }}</div>

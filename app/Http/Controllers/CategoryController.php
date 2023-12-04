@@ -64,9 +64,18 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show(string $id)
     {
-        //
+        try{
+            $items= Category::findOrFail($id);
+            $params= [
+                'items'=>$items
+            ];
+            return view('admin.categories.show',$params);
+        }catch(QueryException $e){
+            Log::error($e->getMessage());
+            return redirect()->route('categories.index')->with('error', __('sys.item_not_found'));
+        }
     }
 
     /**
