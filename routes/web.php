@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/layouts', function () {
+    return view('admin.layouts.master');
 });
+
+Route::resource('levels',\App\Http\Controllers\LevelController::class);
+use App\Http\Controllers\TenController;
+
+Route::resource('categories', CategoryController::class);
