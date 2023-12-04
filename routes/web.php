@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LessionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,3 +20,12 @@ Route::get('/', function () {
     return view('welcome');
 }); 
 Route::resource('courses',\App\Http\Controllers\CourseController::class );
+Route::get('/layouts', function () {
+    return view('admin.layouts.master');
+});
+use App\Http\Controllers\TenController;
+
+Route::resource('categories', CategoryController::class);
+Route::resource('chapters', \App\Http\Controllers\ChapterController::class);
+
+Route::resource('lessions', LessionController::class);

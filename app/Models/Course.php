@@ -20,4 +20,11 @@ class Course extends Model
    ];
    protected $primaryKey = 'id';
    protected $table = 'courses';
+<<<<<<< HEAD
+=======
+   public function chapters()
+   {
+       return $this->hasMany(Chapter::class);
+   }
+>>>>>>> feature-chapters
 }

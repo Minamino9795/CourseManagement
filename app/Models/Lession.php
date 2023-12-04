@@ -18,4 +18,9 @@ class Lession extends Model
    ];
    protected $primaryKey = 'id';
    protected $table = 'lessions';
+   public $timestamps = false;
+   public function chapters()
+   {
+       return $this->belongsToMany(Chapter::class, 'chapter_lession');
+   }
 }

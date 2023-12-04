@@ -13,4 +13,14 @@ class Chapter extends Model
    ];
    protected $primaryKey = 'id';
    protected $table = 'chapters';
+   public $timestamps = false;
+   public function course()
+   {
+       return $this->belongsTo(Course::class);
+   }
+
+   public function lessions()
+   {
+       return $this->belongsToMany(Lession::class, 'chapter_lession');
+   }
 }
