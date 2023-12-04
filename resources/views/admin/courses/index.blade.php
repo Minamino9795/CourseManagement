@@ -52,29 +52,32 @@
 
                                     <div class="col">
                                         <select name="status" class="form-control">
-                                            <option value="">Trạng thái</option>
-                                            <option value="{{ \App\Models\Course::INACTIVE }}">
+                                            <option value="" {{ old('status') === '' ? 'selected' : '' }}>Trạng thái</option>
+                                            <option value="{{ \App\Models\Course::INACTIVE }}"
+                                                {{ old('status') === \App\Models\Course::INACTIVE ? 'selected' : '' }}>
                                                 Đang đóng
                                             </option>
-                                            <<option value="{{ \App\Models\Course::ACTIVE }}">
+                                            <option value="{{ \App\Models\Course::ACTIVE }}"
+                                                {{ old('status') === \App\Models\Course::ACTIVE ? 'selected' : '' }}>
                                                 Đang mở
-                                                </option>
+                                            </option>
                                         </select>
+
                                     </div>
                                     <div class="col">
                                         <select name="category_id" class="form-control">
                                             <option value="">Danh mục</option>
                                             @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                        @endforeach
+                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="col">
                                         <select name="level_id" class="form-control">
                                             <option value="">Cấp độ</option>
                                             @foreach ($levels as $level)
-                                            <option value="{{ $level->id }}">{{ $level->name }}</option>
-                                        @endforeach
+                                                <option value="{{ $level->id }}">{{ $level->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
 
@@ -126,7 +129,7 @@
                                             <p>{{ $item->name }}</p>
                                         </td>
                                         <td>
-                                            {{number_format($item->price)}} VND
+                                            {{ number_format($item->price) }} VND
                                         </td>
                                         @if ($item->status == \App\Models\Category::ACTIVE)
                                             <td><span>
@@ -142,7 +145,7 @@
                                         </td>
                                         <td>
                                             <p>{{ $item->level->name }}</p>
-                                        </td>                                     
+                                        </td>
                                         <td>
 
                                             <span class="sr-only">Show</span>

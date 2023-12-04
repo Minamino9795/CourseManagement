@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Course;
 use App\Models\Level;
 use App\Traits\UploadFileTrait;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -107,7 +108,7 @@ class CourseController extends Controller
                 'levels' => $levels
             ];
             return view("admin.courses.show", $params);
-        } catch (QueryException $e) {
+        } catch (ModelNotFoundException $e) {
             Log::error($e->getMessage());
             return redirect()->route('asset.index')->with('error', __('sys.item_not_found'));
         }
@@ -129,7 +130,7 @@ class CourseController extends Controller
                 'levels' => $levels,
             ];
             return view("admin.courses.edit", $params);
-        } catch (QueryException $e) {
+        } catch (ModelNotFoundException $e) {
             Log::error($e->getMessage());
             return redirect()->route('courses.index')->with('error', __('sys.item_not_found'));
         }
@@ -157,7 +158,7 @@ class CourseController extends Controller
             // dd($item);
             $item->save();
             return redirect()->route('courses.index')->with('success', __('sys.update_item_success'));
-        } catch (QueryException $e) {
+        } catch (ModelNotFoundException $e) {
             Log::error($e->getMessage());
             return redirect()->route('courses.index')->with('error', __('sys.item_not_found'));
         } catch (QueryException  $e) {
@@ -175,7 +176,7 @@ class CourseController extends Controller
             $item = Course::findOrFail($id);
             $item->delete();
             return redirect()->route('courses.index')->with('success', __('sys.destroy_item_success'));
-        } catch (QueryException $e) {
+        } catch (ModelNotFoundException $e) {
             Log::error($e->getMessage());
             return redirect()->route('courses.index')->with('error', __('sys.item_not_found'));
         } catch (QueryException  $e) {
