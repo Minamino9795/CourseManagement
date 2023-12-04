@@ -73,8 +73,8 @@
                                     </select>
                                     <small id="" class="form-text text-muted"></small>
                                     @error('category_id')
-                                    <div style="color: red">{{ $message }}</div>
-                                @enderror
+                                        <div style="color: red">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <label for="level_id">Cấp độ<abbr name="Trường bắt buộc">*</abbr></label>

@@ -19,7 +19,7 @@ class CourseController extends Controller
      */
     public function index(Request $request)
     {
-        $paginate = 3;
+        $paginate = 4;
         $query = Course::select('*');
         $category = Category::get();
         $levels = Level::get();
