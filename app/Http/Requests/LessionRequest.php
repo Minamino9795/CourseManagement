@@ -21,7 +21,7 @@ class LessionRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'name' => 'required',
             'type' => 'required',
             'content' => 'required',
@@ -30,6 +30,10 @@ class LessionRequest extends FormRequest
             'image_url' => 'required',
             
         ];
+        if ($this->old_image) {
+            unset($rules['image_url']);
+        }
+        return $rules;
     }
     public function messages()
     {

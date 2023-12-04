@@ -1,105 +1,189 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Course</title>
-</head>
-
-<body>
-
-    <div class="card">
-        <div class="card-body">
-            {{-- form search --}}
-            <form action="" method="get">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <h5>Search:</h5>
-                        </div>
-
-                        <div class="col-md-2">
-                            <select name="status" class="form-select">
-                                <option value="">Trạng thái</option>
-                                <option value="0">Đã triển khai</option>
-                                <option value="1">Chưa triển khai</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <select name="level_id" class="form-select">
-                                <option value="">Cấp độ</option>
-                                <option value="0">Dễ</option>
-                                <option value="1">Trung bình</option>
-                                <option value="2">Khó</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <select name="price" class="form-select">
-                                <option value="">Giá cả</option>
-                                <option value="0">Sơ cấp</option>
-                                <option value="1">Trung cấp</option>
-                                <option value="2">Cao cấp</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <select name="category_id" class="form-select">
-                                <option value="">Danh mục</option>
-                                <option value="0">Back End</option>
-                                <option value="1">Front End</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </form>
-
-            {{-- table --}}
-            <div class="card-body">
-                <div class="container">
-                    <div>
-                        <a href="{{ route('courses.create') }}" class="btn btn-primary" >create</a>
-                    </div>
-                    <table border="1">
-                        <thead>
-                            <tr >
-                                <th >STT</th>
-                                <th >Tên khoá học</th>
-                                <th >Mô tả</th>
-                                <th >Trạng thái</th>
-                                <th >Danh mục</th>
-                                <th >Cấp độ</th>
-                                <th >Hình ảnh</th>
-                                <th >Video</th>
-                                <th >Tuỳ chọn</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($items as $key => $item )
-                                <tr>
-                                    <td>{{ ++$key }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->description }}</td>
-                                    <td>{{ $item->status }}</td>
-                                    <td>{{ $item->category_id }}</td>
-                                    <td>{{ $item->level_id}}</td>
-                                    <td>{{ $item->image_url}}</td>
-                                    <td>{{ $item->video_url}}</td>
-                                    <td>
-
-                                    </td>
-                                    
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-</body>
 
 </html>
+@extends('admin.layouts.master')
+@section('content')
+    <div class="page-inner">
+        <header class="page-title-bar">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active">
+                        <a href="{{ route('courses.index') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang
+                            Chủ</a>
+                    </li>
+                </ol>
+            </nav>
+            <!-- <button type="button" class="btn btn-success btn-floated"><span class="fa fa-plus"></span></button> -->
+            <div class="d-md-flex align-items-md-start">
+                <h1 class="page-title mr-sm-auto">Quản Lý Khóa Học</h1>
+                <div class="btn-toolbar">
+                    <a href="{{ route('courses.create') }}" class="btn btn-primary mr-2">
+                        <i class="fa-solid fa fa-plus"></i>
+                        <span class="ml-1">Thêm Mới</span>
+                    </a>
+                    <a href="" class="btn btn-primary mr-2">
+                        <i class="fa-solid fa fa-arrow-down"></i>
+                        <span class="ml-1">Import Excel</span>
+                    </a>
+                    <a href="" class="btn btn-primary mr-2">
+                        <i class="fa-solid fa fa-arrow-up"></i>
+                        <span class="ml-1">Export Excel</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+        <div class="page-section">
+            <div class="card card-fluid">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active " href="">Tất Cả</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col">
+                            <form action="{{ route('courses.index') }}" method="GET" id="form-search">
+
+                                <div class="row">
+                                    <div class="col">
+                                        <input name="name" value="" class="form-control" type="text"
+                                            placeholder=" Tìm tên khóa học...">
+                                    </div>
+
+                                    <div class="col">
+                                        <select name="status" class="form-control">
+                                            <option value="" {{ old('status') === '' ? 'selected' : '' }}>Trạng thái</option>
+                                            <option value="{{ \App\Models\Course::INACTIVE }}"
+                                                {{ old('status') === \App\Models\Course::INACTIVE ? 'selected' : '' }}>
+                                                Đang đóng
+                                            </option>
+                                            <option value="{{ \App\Models\Course::ACTIVE }}"
+                                                {{ old('status') === \App\Models\Course::ACTIVE ? 'selected' : '' }}>
+                                                Đang mở
+                                            </option>
+                                        </select>
+
+                                    </div>
+                                    <div class="col">
+                                        <select name="category_id" class="form-control">
+                                            <option value="">Danh mục</option>
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <select name="level_id" class="form-control">
+                                            <option value="">Cấp độ</option>
+                                            @foreach ($levels as $level)
+                                                <option value="{{ $level->id }}">{{ $level->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="col-lg-2">
+                                        <button class="btn btn-secondary" type="submit">Tìm Kiếm</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    @if (session('success'))
+                        <div id="successAlert" class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                        </div>
+                        <script>
+                            var delayTime = 1500;
+                            var successAlert = document.getElementById('successAlert');
+                            setTimeout(function() {
+                                successAlert.style.display = 'none';
+                            }, delayTime);
+                        </script>
+                    @endif
+
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Khóa học</th>
+                                    <th>Giá</th>
+                                    <th>Trạng thái</th>
+                                    <th>Danh mục</th>
+                                    <th>Cấp độ</th>
+                                    <th>Chức năng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($items as $key => $item)
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">{{ $key + 1 }}</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p>{{ $item->name }}</p>
+                                        </td>
+                                        <td>
+                                            {{ number_format($item->price) }} VND
+                                        </td>
+                                        @if ($item->status == \App\Models\Category::ACTIVE)
+                                            <td><span>
+                                                    <i class="fas fa-check-circle"></i> Đang mở
+                                                </span></td>
+                                        @else
+                                            <td> <span>
+                                                    <i class="fas fa-times-circle"></i> Đang đóng
+                                                </span></td>
+                                        @endif
+                                        <td>
+                                            <p>{{ $item->category->name }}</p>
+                                        </td>
+                                        <td>
+                                            <p>{{ $item->level->name }}</p>
+                                        </td>
+                                        <td>
+
+                                            <span class="sr-only">Show</span>
+                                            <a href="{{ route('courses.show', $item->id) }}"
+                                                class="btn btn-sm btn-icon btn-secondary">
+                                                <i class="fa fa-eye"></i>
+                                                <span class="sr-only">Show</span>
+                                            </a>
+
+
+                                            <span class="sr-only">Edit</span> <a
+                                                href="{{ route('courses.edit', $item->id) }}"
+                                                class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i>
+                                                <span class="sr-only">Remove</span></a>
+                                            <form method="POST" action="{{ route('courses.destroy', $item->id) }}"
+                                                class="d-inline">
+                                                @csrf
+                                                @method('DELETE') <button type="submit"
+                                                    onclick="return confirm('Bạn có chắc chắn muốn xóa không ?')"
+                                                    class="btn btn-sm btn-icon btn-secondary"><i
+                                                        class="far fa-trash-alt"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        {{ $items->links('pagination::bootstrap-5') }}
+                        <div style="float:right">
+
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.page -->
+        </div><!-- /.wrapper -->
+    </div>
+@endsection

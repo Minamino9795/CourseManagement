@@ -24,3 +24,4 @@ class Chapter extends Model
        return $this->belongsToMany(Lession::class, 'chapter_lession');
    }
 }
+   

@@ -20,8 +20,15 @@ class Course extends Model
    ];
    protected $primaryKey = 'id';
    protected $table = 'courses';
-   public function chapters()
-   {
-       return $this->hasMany(Chapter::class);
-   }
+   public $timestamps = false;
+   const ACTIVE = 1;
+    const INACTIVE = 0;
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+    public function level()
+    {
+        return $this->belongsTo(Level::class, 'level_id', 'id');
+    }
 }

@@ -21,4 +21,9 @@ class Level extends Model
    protected $primaryKey = 'id';
    protected $table = 'levels';
    public $timestamps = false;
+   public function course()
+
+   {
+       return $this->hasMany(Course::class, 'level_id', 'id');
+   }
 }

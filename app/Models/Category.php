@@ -21,5 +21,9 @@ class Category extends Model
 
     const ACTIVE = 1;
     const INACTIVE = 0;
-   
+    public function course()
+
+    {
+        return $this->hasMany(Course::class, 'category_id', 'id');
+    }
 }

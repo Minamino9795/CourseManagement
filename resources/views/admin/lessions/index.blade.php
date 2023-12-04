@@ -14,6 +14,7 @@
             </nav>
             <div class="d-md-flex align-items-md-start">
                 <h1 class="page-title mr-sm-auto">Quản Lý Bài Học</h1>
+
                 <div class="btn-toolbar">
                     <a href="{{ route('lessions.create') }}" class="btn btn-primary mr-2">
                         <i class="fa-solid fa fa-plus"></i>
@@ -32,15 +33,16 @@
         </header>
         <div class="page-section">
             <div class="card card-fluid">
+                @include('admin.includes.global.alert')
                 <div class="card-body">
                 <div class="col">
-                  <form action="{{ route('lessions.index') }}" method="GET" class="search-form">
+                  <form action="{{ route('lessions.index') }}" method="GET" id="form-search">
                         <div class="row">
                             <div class="col">
-                                <input name="search" class="form-control" type="text" placeholder=" Tên..." value="">
+                                <input name="name" class="form-control" type="text" placeholder=" Tên..." value="">
                             </div>
                             <div class="col">
-                                <input name="search" class="form-control" type="text" placeholder=" Loại bài học ..." value="">
+                                <input name="type" class="form-control" type="text" placeholder=" Loại bài học ..." value="">
                             </div>
                             <div class="col-lg-2">
                                 <button class="btn btn-secondary" data-toggle="modal" data-target="#modalSaveSearch" type="submit">Tìm Kiếm</button>

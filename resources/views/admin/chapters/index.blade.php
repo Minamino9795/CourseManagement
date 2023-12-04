@@ -40,7 +40,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <input name="s" class="form-control" type="text"
-                                                placeholder=" tên..." value="">
+                                                placeholder="Nhập tên khoá học..." value="">
                                         </div>
                                         <div class="col-lg-2">
                                             <button class="btn btn-secondary" data-toggle="modal"
