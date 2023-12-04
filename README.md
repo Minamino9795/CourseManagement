@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 body>
     <h2>THÊM DANH MỤC KHÓA HỌC</h2>
     <form action="{{ route('categories.store') }}" method="POST">
@@ -33,3 +35,4 @@ body>
 <style>
 
 </style>
+>>>>>>> d8072b3b7ec4e6856e99ae85877a3beea806cfb1

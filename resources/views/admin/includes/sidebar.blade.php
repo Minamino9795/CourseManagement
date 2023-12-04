@@ -6,7 +6,7 @@
                         class="menu-text">Trang chủ</span></a>
             </li>
             <li class="menu-header">Danh Mục </li>
-            <li class="menu-item has-child" style="">
+            <li class="menu-item has-child" >
                 <a href="#" class="menu-link"><span class="menu-icon"><i class="fas fa-users"></i></span>
                     <span class="menu-text">Danh mục Khóa học</span></a> <!-- child menu -->
                 <ul class="menu">

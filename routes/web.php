@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LessionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,3 +22,5 @@ use App\Http\Controllers\TenController;
 
 Route::resource('categories', CategoryController::class);
 Route::resource('chapters', \App\Http\Controllers\ChapterController::class);
+
+Route::resource('lession', LessionController::class);
