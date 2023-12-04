@@ -60,7 +60,6 @@
                                         <th>Tên chương học</th>
                                         <th>Tên khóa học</th>
                                         <th>Tuỳ chọn</th>
-                                 
                                     </tr>
                                 </thead>
                                 <tbody>

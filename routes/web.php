@@ -23,4 +23,4 @@ use App\Http\Controllers\TenController;
 Route::resource('categories', CategoryController::class);
 Route::resource('chapters', \App\Http\Controllers\ChapterController::class);
 
-Route::resource('lession', LessionController::class);
+Route::resource('lessions', LessionController::class);

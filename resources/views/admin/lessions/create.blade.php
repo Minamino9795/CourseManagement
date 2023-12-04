@@ -6,7 +6,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item active">
-                            <a href="https://thptatuc-backend.quanlythietbitruonghoc.com/users">
+                            <a href="">
                                 <i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Quản Lý Bài Học
                             </a>
                         </li>
@@ -16,7 +16,7 @@
             </header>
 
             <div class="page-section">
-                <form action="{{ route('lession.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('lessions.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card">
                         <div class="card-body">
@@ -81,7 +81,7 @@
                                 </div>
                             </div>
                             <div class="form-actions">
-                                <a class="btn btn-secondary float-right" href="{{ route('lession.index') }}">Hủy</a>
+                                <a class="btn btn-secondary float-right" href="{{ route('lessions.index') }}">Hủy</a>
                                 <button class="btn btn-primary ml-auto" type="submit">Lưu</button>
                             </div>
                         </div>

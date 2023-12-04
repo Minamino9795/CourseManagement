@@ -18,4 +18,9 @@ class Chapter extends Model
    {
        return $this->belongsTo(Course::class);
    }
+
+   public function lessions()
+   {
+       return $this->belongsToMany(Lession::class, 'chapter_lession');
+   }
 }
