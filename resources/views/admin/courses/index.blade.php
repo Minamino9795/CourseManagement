@@ -190,4 +190,26 @@
             </div><!-- /.page -->
         </div><!-- /.wrapper -->
     </div>
+   
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {       
+        var selectedStatus = "{{ request('searchstatus') }}";       
+        if (selectedStatus) {
+            $('select[name="searchstatus"]').val(selectedStatus);
+        }      
+        $('select[name="searchstatus"]').change(function () {
+            selectedStatus = $(this).val();
+        });    
+        $('#form-search').submit(function () {          
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'searchstatus',
+                value: selectedStatus
+            }).appendTo($(this));
+            return true;
+        });
+    });
+</script>
+
 @endsection
