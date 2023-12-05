@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
         $user->gender = 'Nam';
         $user->birthday = '1996-09-15';
         $user->password = Hash::make('123456');
-        $user->group_id = 2;
+        $user->group_id = 1;
         $user->status = 1;
         $user->save();
     }

@@ -41,16 +41,17 @@ class AuthController extends Controller
         : redirect()->route('login');
     }
 
-    public function postLogin(Request $request)
-    {
-        $credentials = [
-            'email' => $request->email,
-            'password' => $request->password,
-        ];
-        if (Auth::attempt($credentials, $request->filled('remember'))) {
-            alert()->success('Đăng nhập thành công');
-            return redirect('/users')->with('success', 'Đăng nhập thành công');
-        }
-        return back()->with('error', 'Email or Password is incorrect');
+    public function postLogin(LoginRequest $request)
+{
+    $credentials = [
+        'email' => $request->email,
+        'password' => $request->password,
+    ];
+
+    if (Auth::attempt($credentials, $request->filled('remember'))) {
+        return redirect()->route('users.index')->with('success', 'Đăng nhập thành công!');
+    } else {
+        return redirect()->route('login')->with('error', 'Tài khoản hoặc mật khẩu không đúng!');
     }
+}
 }
