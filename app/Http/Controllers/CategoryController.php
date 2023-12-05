@@ -21,11 +21,11 @@ class CategoryController extends Controller
         $paginate = 3;
         $query = Category::select('*');
 
-        if (isset($request->name)) {
-            $query->where('name', 'LIKE', "%$request->name%");
+        if (isset($request->searchname)) {
+            $query->where('name', 'LIKE', "%$request->searchname%");
         }
-        if (isset($request->status)) {
-            $query->where('status', $request->status);
+        if (isset($request->searchstatus)) {
+            $query->where('status', $request->searchstatus);
         }
         $query->orderBy('id', 'DESC');
         $items = $query->paginate($paginate);

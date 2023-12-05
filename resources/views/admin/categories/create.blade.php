@@ -22,8 +22,8 @@
                         <div class="card-body">
                             <legend>Thông tin cơ bản</legend>
                             <div class="form-group">
-                                <label for="tf1">Tên danh mục khóa học <abbr name="Trường bắt buộc">*</abbr></label>
-                                <input name="name" type="text" value="" class="form-control" id=""
+                                <label for="name">Tên danh mục khóa học <abbr name="Trường bắt buộc">*</abbr></label>
+                                <input name="name" type="text" value="{{ old('name') }}" class="form-control" id=""
                                     placeholder="Nhập tên danh mục khóa học">
                                 <small id="" class="form-text text-muted"></small>
                                 @error('name')
@@ -31,8 +31,8 @@
                             @enderror
                             </div>
                             <div class="form-group">
-                                <label for="tf1">Mô tả <abbr name="Trường bắt buộc">*</abbr></label> 
-                                <textarea class="form-control" rows="4" name="description" id="description" placeholder="Nhập mô tả"></textarea>
+                                <label for="description">Mô tả <abbr name="Trường bắt buộc">*</abbr></label> 
+                                <textarea class="form-control" rows="4" name="description" id="description" placeholder="Nhập mô tả">{{ old('description') }}</textarea>
                                 <small id="" class="form-text text-muted"></small>
                                 @error('description')
                                 <div style="color: red">{{ $message }}</div>
