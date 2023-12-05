@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\JsonResponse;
+
 
 class AuthController extends Controller
 {
@@ -18,23 +19,38 @@ class AuthController extends Controller
     {
         return view('admin.auth.login');
     }
-    public function logout()
+    public function logout(Request $request)
     {
-        Auth::logout();
-        return redirect()->route('login');
+       
+    $user = $request->user();
+
+    // Xóa tất cả các token khác của người dùng
+    $user->tokens()->delete();
+
+    // Đặt remember_token thành null
+    $user->update(['remember_token' =>  NULL]);
+
+    // Đăng xuất phiên làm việc
+    Auth::logout();
+
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return $request->wantsJson()
+        ? new JsonResponse([], 204)
+        : redirect()->route('login');
     }
 
-    public function postLogin(LoginRequest $request)
+    public function postLogin(Request $request)
     {
-        $email = $request->email;
-        $password = $request->password;
-        $checkUserByEmail = User::where('email',$email)->take(1)->first();
-        if ($checkUserByEmail && Hash::check($request->password,$checkUserByEmail->password)) {
-            Auth::login($checkUserByEmail);
-            return redirect()->route('users.index');
-        } else {
-            Session::flash('error_Email','Đăng nhập không thành công');
-            return redirect()->back();
+        $credentials = [
+            'email' => $request->email,
+            'password' => $request->password,
+        ];
+        if (Auth::attempt($credentials, $request->filled('remember'))) {
+            alert()->success('Đăng nhập thành công');
+            return redirect('/users')->with('success', 'Đăng nhập thành công');
         }
+        return back()->with('error', 'Email or Password is incorrect');
     }
 }
