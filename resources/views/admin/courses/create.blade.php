@@ -51,11 +51,9 @@
                                     <label for="status">Trạng thái<abbr name="Trường bắt buộc">*</abbr></label>
                                     <select name="status" class="form-control">
                                         <option value="">--Vui lòng chọn--</option>
-                                        <option value="{{ \App\Models\Course::INACTIVE }}"
-                                            >
+                                        <option value="{{ \App\Models\Course::INACTIVE }}">
                                             Đang đóng</option>
-                                        <option value="{{\App\Models\Course::ACTIVE }}"
-                                           >
+                                        <option value="{{ \App\Models\Course::ACTIVE }}">
                                             Đang mở</option>
                                     </select>
                                     <small id="" class="form-text text-muted"></small>
