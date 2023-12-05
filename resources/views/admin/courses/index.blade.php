@@ -39,7 +39,6 @@
 
                     </ul>
                 </div>
-                {{-- @include('admin.includes.global.alert') --}}
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col">
@@ -47,8 +46,8 @@
 
                                 <div class="row">
                                     <div class="col">
-                                        <input name="searchname" class="form-control" type="text" placeholder="Tìm tên khóa học..."
-                                            value="{{ request('searchname') }}" />
+                                        <input name="searchname" class="form-control" type="text"
+                                            placeholder="Tìm tên khóa học..." value="{{ request('searchname') }}" />
                                     </div>
 
                                     <div class="col">
@@ -96,18 +95,7 @@
                             </form>
                         </div>
                     </div>
-                    @if (session('success'))
-                        <div id="successAlert" class="alert alert-success" role="alert">
-                            {{ session('success') }}
-                        </div>
-                        <script>
-                            var delayTime = 1500;
-                            var successAlert = document.getElementById('successAlert');
-                            setTimeout(function() {
-                                successAlert.style.display = 'none';
-                            }, delayTime);
-                        </script>
-                    @endif
+                    {{-- @include('admin.includes.global.alert') --}}
 
 
                     <div class="table-responsive">
@@ -191,26 +179,25 @@
             </div><!-- /.page -->
         </div><!-- /.wrapper -->
     </div>
-   
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function () {       
-        var selectedStatus = "{{ request('searchstatus') }}";       
-        if (selectedStatus) {
-            $('select[name="searchstatus"]').val(selectedStatus);
-        }      
-        $('select[name="searchstatus"]').change(function () {
-            selectedStatus = $(this).val();
-        });    
-        $('#form-search').submit(function () {          
-            $('<input>').attr({
-                type: 'hidden',
-                name: 'searchstatus',
-                value: selectedStatus
-            }).appendTo($(this));
-            return true;
-        });
-    });
-</script>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var selectedStatus = "{{ request('searchstatus') }}";
+            if (selectedStatus) {
+                $('select[name="searchstatus"]').val(selectedStatus);
+            }
+            $('select[name="searchstatus"]').change(function() {
+                selectedStatus = $(this).val();
+            });
+            $('#form-search').submit(function() {
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'searchstatus',
+                    value: selectedStatus
+                }).appendTo($(this));
+                return true;
+            });
+        });
+    </script>
 @endsection
