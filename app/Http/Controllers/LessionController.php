@@ -16,7 +16,7 @@ class LessionController extends Controller
 
     public function index(Request $request)
     {
-        $limit = $request->limit ? $request->limit : 2;
+        $limit = $request->limit ? $request->limit : 5;
         $query = Lession::select('*');
 		if (isset($request->s)) 
 			{
