@@ -32,6 +32,8 @@ class User extends Authenticatable
         'password',
         'group_id',
         'status',
+        'remember_token',
+
     ];
 
     /**

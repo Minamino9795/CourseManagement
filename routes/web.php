@@ -52,10 +52,21 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', UserController::class);
     Route::resource('groups', GroupController::class);
 });
-
+//Login-Logout
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/postLogin', [AuthController::class, 'postLogin'])->name('postLogin');
+
+
+Route::get('/forgetPassword', [\App\Http\Controllers\ForgotPasswordController::class, 'forgetPassword'])
+->name('forgetPassword');
+Route::post('/forgetPasswordPost', [\App\Http\Controllers\ForgotPasswordController::class, 'forgetPasswordPost'])
+->name('forgetPasswordPost');
+Route::get('/reset-password/{token}', [\App\Http\Controllers\ForgotPasswordController::class, 'resetPassword'])
+->name('resetPassword');
+Route::post('/resetPasswordPost', [\App\Http\Controllers\ForgotPasswordController::class, 'resetPasswordPost'])
+->name('resetPasswordPost');
+
 
 Route::get('/show/{id}', [GroupController::class, 'show'])->name('groups.show');
 Route::put('/group_role/{id}', [GroupController::class, 'group_role'])->name('groups.group_role');

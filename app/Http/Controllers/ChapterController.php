@@ -16,29 +16,33 @@ class ChapterController extends Controller
      * Display a listing of the resource.
      */
 	public function index(Request $request)
-    {
-        $limit = $request->limit ? $request->limit : 12;
-        $query = Chapter::select('*');
-	    if (isset($request->s)) {
-			$query->whereHas('course', function ($query) use ($request) {
-				$query->where('name', 'like', "%{$request->s}%");
-			});
-		}
-	
-        if($request->name){
-            $query->where('name',$request->name);
-		}
-            if($request->course_id){
-                $query->where('course_id',$request->course_id);
-        }
-		$query->orderBy('id', 'DESC');
-        $items = $query->with('course')->paginate($limit);
-        $params =
-        [
-            'items' => $items,
-        ];
-       return view ('admin.chapters.index',$params);
+{
+    $limit = $request->limit ? $request->limit : 12;
+    $query = Chapter::select('*');
+
+    if (isset($request->s)) {
+        $query->whereHas('course', function ($query) use ($request) {
+            $query->where('name', 'like', "%{$request->s}%");
+        });
     }
+
+    if ($request->name) {
+        $query->where('name', $request->name);
+    }
+
+    if ($request->course_id) {
+        $query->where('course_id', $request->course_id);
+    }
+
+    $query->orderBy('id', 'DESC');
+    $items = $query->with('course')->paginate($limit);
+
+    if ($items->isEmpty()) {
+        return redirect()->back()->with('error', __('sys.search_item_error'));
+    } else {
+        return view('admin.chapters.index', ['items' => $items])->with('success', __('sys.search_item_success'));
+    }
+}
 
     /**
      * Show the form for creating a new resource.

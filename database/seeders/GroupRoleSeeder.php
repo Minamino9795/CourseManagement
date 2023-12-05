@@ -18,7 +18,8 @@ class GroupRoleSeeder extends Seeder
         for($i = 1; $i <= 49; $i++){
             $item = new GroupRole();
             $item->role_id= $i;
-            $item->group_id = 2;
+            $item->group_id = 1;
+            $item->timestamps = false;
             $item->save();
         }
     }
