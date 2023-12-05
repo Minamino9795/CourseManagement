@@ -18,13 +18,11 @@
                         <i class="fa-solid fa fa-plus"></i>
                         <span class="ml-1">Thêm Mới</span>
                     </a>
-                    <a href=""
-                        class="btn btn-primary mr-2">
+                    <a href="" class="btn btn-primary mr-2">
                         <i class="fa-solid fa fa-arrow-down"></i>
                         <span class="ml-1">Import Excel</span>
                     </a>
-                    <a href=""
-                        class="btn btn-primary mr-2">
+                    <a href="" class="btn btn-primary mr-2">
                         <i class="fa-solid fa fa-arrow-up"></i>
                         <span class="ml-1">Export Excel</span>
                     </a>
@@ -50,7 +48,7 @@
                                     <div class="col">
                                         <input name="searchname" class="form-control" type="text"
                                             placeholder=" Tìm tên danh mục..." value="{{ request('searchname') }}">
-                                            
+
                                     </div>
 
                                     <div class="col">
@@ -76,19 +74,8 @@
                             </form>
                         </div>
                     </div>
-                    @if (session('success'))
-                        <div id="successAlert" class="alert alert-success" role="alert">
-                            {{ session('success') }}
-                        </div>
-                        <script>
-                            var delayTime = 1500;
-                            var successAlert = document.getElementById('successAlert');
-                            setTimeout(function() {
-                                successAlert.style.display = 'none';
-                            }, delayTime);
-                        </script>
-                    @endif
 
+                    {{-- @include('admin.includes.global.alert') --}}
 
                     <div class="table-responsive">
                         <table class="table">
