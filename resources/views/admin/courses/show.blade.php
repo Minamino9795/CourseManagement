@@ -5,7 +5,8 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item active">
-                        <a href="{{ route('courses.index') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Quản Lý Khóa Học</a>
+                        <a href="{{ route('courses.index') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Quản Lý
+                            Khóa Học</a>
                     </li>
                 </ol>
             </nav>
@@ -60,7 +61,17 @@
                                 <td>
                                     <p>{{ $item->name }}</p>
                                 </td>
-                                <td>
+                                <style>
+                                    .description-cell {
+                                        max-width: 500px;
+                                        text-overflow: ellipsis;
+                                    }
+
+                                    .description-cell p {
+                                        margin: 0;
+                                    }
+                                </style>
+                                <td class="description-cell">
                                     <p>{{ $item->description }}</p>
                                 </td>
                                 <td>
@@ -69,13 +80,23 @@
                                             alt="Image">
                                     @endif
                                 </td>
-                                <td>
+                                <style>
+                                    .video_url-cell {
+                                        max-width: 300px;
+                                        text-overflow: ellipsis;
+                                    }
+
+                                    .video_url-cell p {
+                                        margin: 0;
+                                    }
+                                </style>
+                                <td class="video_url-cell">
                                     <a href="{{ asset($item->video_url) }}"
                                         target="_blank">{{ asset($item->video_url) }}</a>
                                 </td>
 
+                               
 
-                            </tr>
 
                         </tbody>
                     </table>
