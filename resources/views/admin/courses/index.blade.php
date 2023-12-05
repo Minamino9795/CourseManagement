@@ -52,14 +52,20 @@
 
                                     <div class="col">
                                         <select name="searchstatus" class="form-control">
-                                            <option value="">Trạng thái</option>
+                                            <option value=""
+                                                {{ request('searchstatus') === '' && !request()->has('search') ? 'selected' : '' }}>
+                                                Trạng thái</option>
                                             <option value="{{ \App\Models\Course::INACTIVE }}"
-                                                {{ $request->searchstatus == \App\Models\Course::INACTIVE ? 'selected' : '' }}>
-                                                Đang đóng</option>
+                                                {{ request('searchstatus') === \App\Models\Course::INACTIVE ? 'selected' : '' }}>
+                                                Đang đóng
+                                            </option>
                                             <option value="{{ \App\Models\Course::ACTIVE }}"
-                                                {{ $request->searchstatus == \App\Models\Course::ACTIVE ? 'selected' : '' }}>
-                                                Đang mở</option>
+                                                {{ request('searchstatus') === \App\Models\Course::ACTIVE ? 'selected' : '' }}>
+                                                Đang mở
+                                            </option>
                                         </select>
+
+
                                     </div>
                                     <div class="col">
                                         <select name="searchcategory_id" class="form-control">
