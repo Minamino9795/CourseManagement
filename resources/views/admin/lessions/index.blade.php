@@ -54,17 +54,17 @@
             </div>
             <div class="table-reponsive">
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table text-center">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Tên</th>
+                                        <th>Tên bài học</th>
                                         <th>Loại bài học</th>
-                                        <th>Nội dung bài học</th>
-                                        <th>Ảnh</th>
-                                        <th>Video</th>
+                                        {{-- <th>Nội dung bài học</th> --}}
+                                        {{-- <th>Ảnh</th> --}}
+                                        {{-- <th>Video</th> --}}
                                         <th>Thời gian</th>
-                                        <th>Tuỳ chọn</th>
+                                        <th style="width: 150px;">Tuỳ chọn</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -76,18 +76,17 @@
 
                                         </td>
                                         <td>{{ $item->type }}</td>
-                                        <td>{{ $item->content }}</td>
-                                        <td> <img width="90px" height="90px" src="{{ asset($item->image_url) }}" alt="">
+                                        {{-- <td>{{ $item->content }}</td> --}}
+                                        {{-- <td> <img width="90px" height="70px" src="{{ asset($item->image_url) }}" alt=""> --}}
                                         </td>
-                                        <td>{{ $item->video_url }}</td>
-                                        <td>{{ $item->duration }}</td>
+                                        {{-- <td >{{ $item->video_url }}</td> --}}
+                                        <td>{{ $item->duration }} phút</td>
                                         <td>
-                                            {{-- <span class="sr-only">Show</span>
+                                            <span class="sr-only">Show</span>
                                             <a href="{{ route('lessions.show', $item->id) }}"
                                                 class="btn btn-sm btn-icon btn-secondary">
                                                 <i class="fa fa-eye"></i>
-                                                <span class="sr-only">Show</span>
-                                            </a> --}}
+                                            </a>
                                             <span class="sr-only">Edit</span> <a href="{{ route('lessions.edit', $item->id) }}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span class="sr-only">Remove</span></a>
                                             <form action="{{ route('lessions.destroy', $item->id) }}" method="POST" class="d-inline">
                                                 @method('DELETE')

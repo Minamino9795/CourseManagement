@@ -6,7 +6,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item active">
-                        <a href="">
+                        <a href="{{ route ('levels.index') }}">
                             <i class="breadcrumb-icon fa fa-angle-left mr-2"></i>
                             Trang Chủ
                         </a>
@@ -81,7 +81,7 @@
                             <thead>
                                 <tr>
                                     <th> STT </th>
-                                    <th> Tên khóa học</th>
+                                    <th> Tên cấp độ</th>
                                     <th> Cấp độ </th>
                                     <th> Trạng thái </th>
                                     <th> Chức năng </th>

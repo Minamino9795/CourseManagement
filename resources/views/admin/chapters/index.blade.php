@@ -34,6 +34,7 @@
             <div class="page-section">
                 <div class="card card-fluid">
                     <div class="card-body">
+                        @include('admin.includes.global.alert')
                         <div class="row mb-2">
                             <div class="col">
                                 <form action="" method="GET" id="form-search">

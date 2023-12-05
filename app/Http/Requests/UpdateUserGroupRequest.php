@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateLevelRequest extends FormRequest
+class UpdateUserGroupRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,20 +22,13 @@ class CreateLevelRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=> 'required|unique:levels',
-            'level'=>'required',
-            'status'=>'required',
-
+            'name' => 'required',
         ];
     }
-
     public function messages()
     {
         return [
-            'name.unique'=> 'Tên khóa học này đã có',
-            'name.required'=> 'Tên khóa học không được để trống',
-            'level.required'=> 'Cấp độ không được để trống',
-            'status.required'=> 'Vui lòng chọn trạng thái',
+            'name.required' => 'Vui lòng nhập tên nhóm',
         ];
     }
 }

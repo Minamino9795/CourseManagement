@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Level;
-use App\Http\Requests\CreateLevelRequest;
+use App\Http\Requests\StoreLevelRequest;
 ;
 use Illuminate\Http\Request;
 use App\Traits\UploadFileTrait;
@@ -60,7 +60,7 @@ class LevelController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateLevelRequest $request)
+    public function store(StoreLevelRequest $request)
     {
         try {
 

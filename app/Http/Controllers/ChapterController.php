@@ -17,7 +17,7 @@ class ChapterController extends Controller
      */
 	public function index(Request $request)
     {
-        $limit = $request->limit ? $request->limit : 2;
+        $limit = $request->limit ? $request->limit : 12;
         $query = Chapter::select('*');
 	    if (isset($request->s)) {
 			$query->whereHas('course', function ($query) use ($request) {

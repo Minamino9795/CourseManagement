@@ -161,5 +161,18 @@ class LessionController extends Controller
             Log::error($e->getMessage());
             return redirect()->route('lessions.index')->with('error', __('sys.destroy_item_error'));
         }
-}
+	}
+	public function show($id)
+    {
+         try {
+        $item = Lession::findOrFail($id);
+        $params = [
+            'item' => $item
+        ];
+        return view("admin.lessions.show", $params);
+    } catch (ModelNotFoundException $e) {
+        Log::error($e->getMessage());
+        return redirect()->route('lessions.index')->with('error', __('sys.item_not_found'));
+    }
+    }
 }
