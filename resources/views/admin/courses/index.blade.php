@@ -46,7 +46,7 @@
 
                                 <div class="row">
                                     <div class="col">
-                                        <input name="searchname" class="form-control" type="text" placeholder=" tên..."
+                                        <input name="searchname" class="form-control" type="text" placeholder="Tìm tên khóa học..."
                                             value="{{ request('searchname') }}" />
                                     </div>
 
