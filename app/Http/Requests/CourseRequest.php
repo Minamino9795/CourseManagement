@@ -28,7 +28,7 @@ class CourseRequest extends FormRequest
             'name' => [
                 'required',
                 'max:255',
-                Rule::unique('courses', 'name')->ignore($courseId),
+                
             ],
             'description' => 'required',
             'price' => 'required',
@@ -54,7 +54,7 @@ class CourseRequest extends FormRequest
     {
         return [
             'name.required' => 'Tên không được để trống.',
-            'name.unique' => 'Tên Khóa học này đã có trong hệ thống.',
+           
             'name.max' => 'Tên không được vượt quá 255 ký tự.',
             'description.required' => 'Mô tả không được để trống.',
             'price.required' => 'Giá không được để trống.',
