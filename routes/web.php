@@ -5,6 +5,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,3 +57,6 @@ Route::post('/resetPasswordPost', [\App\Http\Controllers\ForgotPasswordControlle
 
 Route::get('/show/{id}', [GroupController::class, 'show'])->name('groups.show');
 Route::put('/group_role/{id}', [GroupController::class, 'group_role'])->name('groups.group_role');
+
+Route::get('/order', [OrderController::class, 'index'])->name('order.index');
+Route::get('/order/detail/{id}', [OrderController::class, 'detail'])->name('order.detail');
