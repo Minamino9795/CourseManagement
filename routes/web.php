@@ -58,5 +58,5 @@ Route::post('/resetPasswordPost', [\App\Http\Controllers\ForgotPasswordControlle
 Route::get('/show/{id}', [GroupController::class, 'show'])->name('groups.show');
 Route::put('/group_role/{id}', [GroupController::class, 'group_role'])->name('groups.group_role');
 
-Route::get('/order', [OrderController::class, 'index'])->name('order.index');
+Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 Route::get('/order/detail/{id}', [OrderController::class, 'detail'])->name('order.detail');

@@ -5,7 +5,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item active">
-                        <a href="{{ route('categories.index') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang
+                        <a href="{{ route('orders.index') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang
                             Chủ</a>
                     </li>
                 </ol>
@@ -14,7 +14,7 @@
             <div class="d-md-flex align-items-md-start">
                 <h1 class="page-title mr-sm-auto">Quản Lý Đăng Ký Khóa Học</h1>
                 <div class="btn-toolbar">
-                   
+
                     <a href="" class="btn btn-primary mr-2">
                         <i class="fa-solid fa fa-arrow-up"></i>
                         <span class="ml-1">Export Excel</span>
@@ -35,13 +35,28 @@
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col">
-                            <form action="{{ route('order.index') }}" method="GET" id="form-search">
+                            <form action="{{ route('orders.index') }}" method="GET" id="form-search">
 
                                 <div class="row">
                                     <div class="col">
                                         <input name="searchname" class="form-control" type="text"
-                                            placeholder=" Tìm tên danh mục..." value="{{ request('searchname') }}">
+                                            placeholder=" Tìm theo tên khách hàng..." value="{{ request('searchname') }}">
 
+                                    </div>
+                                    <div class="col">
+                                        <input name="searchphone" class="form-control" type="text"
+                                            placeholder=" Số điện thoại..." value="{{ request('searchphone') }}">
+
+                                    </div>
+                                    <div class="col">
+                                        <select name="searchcourse_id" class="form-control">
+                                            <option value=""> Khóa học</option>
+                                            @foreach ($courses as $key => $course)
+                                                <option value="{{ $course->id }}"
+                                                    {{ $request->searchcourse_id == $course->id ? 'selected' : '' }}>
+                                                    {{ $course->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
 
                                     <div class="col">
@@ -49,12 +64,12 @@
                                             <option value=""
                                                 {{ request('searchstatus') === '' && !request()->has('search') ? 'selected' : '' }}>
                                                 Trạng thái</option>
-                                            <option value="{{ \App\Models\Category::INACTIVE }}"
-                                                {{ request('searchstatus') === \App\Models\Category::INACTIVE ? 'selected' : '' }}>
+                                            <option value="{{ \App\Models\Order::INACTIVE }}"
+                                                {{ request('searchstatus') === \App\Models\Order::INACTIVE ? 'selected' : '' }}>
                                                 Chưa xác nhận
                                             </option>
-                                            <option value="{{ \App\Models\Category::ACTIVE }}"
-                                                {{ request('searchstatus') === \App\Models\Category::ACTIVE ? 'selected' : '' }}>
+                                            <option value="{{ \App\Models\Order::ACTIVE }}"
+                                                {{ request('searchstatus') === \App\Models\Order::ACTIVE ? 'selected' : '' }}>
                                                 Đã xác nhận
                                             </option>
                                         </select>
@@ -93,18 +108,18 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <p>{{ $item->users->name }}</p>
+                                            <p>{{ $item->user->name }}</p>
                                         </td>
                                         <td>
-                                            <p>{{ $item->users->phone }}</p>
+                                            <p>{{ $item->user->phone }}</p>
                                         </td>
                                         <td>
-                                            <p>{{ $item->courses->name }}</p>
+                                            <p>{{ $item->course->name }}</p>
                                         </td>
                                         <td>
-                                            <p>{{ $item->courses->price }}</p>
+                                            <p>{{ number_format($item->course->price) }} VND</p>
                                         </td>
-                                        @if ($category->status == \App\Models\Category::ACTIVE)
+                                        @if ($item->status == \App\Models\Order::ACTIVE)
                                             <td><span>
                                                     <i class="fas fa-check-circle"></i> Đã xác nhận
                                                 </span></td>
@@ -112,7 +127,7 @@
                                             <td> <span>
                                                     <i class="fas fa-times-circle"></i> Chưa xác nhận
                                                 </span></td>
-                                        @endif                                      
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -13,14 +13,16 @@ class Order extends Model
     ];
     protected $primaryKey = 'id';
     protected $table = 'orders';
+    public $timestamps = false;
+
     const ACTIVE = 1;
     const INACTIVE = 0;
     public function user()
     {
-        return $this->belongsTo(Customer::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
     public function course()
     {
-        return $this->belongsToMany(Product::class, 'course_id', 'id');
+        return $this->belongsTo(Course::class, 'course_id', 'id');
     }
 }

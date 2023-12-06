@@ -16,11 +16,21 @@ class OrderController extends Controller
     {
         $paginate = 4;
         $query = Order::select('*');
-        $courses = Course::get();
-        $users = User::get();
+        $course = Course::get();
+        $user = User::get();
 
-        if (isset($request->searchname)) {
-            $query->where('name', 'LIKE', "%$request->searchname%");
+        if (isset($request->searchname)) {          
+            $query->whereHas('user', function ($subquery) use ($request) {
+                $subquery->where('name', 'LIKE', "%$request->searchname%");
+            });
+        }
+        if (isset($request->searchphone)) {          
+            $query->whereHas('user', function ($subquery) use ($request) {
+                $subquery->where('phone', 'LIKE', "%$request->searchphone%");
+            });
+        }
+        if (isset($request->searchcourse_id)) {
+            $query->where('course_id', $request->searchcourse_id);
         }
         if (isset($request->searchstatus)) {
             $query->where('status', $request->searchstatus);
@@ -32,11 +42,13 @@ class OrderController extends Controller
         $items = $query->paginate($paginate);
         $params = [
             'items' => $items,
-            'courses' => $courses,
-            'users' => $users,          
+            'courses' => $course,
+            'users' => $user, 
+            'request'=>$request         
         ];
         return view('admin.orders.index', $params);
     }
+    
 
     /**
      * Show the form for creating a new resource.
