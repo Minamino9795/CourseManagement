@@ -18,13 +18,11 @@
                         <i class="fa-solid fa fa-plus"></i>
                         <span class="ml-1">Thêm Mới</span>
                     </a>
-                    <a href="https://thptatuc-backend.quanlythietbitruonghoc.com/devices/getImport"
-                        class="btn btn-primary mr-2">
+                    <a href="" class="btn btn-primary mr-2">
                         <i class="fa-solid fa fa-arrow-down"></i>
                         <span class="ml-1">Import Excel</span>
                     </a>
-                    <a href="https://thptatuc-backend.quanlythietbitruonghoc.com/devices/export"
-                        class="btn btn-primary mr-2">
+                    <a href="" class="btn btn-primary mr-2">
                         <i class="fa-solid fa fa-arrow-up"></i>
                         <span class="ml-1">Export Excel</span>
                     </a>
@@ -48,19 +46,24 @@
 
                                 <div class="row">
                                     <div class="col">
-                                        <input name="name" value="" class="form-control" type="text"
-                                            placeholder=" Tìm tên danh mục...">
+                                        <input name="searchname" class="form-control" type="text"
+                                            placeholder=" Tìm tên danh mục..." value="{{ request('searchname') }}">
+
                                     </div>
 
                                     <div class="col">
-                                        <select name="status" class="form-control">
-                                            <option value="">Trạng thái</option>
-                                            <option value="{{ \App\Models\Category::INACTIVE }}">
+                                        <select name="searchstatus" class="form-control">
+                                            <option value=""
+                                                {{ request('searchstatus') === '' && !request()->has('search') ? 'selected' : '' }}>
+                                                Trạng thái</option>
+                                            <option value="{{ \App\Models\Category::INACTIVE }}"
+                                                {{ request('searchstatus') === \App\Models\Category::INACTIVE ? 'selected' : '' }}>
                                                 Đang đóng
                                             </option>
-                                            <<option value="{{ \App\Models\Category::ACTIVE }}">
+                                            <option value="{{ \App\Models\Category::ACTIVE }}"
+                                                {{ request('searchstatus') === \App\Models\Category::ACTIVE ? 'selected' : '' }}>
                                                 Đang mở
-                                                </option>
+                                            </option>
                                         </select>
                                     </div>
 
@@ -71,19 +74,8 @@
                             </form>
                         </div>
                     </div>
-                    @if (session('success'))
-                    <div id="successAlert" class="alert alert-success" role="alert">
-                        {{ session('success') }}
-                    </div>
-                    <script>
-                        var delayTime = 1500;
-                        var successAlert = document.getElementById('successAlert');
-                        setTimeout(function () {
-                            successAlert.style.display = 'none';
-                        }, delayTime);
-                    </script>
-                @endif
-                
+
+                    @include('admin.includes.global.alert')
 
                     <div class="table-responsive">
                         <table class="table">
@@ -123,14 +115,15 @@
                                         @endif
 
                                         <td>
-                                            
+
+                                            <span class="sr-only">Show</span>
+                                            <a href="{{ route('categories.show', $category->id) }}"
+                                                class="btn btn-sm btn-icon btn-secondary">
+                                                <i class="fa fa-eye"></i>
                                                 <span class="sr-only">Show</span>
-                                                <a href="{{ route('categories.show', $category->id) }}" class="btn btn-sm btn-icon btn-secondary">
-                                                    <i class="fa fa-eye"></i>
-                                                    <span class="sr-only">Show</span>
-                                                </a>
-                                         
-                                            
+                                            </a>
+
+
                                             <span class="sr-only">Edit</span> <a
                                                 href="{{ route('categories.edit', $category->id) }}"
                                                 class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i>
@@ -158,4 +151,24 @@
             </div><!-- /.page -->
         </div><!-- /.wrapper -->
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var selectedStatus = "{{ request('searchstatus') }}";
+            if (selectedStatus) {
+                $('select[name="searchstatus"]').val(selectedStatus);
+            }
+            $('select[name="searchstatus"]').change(function() {
+                selectedStatus = $(this).val();
+            });
+            $('#form-search').submit(function() {
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'searchstatus',
+                    value: selectedStatus
+                }).appendTo($(this));
+                return true;
+            });
+        });
+    </script>
 @endsection
