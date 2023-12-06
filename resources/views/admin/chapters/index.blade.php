@@ -14,19 +14,13 @@
                     </ol>
                 </nav>
                 <div class="d-md-flex align-items-md-start">
-                    <h1 class="page-title mr-sm-auto">Quản Lý Chương Học</h1>
+                    <h1 class="page-title mr-sm-auto">
+                        Quản Lý Chương Học
+                    </h1>
                     <div class="btn-toolbar">
                         <a href="{{ route('chapters.create') }}" class="btn btn-primary mr-2">
                             <i class="fa-solid fa fa-plus"></i>
                             <span class="ml-1">Thêm Mới</span>
-                        </a>
-                        <a href="" class="btn btn-primary mr-2">
-                            <i class="fa-solid fa fa-arrow-down"></i>
-                            <span class="ml-1">Import Excel</span>
-                        </a>
-                        <a href="" class="btn btn-primary mr-2">
-                            <i class="fa-solid fa fa-arrow-up"></i>
-                            <span class="ml-1">Export Excel</span>
                         </a>
                     </div>
                 </div>
@@ -95,7 +89,6 @@
                     </div>
                 </div>
             </div>
-                <!-- Pagination -->
         <div class="card-footer pt-1 pb-1">
             <div class="float-end">
                 {{ $items->appends(request()->query())->links() }}

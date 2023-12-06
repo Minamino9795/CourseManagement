@@ -5,18 +5,19 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item active">
-                        <a href="{{ route('categories.index') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang
+                        <a href="{{ route('orders.index') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang
                             Chủ</a>
                     </li>
                 </ol>
             </nav>
             <!-- <button type="button" class="btn btn-success btn-floated"><span class="fa fa-plus"></span></button> -->
             <div class="d-md-flex align-items-md-start">
-                <h1 class="page-title mr-sm-auto">Quản Lý Danh Mục Khóa Học</h1>
+                <h1 class="page-title mr-sm-auto">Quản Lý Đăng Ký Khóa Học</h1>
                 <div class="btn-toolbar">
-                    <a href="{{ route('categories.create') }}" class="btn btn-primary mr-2">
-                        <i class="fa-solid fa fa-plus"></i>
-                        <span class="ml-1">Thêm Mới</span>
+
+                    <a href="{{ route('orders.export') }}" class="btn btn-primary mr-2">
+                        <i class="fa-solid fa fa-arrow-up"></i>
+                        <span class="ml-1">Export Excel</span>
                     </a>
                 </div>
             </div>
@@ -34,13 +35,28 @@
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col">
-                            <form action="{{ route('categories.index') }}" method="GET" id="form-search">
+                            <form action="{{ route('orders.index') }}" method="GET" id="form-search">
 
                                 <div class="row">
                                     <div class="col">
                                         <input name="searchname" class="form-control" type="text"
-                                            placeholder=" Tìm tên danh mục..." value="{{ request('searchname') }}">
+                                            placeholder=" Tìm theo tên khách hàng..." value="{{ request('searchname') }}">
 
+                                    </div>
+                                    <div class="col">
+                                        <input name="searchphone" class="form-control" type="text"
+                                            placeholder=" Số điện thoại..." value="{{ request('searchphone') }}">
+
+                                    </div>
+                                    <div class="col">
+                                        <select name="searchcourse_id" class="form-control">
+                                            <option value=""> Khóa học</option>
+                                            @foreach ($courses as $key => $course)
+                                                <option value="{{ $course->id }}"
+                                                    {{ $request->searchcourse_id == $course->id ? 'selected' : '' }}>
+                                                    {{ $course->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
 
                                     <div class="col">
@@ -48,13 +64,13 @@
                                             <option value=""
                                                 {{ request('searchstatus') === '' && !request()->has('search') ? 'selected' : '' }}>
                                                 Trạng thái</option>
-                                            <option value="{{ \App\Models\Category::INACTIVE }}"
-                                                {{ request('searchstatus') === \App\Models\Category::INACTIVE ? 'selected' : '' }}>
-                                                Đang đóng
+                                            <option value="{{ \App\Models\Order::INACTIVE }}"
+                                                {{ request('searchstatus') === \App\Models\Order::INACTIVE ? 'selected' : '' }}>
+                                                Chưa xác nhận
                                             </option>
-                                            <option value="{{ \App\Models\Category::ACTIVE }}"
-                                                {{ request('searchstatus') === \App\Models\Category::ACTIVE ? 'selected' : '' }}>
-                                                Đang mở
+                                            <option value="{{ \App\Models\Order::ACTIVE }}"
+                                                {{ request('searchstatus') === \App\Models\Order::ACTIVE ? 'selected' : '' }}>
+                                                Đã xác nhận
                                             </option>
                                         </select>
                                     </div>
@@ -74,14 +90,15 @@
                             <thead>
                                 <tr>
                                     <th>STT</th>
-                                    <th>Tên danh mục</th>
-                                    {{-- <th>Mô tả</th> --}}
+                                    <th>Tên Khách hàng</th>
+                                    <th>SĐT</th>
+                                    <th>Khóa học</th>
+                                    <th>Giá</th>
                                     <th>Trạng thái</th>
-                                    <th>Chức năng</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($items as $key => $category)
+                                @foreach ($items as $key => $item)
                                     <tr>
                                         <td>
                                             <div class="d-flex px-2 py-1">
@@ -91,45 +108,26 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <p>{{ $category->name }}</p>
+                                            <p>{{ $item->user->name }}</p>
                                         </td>
-                                        {{-- <td>
-                                            <p>{!! $category->description !!}</p>
-                                        </td> --}}
-                                        @if ($category->status == \App\Models\Category::ACTIVE)
+                                        <td>
+                                            <p>{{ $item->user->phone }}</p>
+                                        </td>
+                                        <td>
+                                            <p>{{ $item->course->name }}</p>
+                                        </td>
+                                        <td>
+                                            <p>{{ number_format($item->course->price) }} VND</p>
+                                        </td>
+                                        @if ($item->status == \App\Models\Order::ACTIVE)
                                             <td><span>
-                                                    <i class="fas fa-check-circle"></i> Đang mở
+                                                    <i class="fas fa-check-circle"></i> Đã xác nhận
                                                 </span></td>
                                         @else
                                             <td> <span>
-                                                    <i class="fas fa-times-circle"></i> Đang đóng
+                                                    <i class="fas fa-times-circle"></i> Chưa xác nhận
                                                 </span></td>
                                         @endif
-
-                                        <td>
-
-                                            <span class="sr-only">Show</span>
-                                            <a href="{{ route('categories.show', $category->id) }}"
-                                                class="btn btn-sm btn-icon btn-secondary">
-                                                <i class="fa fa-eye"></i>
-                                                <span class="sr-only">Show</span>
-                                            </a>
-
-
-                                            <span class="sr-only">Edit</span> <a
-                                                href="{{ route('categories.edit', $category->id) }}"
-                                                class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i>
-                                                <span class="sr-only">Remove</span></a>
-                                            <form method="POST" action="{{ route('categories.destroy', $category->id) }}"
-                                                class="d-inline">
-                                                @csrf
-                                                @method('DELETE') <button type="submit"
-                                                    onclick="return confirm('Bạn có chắc chắn muốn xóa không ?')"
-                                                    class="btn btn-sm btn-icon btn-secondary"><i
-                                                        class="far fa-trash-alt"></i>
-                                                </button>
-                                            </form>
-                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

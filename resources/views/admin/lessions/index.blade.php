@@ -20,14 +20,7 @@
                         <i class="fa-solid fa fa-plus"></i>
                         <span class="ml-1">Thêm Mới</span>
                     </a>
-                    <a href="" class="btn btn-primary mr-2">
-                        <i class="fa-solid fa fa-arrow-down"></i>
-                        <span class="ml-1">Import Excel</span>
-                    </a>
-                    <a href="" class="btn btn-primary mr-2">
-                        <i class="fa-solid fa fa-arrow-up"></i>
-                        <span class="ml-1">Export Excel</span>
-                    </a>
+               
                 </div>
             </div>
         </header>
@@ -57,7 +50,7 @@
                             <table class="table text-center">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th>STT</th>
                                         <th>Tên bài học</th>
                                         <th>Loại bài học</th>
                                         {{-- <th>Nội dung bài học</th> --}}

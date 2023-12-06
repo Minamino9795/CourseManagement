@@ -1,6 +1,3 @@
-
-
-</html>
 @extends('admin.layouts.master')
 @section('content')
     <div class="page-inner">
@@ -21,14 +18,6 @@
                         <i class="fa-solid fa fa-plus"></i>
                         <span class="ml-1">Thêm Mới</span>
                     </a>
-                    <a href="" class="btn btn-primary mr-2">
-                        <i class="fa-solid fa fa-arrow-down"></i>
-                        <span class="ml-1">Import Excel</span>
-                    </a>
-                    <a href="" class="btn btn-primary mr-2">
-                        <i class="fa-solid fa fa-arrow-up"></i>
-                        <span class="ml-1">Export Excel</span>
-                    </a>
                 </div>
             </div>
         </header>
@@ -37,9 +26,10 @@
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active " href="">Tất Cả</a>
+                            <a class="nav-link active " href="">
+                                Tất Cả
+                            </a>
                         </li>
-
                     </ul>
                 </div>
                 <div class="card-body">
@@ -67,8 +57,6 @@
                                                 Đang mở
                                             </option>
                                         </select>
-
-
                                     </div>
                                     <div class="col">
                                         <select name="searchcategory_id" class="form-control">

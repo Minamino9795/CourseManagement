@@ -37,11 +37,11 @@ class ChapterController extends Controller
     $query->orderBy('id', 'DESC');
     $items = $query->with('course')->paginate($limit);
 
-    if ($items->isEmpty()) {
-        return redirect()->back()->with('error', __('sys.search_item_error'));
-    } else {
-        return view('admin.chapters.index', ['items' => $items])->with('success', __('sys.search_item_success'));
-    }
+   $params =
+   [
+    'items' => $items,
+   ];
+   return view ('admin.chapters.index', $params);
 }
 
     /**

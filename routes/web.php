@@ -6,6 +6,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -59,14 +60,17 @@ Route::post('/postLogin', [AuthController::class, 'postLogin'])->name('postLogin
 
 
 Route::get('/forgetPassword', [\App\Http\Controllers\ForgotPasswordController::class, 'forgetPassword'])
-->name('forgetPassword');
+    ->name('forgetPassword');
 Route::post('/forgetPasswordPost', [\App\Http\Controllers\ForgotPasswordController::class, 'forgetPasswordPost'])
-->name('forgetPasswordPost');
+    ->name('forgetPasswordPost');
 Route::get('/reset-password/{token}', [\App\Http\Controllers\ForgotPasswordController::class, 'resetPassword'])
-->name('resetPassword');
+    ->name('resetPassword');
 Route::post('/resetPasswordPost', [\App\Http\Controllers\ForgotPasswordController::class, 'resetPasswordPost'])
-->name('resetPasswordPost');
+    ->name('resetPasswordPost');
 
 
 Route::get('/show/{id}', [GroupController::class, 'show'])->name('groups.show');
 Route::put('/group_role/{id}', [GroupController::class, 'group_role'])->name('groups.group_role');
+
+Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+Route::get('/exportOrder', [OrderController::class, 'exportOrder'])->name('orders.export');
