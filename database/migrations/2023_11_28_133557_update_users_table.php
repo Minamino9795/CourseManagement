@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('birthday');
             $table->foreignId('group_id')->constrained('groups');
             $table->integer('status');
-
+            $table->softDeletes();
         });
     }
 
