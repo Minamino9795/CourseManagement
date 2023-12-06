@@ -15,7 +15,7 @@
                 <h1 class="page-title mr-sm-auto">Quản Lý Đăng Ký Khóa Học</h1>
                 <div class="btn-toolbar">
 
-                    <a href="" class="btn btn-primary mr-2">
+                    <a href="{{ route('orders.export') }}" class="btn btn-primary mr-2">
                         <i class="fa-solid fa fa-arrow-up"></i>
                         <span class="ml-1">Export Excel</span>
                     </a>

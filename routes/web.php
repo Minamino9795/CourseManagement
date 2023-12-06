@@ -60,3 +60,4 @@ Route::put('/group_role/{id}', [GroupController::class, 'group_role'])->name('gr
 
 Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 Route::get('/order/detail/{id}', [OrderController::class, 'detail'])->name('order.detail');
+Route::get('/exportOrder', [OrderController::class, 'exportOrder'])->name('orders.export');
