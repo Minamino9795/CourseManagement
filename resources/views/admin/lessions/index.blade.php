@@ -32,10 +32,10 @@
                   <form action="{{ route('lessions.index') }}" method="GET" id="form-search">
                         <div class="row">
                             <div class="col">
-                                <input name="name" class="form-control" type="text" placeholder=" Tên..." value="">
+                                <input name="name" class="form-control" type="text" placeholder=" Nhập tên bài học..." value="{{ request('name') }}">
                             </div>
                             <div class="col">
-                                <input name="type" class="form-control" type="text" placeholder=" Loại bài học ..." value="">
+                                <input name="type" class="form-control" type="text" placeholder=" Nhập loại bài học ..." value="">
                             </div>
                             <div class="col-lg-2">
                                 <button class="btn btn-secondary" data-toggle="modal" data-target="#modalSaveSearch" type="submit">Tìm Kiếm</button>
@@ -66,7 +66,6 @@
                                         <td>{{ $key + 1 }}</td>
                                         <td>
                                             <p class="text-xs font-weight-bold mb-0">{{ $item->name }}</p>
-
                                         </td>
                                         <td>{{ $item->type }}</td>
                                         {{-- <td>{{ $item->content }}</td> --}}
