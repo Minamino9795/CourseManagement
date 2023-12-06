@@ -16,13 +16,11 @@ use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     use UploadFileTrait;
     public function index(Request $request)
     {
-        // $this->authorize('viewAny', User::class);
+        $this->authorize('viewAny', User::class);
         $query = User::select('*');
         if (isset($request->filter['name']) && $request->filter['name']) {
             $name = $request->filter['name'];
@@ -68,25 +66,17 @@ class UserController extends Controller
 
         $query->orderBy('id', 'desc');
         $users = $query->paginate(20);
-        // dd($users);
         $groups = Group::all();
-        // $branches = Branch::all();
-        // $provinces = Province::all();
-
         $params = [
-            // 'provinces' => $provinces,
             'users' => $users,
             'groups' =>  $groups,
-            // 'branches' => $branches,
             'filter' => $request->filter,
             'user_role' => 'all'
         ];
         return view('admin.users.index', $params);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         $this->authorize('create', User::class);
@@ -129,24 +119,20 @@ class UserController extends Controller
         try {
 
             $user->save();
-            // $user->active = 'store';
-            return redirect()->route('users.index')->with('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
+
+            return redirect()->route('users.index')->with('success', __('sys.store_item_success'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect()->route('users.index')->with('error', 'Thêm' . ' ' . $request->name . ' ' .  'không thành công');
+            return redirect()->route('users.index')->with('error', __('sys.store_item_error'));
         }
     }
-    /**
-     * Display the specified resource.
-     */
+
     public function show(User $user)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit($id)
     {
         $user =  User::find($id);
@@ -159,9 +145,6 @@ class UserController extends Controller
         return view('admin.users.edit', $params);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateUserRequest $request, $id)
     {
         $user = User::find($id);
@@ -179,7 +162,7 @@ class UserController extends Controller
 
 
         $fieldName = 'image';
-        // dd($request);
+
         if ($request->hasFile($fieldName)) {
             $get_img = $request->file($fieldName);
             $path = 'storage/user/';
@@ -187,73 +170,30 @@ class UserController extends Controller
             $get_img->move($path, $new_name_img);
             $user->image = $path . $new_name_img;
         }
-        // dd($imagePath); 
+
         try {
             $user->save();
-            // $user->active = 'update';
-            return redirect()->route('users.index')->with('success', 'Sửa' . ' ' . $request->name . ' ' .  'thành công');
+
+            return redirect()->route('users.index')->with('success', __('sys.store_item_success'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return back()->with('error', 'Sửa' . ' ' . $request->name . ' ' .  'không thành công');
+            return back()->with('error', __('sys.store_item_error'));
         }
     }
 
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         $user = User::find($id);
         $this->authorize('delete', $user);
+
+
         try {
             $user->delete();
-            return redirect()->route('users.index')->with('success', 'Xóa  thành công');
+            return redirect()->route('users.index')->with('success', __('sys.store_item_success'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect()->route('users.index')->with('error', 'Xóa không  thành công');
-        }
-    }
-    public function trashedItems(Request $request)
-    {
-        $query = User::onlyTrashed();
-        //sắp xếp thứ tự lên trước khi update
-        $query->orderBy('id', 'desc');
-        $users = $query->paginate(20);
-        // dd($users);
-        $groups = Group::all();
-
-        $params = [
-
-            'users' => $users,
-            'groups' =>  $groups,
-            'filter' => $request->filter,
-            'user_role' => 'trash'
-        ];
-        return view('admin.users.trash', $params);
-    }
-    public function force_destroy($id)
-    {
-
-        $user = User::withTrashed()->find($id);
-        // dd($user);
-        try {
-            $user->forceDelete();
-            return redirect()->route('users.trash')->with('success', 'Xóa' . ' ' . $user->name . ' ' .  'thành công');
-        } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return redirect()->route('users.trash')->with('error', 'Xóa' . ' ' . $user->name . ' ' .  'không thành công');
-        }
-    }
-    public function restore($id)
-    {
-        $user = User::withTrashed()->find($id);
-        try {
-            $user->restore();
-            return redirect()->route('users.trash')->with('success', 'Khôi phục' . ' ' . $user->name . ' ' .  'thành công');
-        } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return redirect()->route('users.trash')->with('error', 'Khôi phục' . ' ' . $user->name . ' ' .  'không thành công');
+            return redirect()->route('users.index')->with('error', __('sys.store_item_error'));
         }
     }
 }

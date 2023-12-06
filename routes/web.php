@@ -47,7 +47,7 @@ Route::get('/forgetPassword', [\App\Http\Controllers\ForgotPasswordController::c
 ->name('forgetPassword');
 Route::post('/forgetPasswordPost', [\App\Http\Controllers\ForgotPasswordController::class, 'forgetPasswordPost'])
 ->name('forgetPasswordPost');
-Route::get('/reset-password/{token}', [\App\Http\Controllers\ForgotPasswordController::class, 'resetPassword'])
+Route::get('/resetpassword', [\App\Http\Controllers\ForgotPasswordController::class, 'resetPassword'])
 ->name('resetPassword');
 Route::post('/resetPasswordPost', [\App\Http\Controllers\ForgotPasswordController::class, 'resetPasswordPost'])
 ->name('resetPasswordPost');
