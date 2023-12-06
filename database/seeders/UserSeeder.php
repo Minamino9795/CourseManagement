@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
         $user->email = 'admin@gmail.com';
         $user->address = 'Đông Hà';
         $user->phone = '0123456789';
-        $user->image = '';
+        $user->image = 'a.jpg';
         $user->gender = 'Nam';
         $user->birthday = '1996-09-15';
         $user->password = Hash::make('123456');
