@@ -49,9 +49,9 @@ class AuthController extends Controller
     ];
 
     if (Auth::attempt($credentials, $request->filled('remember'))) {
-        return redirect()->route('users.index')->with('success', 'Đăng nhập thành công!');
+        return redirect()->route('users.index')->with('success',__('sys.login_item_success'));
     } else {
-        return redirect()->route('login')->with('error', 'Tài khoản hoặc mật khẩu không đúng!');
+        return redirect()->route('login')->with('error', __('sys.login_item_success'));
     }
 }
 }
