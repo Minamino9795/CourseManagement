@@ -38,9 +38,9 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Tên danh mục</th>
-                                <th>Mô tả</th>
+                                <th>Danh mục</th>
                                 <th>Trạng thái</th>
+                                <th>Mô tả</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -56,10 +56,6 @@
                                 <td>
                                     <p>{{ $items->name }}</p>
                                 </td>
-                                <td>
-                                    <textarea readonly class="form-control no-resize" rows="4">{{ $items->description }}</textarea>
-                                </td>
-
                                 @if ($items->status == \App\Models\Category::ACTIVE)
                                     <td><span>
                                             <i class="fas fa-check-circle"></i> Đang mở
@@ -69,6 +65,21 @@
                                             <i class="fas fa-times-circle"></i> Đang đóng
                                         </span></td>
                                 @endif
+                                <style>
+                                    .description-cell {
+                                        max-width: 300px;
+                                        text-overflow: ellipsis;
+                                    }
+
+                                    .description-cell p {
+                                        margin: 0;
+                                    }
+                                </style>
+                                <td class="description-cell">
+                                    <p>{{ $items->description }}</p>
+                                </td>
+
+
 
 
                             </tr>

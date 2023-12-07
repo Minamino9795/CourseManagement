@@ -20,14 +20,7 @@
                         <i class="fa-solid fa fa-plus"></i>
                         <span class="ml-1">Thêm Mới</span>
                     </a>
-                    <a href="" class="btn btn-primary mr-2">
-                        <i class="fa-solid fa fa-arrow-down"></i>
-                        <span class="ml-1">Import Excel</span>
-                    </a>
-                    <a href="" class="btn btn-primary mr-2">
-                        <i class="fa-solid fa fa-arrow-up"></i>
-                        <span class="ml-1">Export Excel</span>
-                    </a>
+               
                 </div>
             </div>
         </header>
@@ -39,10 +32,10 @@
                   <form action="{{ route('lessions.index') }}" method="GET" id="form-search">
                         <div class="row">
                             <div class="col">
-                                <input name="name" class="form-control" type="text" placeholder=" Tên..." value="">
+                                <input name="name" class="form-control" type="text" placeholder=" Nhập tên bài học..." value="{{ request('name') }}">
                             </div>
                             <div class="col">
-                                <input name="type" class="form-control" type="text" placeholder=" Loại bài học ..." value="">
+                                <input name="type" class="form-control" type="text" placeholder=" Nhập loại bài học ..." value="">
                             </div>
                             <div class="col-lg-2">
                                 <button class="btn btn-secondary" data-toggle="modal" data-target="#modalSaveSearch" type="submit">Tìm Kiếm</button>
@@ -57,7 +50,7 @@
                             <table class="table text-center">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th>STT</th>
                                         <th>Tên bài học</th>
                                         <th>Loại bài học</th>
                                         {{-- <th>Nội dung bài học</th> --}}
@@ -73,7 +66,6 @@
                                         <td>{{ $key + 1 }}</td>
                                         <td>
                                             <p class="text-xs font-weight-bold mb-0">{{ $item->name }}</p>
-
                                         </td>
                                         <td>{{ $item->type }}</td>
                                         {{-- <td>{{ $item->content }}</td> --}}

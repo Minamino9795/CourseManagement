@@ -44,8 +44,8 @@
                             <div class="row">
                                 <div class="col-md-6 mb-4">
                                     <label for="content">Nội dung<abbr name="Trường bắt buộc">*</abbr></label>
-                                    <input name="content" type="text" value="{{ old('content') }}" class="form-control"
-                                         placeholder="Nhập mật nội dung">
+                                    <textarea name="content" type="text" value="{{ old('content') }}" class="form-control"
+                                         placeholder="Nhập mật nội dung"></textarea>
                                     <small class="form-text text-muted"></small>
                                     @error('content')
                                     <div style="color: red">{{ $message }}</div>
@@ -64,7 +64,7 @@
                             <div class="row">
                                 <div class="col-md-6 mb-4">
                                     <label for="image">Ảnh</label>
-                                    <input name="image_url" type="file" class="form-control" image" placeholder="Chọn ảnh">
+                                    <input name="image_url" type="file" class="form-control" placeholder="Chọn ảnh">
                                     <small class="form-text text-muted"></small>
                                     @error('image_url')
                                     <div style="color: red">{{ $message }}</div>

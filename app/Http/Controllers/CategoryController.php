@@ -21,11 +21,11 @@ class CategoryController extends Controller
         $paginate = 3;
         $query = Category::select('*');
 
-        if (isset($request->name)) {
-            $query->where('name', 'LIKE', "%$request->name%");
+        if (isset($request->searchname)) {
+            $query->where('name', 'LIKE', "%$request->searchname%");
         }
-        if (isset($request->status)) {
-            $query->where('status', $request->status);
+        if (isset($request->searchstatus)) {
+            $query->where('status', $request->searchstatus);
         }
         $query->orderBy('id', 'DESC');
         $items = $query->paginate($paginate);
@@ -116,8 +116,16 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        $categories = Category::destroy($id);
-
-        return redirect()->route('categories.index')->with('success', __('sys.destroy_item_success'));
+        try {
+            $item = Category::findOrFail($id);
+            $item->delete();
+            return redirect()->route('categories.index')->with('success', __('sys.destroy_item_success'));
+        } catch (QueryException $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('categories.index')->with('error', __('sys.item_not_found'));
+        } catch (QueryException  $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('categories.index')->with('error', __('sys.destroy_item_error'));
+        }
     }
 }

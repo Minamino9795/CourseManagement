@@ -36,7 +36,7 @@
                         <label for="course_id">Tên khoá học<abbr name="Trường bắt buộc">*</abbr></label>
                         <select name="course_id" class="form-control">
                             <option value="">-- Vui lòng chọn --</option>
-                            @foreach($courses as $course)
+                            @foreach ($courses as $course)
                                 <option value="{{ $course->id }}">{{ $course->name }}</option>
                             @endforeach
                         </select>

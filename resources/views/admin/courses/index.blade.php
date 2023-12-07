@@ -1,6 +1,3 @@
-
-
-</html>
 @extends('admin.layouts.master')
 @section('content')
     <div class="page-inner">
@@ -21,14 +18,6 @@
                         <i class="fa-solid fa fa-plus"></i>
                         <span class="ml-1">Thêm Mới</span>
                     </a>
-                    <a href="" class="btn btn-primary mr-2">
-                        <i class="fa-solid fa fa-arrow-down"></i>
-                        <span class="ml-1">Import Excel</span>
-                    </a>
-                    <a href="" class="btn btn-primary mr-2">
-                        <i class="fa-solid fa fa-arrow-up"></i>
-                        <span class="ml-1">Export Excel</span>
-                    </a>
                 </div>
             </div>
         </header>
@@ -37,9 +26,10 @@
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active " href="">Tất Cả</a>
+                            <a class="nav-link active " href="">
+                                Tất Cả
+                            </a>
                         </li>
-
                     </ul>
                 </div>
                 <div class="card-body">
@@ -49,37 +39,42 @@
 
                                 <div class="row">
                                     <div class="col">
-                                        <input name="name" value="" class="form-control" type="text"
-                                            placeholder=" Tìm tên khóa học...">
+                                        <input name="searchname" class="form-control" type="text"
+                                            placeholder="Tìm tên khóa học..." value="{{ request('searchname') }}" />
                                     </div>
 
                                     <div class="col">
-                                        <select name="status" class="form-control">
-                                            <option value="" {{ old('status') === '' ? 'selected' : '' }}>Trạng thái</option>
+                                        <select name="searchstatus" class="form-control">
+                                            <option value=""
+                                                {{ request('searchstatus') === '' && !request()->has('search') ? 'selected' : '' }}>
+                                                Trạng thái</option>
                                             <option value="{{ \App\Models\Course::INACTIVE }}"
-                                                {{ old('status') === \App\Models\Course::INACTIVE ? 'selected' : '' }}>
+                                                {{ request('searchstatus') === \App\Models\Course::INACTIVE ? 'selected' : '' }}>
                                                 Đang đóng
                                             </option>
                                             <option value="{{ \App\Models\Course::ACTIVE }}"
-                                                {{ old('status') === \App\Models\Course::ACTIVE ? 'selected' : '' }}>
+                                                {{ request('searchstatus') === \App\Models\Course::ACTIVE ? 'selected' : '' }}>
                                                 Đang mở
                                             </option>
                                         </select>
-
                                     </div>
                                     <div class="col">
-                                        <select name="category_id" class="form-control">
-                                            <option value="">Danh mục</option>
-                                            @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        <select name="searchcategory_id" class="form-control">
+                                            <option value=""> Danh mục</option>
+                                            @foreach ($categories as $key => $catgory)
+                                                <option value="{{ $catgory->id }}"
+                                                    {{ $request->searchcategory_id == $catgory->id ? 'selected' : '' }}>
+                                                    {{ $catgory->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="col">
-                                        <select name="level_id" class="form-control">
+                                        <select name="searchlevel_id" class="form-control">
                                             <option value="">Cấp độ</option>
-                                            @foreach ($levels as $level)
-                                                <option value="{{ $level->id }}">{{ $level->name }}</option>
+                                            @foreach ($levels as $key => $level)
+                                                <option value="{{ $level->id }}"
+                                                    {{ $request->searchlevel_id == $level->id ? 'selected' : '' }}>
+                                                    {{ $level->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -91,18 +86,7 @@
                             </form>
                         </div>
                     </div>
-                    @if (session('success'))
-                        <div id="successAlert" class="alert alert-success" role="alert">
-                            {{ session('success') }}
-                        </div>
-                        <script>
-                            var delayTime = 1500;
-                            var successAlert = document.getElementById('successAlert');
-                            setTimeout(function() {
-                                successAlert.style.display = 'none';
-                            }, delayTime);
-                        </script>
-                    @endif
+                    {{-- @include('admin.includes.global.alert') --}}
 
 
                     <div class="table-responsive">
@@ -186,4 +170,25 @@
             </div><!-- /.page -->
         </div><!-- /.wrapper -->
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var selectedStatus = "{{ request('searchstatus') }}";
+            if (selectedStatus) {
+                $('select[name="searchstatus"]').val(selectedStatus);
+            }
+            $('select[name="searchstatus"]').change(function() {
+                selectedStatus = $(this).val();
+            });
+            $('#form-search').submit(function() {
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'searchstatus',
+                    value: selectedStatus
+                }).appendTo($(this));
+                return true;
+            });
+        });
+    </script>
 @endsection

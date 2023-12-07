@@ -32,8 +32,9 @@ class ChapterController extends Controller
         $params = [
             'items' => $items,
         ];
-        return view('admin.chapters.index', $params)->with('success', __('sys.search_item_success'));
+        return view('admin.chapters.index', $params);
     }
+
     public function create()
     {
         $courses = Course::all();
@@ -145,4 +146,4 @@ class ChapterController extends Controller
                 ->with('error', __('sys.destroy_item_error'));
         }
     }
-}
+};

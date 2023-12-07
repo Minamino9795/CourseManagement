@@ -12,19 +12,6 @@
                     </li>
                 </ol>
             </nav>
-            <div class="d-md-flex align-items-md-start">
-                <h1 class="page-title mr-sm-auto">Chi Tiết Bài Học</h1>
-                <div class="btn-toolbar">
-                    <a href="" class="btn btn-primary mr-2">
-                        <i class="fa-solid fa fa-arrow-down"></i>
-                        <span class="ml-1">Import Excel</span>
-                    </a>
-                    <a href="" class="btn btn-primary mr-2">
-                        <i class="fa-solid fa fa-arrow-up"></i>
-                        <span class="ml-1">Export Excel</span>
-                    </a>
-                </div>
-            </div>
         </header>
         <div class="page-section">
             <div class="card card-fluid">
@@ -58,13 +45,13 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="name">
                                     <p>{{ $item->name }}</p>
                                 </td>
                                 <td >
                                     <p>{{ $item->type }}</p>
                                 </td>
-                                <td >
+                                <td class="content">
                                     <p>{{ $item->content }}</p>
                                 </td>
                                 <td>
@@ -92,11 +79,24 @@
 
 <style>
     .video_url-cell {
-        max-width: 300px;
+        max-width: 150px;
         text-overflow: ellipsis;
     }
 
     .video_url-cell p {
         margin: 0;
     }
+
+    .content  {
+        max-width: 100px;
+        text-overflow: ellipsis;
+        margin: 0;
+    }
+
+    .name  {
+        max-width: 100px;
+        text-overflow: ellipsis;
+        margin: 0;
+    }
+    
 </style>
