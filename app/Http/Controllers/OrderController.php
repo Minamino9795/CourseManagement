@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Exports\OrderExport;
+use App\Http\Requests\OrderRequest;
 use App\Models\Course;
 use App\Models\Order;
 use App\Models\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 
 class OrderController extends Controller
@@ -21,12 +25,12 @@ class OrderController extends Controller
         $course = Course::get();
         $user = User::get();
 
-        if (isset($request->searchname)) {          
+        if (isset($request->searchname)) {
             $query->whereHas('user', function ($subquery) use ($request) {
                 $subquery->where('name', 'LIKE', "%$request->searchname%");
             });
         }
-        if (isset($request->searchphone)) {          
+        if (isset($request->searchphone)) {
             $query->whereHas('user', function ($subquery) use ($request) {
                 $subquery->where('phone', 'LIKE', "%$request->searchphone%");
             });
@@ -36,21 +40,76 @@ class OrderController extends Controller
         }
         if (isset($request->searchstatus)) {
             $query->where('status', $request->searchstatus);
-            
         }
-        
-      
+
+
         $query->orderBy('id', 'DESC');
         $items = $query->paginate($paginate);
         $params = [
             'items' => $items,
             'courses' => $course,
-            'users' => $user, 
-            'request'=>$request         
+            'users' => $user,
+            'request' => $request
         ];
         return view('admin.orders.index', $params);
     }
-    
+    public function edit(string $id)
+    {
+        try {
+            $courses = Course::get();
+            $user = User::get();
+            $item = Order::findOrFail($id);
+            // dd($item);
+            $params = [
+                'item' => $item,
+                'courses' => $courses,
+                'users' => $user,
+            ];
+            return view("admin.orders.edit", $params);
+        } catch (ModelNotFoundException $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('orders.index')->with('error', __('sys.item_not_found'));
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(OrderRequest $request, string $id)
+    {
+        try {
+            $item = Order::findOrFail($id);
+            $item->status = $request->status;
+            // dd($item);
+            $item->save();
+            return redirect()->route('orders.index')->with('success', __('sys.update_item_success'));
+        } catch (ModelNotFoundException $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('orders.index')->with('error', __('sys.item_not_found'));
+        } catch (QueryException  $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('orders.index')->with('error', __('sys.update_item_error'));
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        try {
+            $item = Order::findOrFail($id);
+            $item->delete();
+            return redirect()->route('orders.index')->with('success', __('sys.destroy_item_success'));
+        } catch (ModelNotFoundException $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('orders.index')->with('error', __('sys.item_not_found'));
+        } catch (QueryException  $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('orders.index')->with('error', __('sys.destroy_item_error'));
+        }
+    }
+
     public function exportOrder()
     {
         return Excel::download(new OrderExport(), 'orders.xlsx');
