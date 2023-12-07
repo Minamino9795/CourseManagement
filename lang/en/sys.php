@@ -10,5 +10,4 @@ return [
     'add_new' => 'Thêm mới',
     'login_item_success' => 'Đăng nhập thành công',
     'login_item_error' => 'Đăng nhập thành công',
-
 ];
