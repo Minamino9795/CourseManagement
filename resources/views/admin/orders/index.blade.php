@@ -12,7 +12,7 @@
             </nav>
             <!-- <button type="button" class="btn btn-success btn-floated"><span class="fa fa-plus"></span></button> -->
             <div class="d-md-flex align-items-md-start">
-                <h1 class="page-title mr-sm-auto">Quản Lý Đăng Ký Khóa Học</h1>
+                <h1 class="page-title mr-sm-auto">Quản Lý Đăng Ký & Mua Khóa Học</h1>
                 <div class="btn-toolbar">
 
                     <a href="{{ route('orders.export') }}" class="btn btn-primary mr-2">
@@ -95,6 +95,7 @@
                                     <th>Khóa học</th>
                                     <th>Giá</th>
                                     <th>Trạng thái</th>
+                                    <th>Tùy chọn</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -128,6 +129,21 @@
                                                     <i class="fas fa-times-circle"></i> Chưa xác nhận
                                                 </span></td>
                                         @endif
+                                        <td>
+                                            <span class="sr-only">Edit</span> <a
+                                            href="{{ route('orders.edit', $item->id) }}"
+                                            class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i>
+                                            <span class="sr-only">Remove</span></a>
+                                        <form method="POST" action="{{ route('orders.destroy', $item->id) }}"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('DELETE') <button type="submit"
+                                                onclick="return confirm('Bạn có chắc chắn muốn xóa không ?')"
+                                                class="btn btn-sm btn-icon btn-secondary"><i
+                                                    class="far fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
