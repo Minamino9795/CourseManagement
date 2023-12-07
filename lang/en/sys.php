@@ -8,4 +8,6 @@ return [
     'destroy_item_error' => 'Xóa không thành công',
     'item_not_found' => 'Không tìm thấy kết quả phù hợp',
     'add_new' => 'Thêm mới',
+    'login_item_success' => 'Đăng nhập thành công',
+    'login_item_error' => 'Đăng nhập thành công',
 ];
