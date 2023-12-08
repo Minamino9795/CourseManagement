@@ -115,8 +115,8 @@
                                 <label for="tf1">Trạng thái<abbr name="Trường bắt buộc">*</abbr></label>
                                 <select name="status" id="" class="form-control">
                                     <option value="">--Vui lòng chọn--</option>
-                                    <option value="{{ \App\Models\Category::INACTIVE }}">0</option>
-                                    <option value="{{ \App\Models\Category::ACTIVE }}">1</option>
+                                    <option value="{{ \App\Models\User::INACTIVE }}">Không tồn tại</option>
+                                    <option value="{{ \App\Models\User::ACTIVE }}">Tồn tại</option>
                                 </select>
                                 <small id="" class="form-text text-muted"></small>
                             </div>

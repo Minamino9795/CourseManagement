@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
-@include('admin.includes.global.alert')
+
 <div class="page">
     <div class="page-inner">
         <header class="page-title-bar">
@@ -62,19 +62,9 @@
                                     </div>
                                 </div>
                             </form>
-
+                            
                         </div>
                     </div>
-                    @if (session('success'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('success') }}
-                    </div>
-                    @endif
-                    @if (session('error'))
-                    <div class="alert alert-danger" role="alert">
-                        {{ session('error') }}
-                    </div>
-                    @endif
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
@@ -105,7 +95,15 @@
                                     <td>{{ $user->phone }}</td>
                                     <td>{{ $user->groups->name }}</td>
                                     <td>{{ $user->gender }}</td>
-                                    <td>{{ $user->status }}</td>
+                                    @if ($user->status == \App\Models\User::ACTIVE)
+                                            <td><span>
+                                                    <i class="fas fa-check-circle"></i> Tồn tại
+                                                </span></td>
+                                        @else
+                                            <td> <span>
+                                                    <i class="fas fa-times-circle"></i> Không tồn tại
+                                                </span></td>
+                                        @endif
                                     <td>
                                         <span class="sr-only">Edit</span> <a href="{{route('users.edit',$user->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span class="sr-only">Remove</span></a>
                                         @if($user->id != 1)
