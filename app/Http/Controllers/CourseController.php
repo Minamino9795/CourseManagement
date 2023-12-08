@@ -20,6 +20,7 @@ class CourseController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Course::class);
         $paginate = 4;
         $query = Course::select('*');
         $category = Category::get();
@@ -30,7 +31,6 @@ class CourseController extends Controller
         }
         if (isset($request->searchstatus)) {
             $query->where('status', $request->searchstatus);
-            
         }
         if (isset($request->searchcategory_id)) {
             $query->where('category_id', $request->searchcategory_id);
@@ -54,6 +54,7 @@ class CourseController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Course::class);
         $category = Category::get();
         $levels = Level::get();
         $params = [
@@ -122,9 +123,10 @@ class CourseController extends Controller
     public function edit(string $id)
     {
         try {
+            $item = Course::findOrFail($id);
+            $this->authorize('update',  $item);
             $categories = Category::get();
             $levels = Level::get();
-            $item = Course::findOrFail($id);
             // dd($item);
             $params = [
                 'item' => $item,
@@ -176,6 +178,7 @@ class CourseController extends Controller
     {
         try {
             $item = Course::findOrFail($id);
+            $this->authorize('delete', $item);
             $item->delete();
             return redirect()->route('courses.index')->with('success', __('sys.destroy_item_success'));
         } catch (ModelNotFoundException $e) {
