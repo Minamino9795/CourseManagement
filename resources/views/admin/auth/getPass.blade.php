@@ -23,10 +23,17 @@
             <label class="d-block text-left" for="inputUser">Mật khẩu mới</label>
             <input id="password" type="password" name="password" value="" required="" autofocus="" class="form-control form-control-lg">
         </div><!-- /.form-group -->
+        @error('password')
+                <span>{{ $message }}</span>
+            @enderror
         <div class="form-group mb-4">
             <label class="d-block text-left" for="inputUser">Xác nhận mật khẩu mới</label>
             <input id="password_confirmation" type="password" name="password_confirmation" value="" required="" autofocus="" class="form-control form-control-lg">
-        </div><!-- /.form-group -->
+        </div>
+        @error('password')
+                <span>{{ $message }}</span>
+            @enderror
+        <!-- /.form-group -->
         <!-- actions -->
         <div class="d-block d-md-inline-block mb-2">
             <button class="btn btn-lg btn-block btn-primary" type="submit">Đặt Lại Mật Khẩu</button>

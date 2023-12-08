@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ForgotPasswordRequest;
+use App\Http\Requests\ResetPasswordRequest;
 use Illuminate\Support\Facades\Mail;
 
 class ForgotPasswordController extends Controller
@@ -20,14 +22,8 @@ class ForgotPasswordController extends Controller
         return view('admin.auth.forgot_password');
     }
 
-    public function forgetPasswordPost(Request $request)
+    public function forgetPasswordPost(ForgotPasswordRequest $request)
     {
-        $request->validate([
-            'email' => 'required|email|exists:users',
-        ], [
-            'email.required' => 'Vui lòng nhập địa chỉ email hợp lệ',
-            'email.exists' => 'Email này không tồn tại trong hệ thống',
-        ]);
         $newToken = strtoupper(Str::random(10));
         $user = User::where('email', $request->email)->first();
         // Create or Update token
@@ -54,13 +50,8 @@ class ForgotPasswordController extends Controller
         }
     }
 
-    public function resetPasswordPost(Request $request)
+    public function resetPasswordPost(ResetPasswordRequest $request)
 {
-    $request->validate([
-        "password" => "required|string|min:6|confirmed",
-        "password_confirmation" => "required"
-    ]);
-
     $token = $request->token;
     $user = User::where('token', $token)->first();
 
@@ -69,9 +60,9 @@ class ForgotPasswordController extends Controller
         $user->save();
         
 
-        return view('admin.auth.login')->with('success', __('sys.resetPassword_success'));;
+        return view('admin.auth.login')->with('success', 'Mật khẩu đã được cập nhật thành công');
     } else {
-        return redirect()->back()->with('error', __('sys.resetPassword_error'));
+        return redirect()->back()->with('error', 'Token không hợp lệ');
     }
 }
 }

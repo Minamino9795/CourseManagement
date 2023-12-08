@@ -1,6 +1,6 @@
 @extends('admin.layouts.login')
 @section('content')
-@include('admin.includes.global.alert')
+
 <main class="auth">
     <header id="auth-header" class="auth-header" style="background-image: url(assets/images/illustration/img-1.png);">
         <h1>
@@ -9,7 +9,16 @@
         </h1>
 
     </header><!-- form -->
-
+    @if (session('success'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if (session('error'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('error') }}
+                </div>
+            @endif
     <form class="auth-form" method="post" action="{{ route('postLogin') }}">
         @csrf
         <div class="form-group">
