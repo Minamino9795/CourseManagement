@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
-
+@include('admin.includes.global.alert')
 <div class="page">
     <div class="page-inner">
         <header class="page-title-bar">

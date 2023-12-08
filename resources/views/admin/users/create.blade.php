@@ -6,7 +6,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item active">
-                        <a href="https://thptatuc-backend.quanlythietbitruonghoc.com/users"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Quản Lý
+                        <a href="{{ route('users.index') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Quản Lý
                             Người Dùng</a>
                     </li>
                 </ol>
@@ -122,7 +122,7 @@
                             </div>
                         </div>
                         <div class="form-actions">
-                            <a class="btn btn-secondary float-right" href="https://thptatuc-backend.quanlythietbitruonghoc.com/users">Hủy</a>
+                            <a class="btn btn-secondary float-right" href="{{ route('users.index') }}">Hủy</a>
                             <button class="btn btn-primary ml-auto" type="submit">Lưu</button>
                         </div>
                     </div>

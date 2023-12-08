@@ -95,9 +95,9 @@ public function group_role(Request $request, $id)
         $group->roles()->detach();
         $group->roles()->attach($request->roles);
 
-        return redirect()->route('groups.index')->with('success', 'Cấp quyền thành công !');
+        return redirect()->route('groups.index')->with('success', __('sys.group_item_success'));
     } catch (\Exception $e) {
-        return redirect()->route('groups.index')->with('error', 'Đã xảy ra lỗi khi cấp quyền: ' . $e->getMessage());
+        return redirect()->route('groups.index')->with('error', __('sys.group_item_error'));
     }
 }
 

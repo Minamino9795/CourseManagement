@@ -69,9 +69,9 @@ class ForgotPasswordController extends Controller
         $user->save();
         
 
-        return view('admin.auth.login')->with('success', 'Mật khẩu đã được cập nhật thành công');
+        return view('admin.auth.login')->with('success', __('sys.resetPassword_success'));;
     } else {
-        return redirect()->back()->with('error', 'Token không hợp lệ');
+        return redirect()->back()->with('error', __('sys.resetPassword_error'));
     }
 }
 }

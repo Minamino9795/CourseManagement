@@ -45,7 +45,7 @@
             <button class="btn btn-lg btn-block btn-primary" type="submit">Đặt Lại Mật Khẩu</button>
         </div>
         <div class="d-block d-md-inline-block">
-            <a href="https://thptatuc-backend.quanlythietbitruonghoc.com/login" class="btn btn-block btn-light">Quay Về Đăng Nhập</a>
+            <a href="{{ route('login') }}" class="btn btn-block btn-light">Quay Về Đăng Nhập</a>
         </div>
     </form>
     <!-- /.auth-form -->
