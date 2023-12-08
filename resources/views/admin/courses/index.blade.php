@@ -18,14 +18,6 @@
                         <i class="fa-solid fa fa-plus"></i>
                         <span class="ml-1">Thêm Mới</span>
                     </a>
-                    <a href="" class="btn btn-primary mr-2">
-                        <i class="fa-solid fa fa-arrow-down"></i>
-                        <span class="ml-1">Import Excel</span>
-                    </a>
-                    <a href="" class="btn btn-primary mr-2">
-                        <i class="fa-solid fa fa-arrow-up"></i>
-                        <span class="ml-1">Export Excel</span>
-                    </a>
                 </div>
             </div>
         </header>
@@ -95,7 +87,7 @@
                             </form>
                         </div>
                     </div>
-                    {{-- @include('admin.includes.global.alert') --}}
+                    @include('admin.includes.global.alert')
 
 
                     <div class="table-responsive">
