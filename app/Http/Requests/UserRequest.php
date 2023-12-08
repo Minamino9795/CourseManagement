@@ -26,4 +26,5 @@ class UserRequest extends FormRequest
             'status' => 'required'
         ];
     }
+    
 }

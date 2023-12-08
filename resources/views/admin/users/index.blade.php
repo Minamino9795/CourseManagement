@@ -17,11 +17,11 @@
                         <i class="fa-solid fa fa-plus"></i>
                         <span class="ml-1">Thêm Mới</span>
                     </a>
-                    <a href="https://thptatuc-backend.quanlythietbitruonghoc.com/users/getImport" class="btn btn-primary mr-2">
+                    <a href="" class="btn btn-primary mr-2">
                         <i class="fa-solid fa fa-arrow-down"></i>
                         <span class="ml-1">Import Excel</span>
                     </a>
-                    <a href="https://thptatuc-backend.quanlythietbitruonghoc.com/users/export" class="btn btn-primary mr-2">
+                    <a href="" class="btn btn-primary mr-2">
                         <i class="fa-solid fa fa-arrow-up"></i>
                         <span class="ml-1">Export Excel</span>
                     </a>
