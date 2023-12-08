@@ -148,10 +148,8 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, $id)
     {
         $user = User::find($id);
+        $oldPassword            = $user->password;
         $user->name             = $request->name;
-        if ($request->password) {
-            $user->password         = Hash::make($request->password);
-        }
         $user->gender           = $request->gender;
         $user->birthday         = $request->birthday;
         $user->address          = $request->address;
@@ -170,14 +168,20 @@ class UserController extends Controller
             $get_img->move($path, $new_name_img);
             $user->image = $path . $new_name_img;
         }
+        if ($request->password) {
+            $user->password         = Hash::make($request->password);
+        } else {
+            
+            $user->password = $oldPassword;
+        }
 
         try {
             $user->save();
 
-            return redirect()->route('users.index')->with('success', __('sys.store_item_success'));
+            return redirect()->route('users.index')->with('success', __('sys.update_item_success'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return back()->with('error', __('sys.store_item_error'));
+            return back()->with('error', __('sys.update_item_error'));
         }
     }
 
@@ -190,10 +194,10 @@ class UserController extends Controller
 
         try {
             $user->delete();
-            return redirect()->route('users.index')->with('success', __('sys.store_item_success'));
+            return redirect()->route('users.index')->with('success', __('sys.delete_item_success'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect()->route('users.index')->with('error', __('sys.store_item_error'));
+            return redirect()->route('users.index')->with('error', __('sys.delete_item_error'));
         }
     }
 }

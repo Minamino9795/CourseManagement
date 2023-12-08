@@ -55,10 +55,10 @@ class GroupController extends Controller
         $userGroup->save();
         try {
             $userGroup->save();
-            return redirect()->route('groups.index')->with('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
+            return redirect()->route('groups.index')->with('success', __('sys.store_item_success'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect()->route('groups.index')->with('error', 'Thêm' . ' ' . $request->name . ' ' .  'không thành công');
+            return redirect()->route('groups.index')->with('error', __('sys.store_item_success'));
         }
     }
 
@@ -132,10 +132,10 @@ public function group_role(Request $request, $id)
             $userGroup->roles()->detach();
             
             $userGroup->roles()->attach($request->roles);
-            return redirect()->route('groups.index')->with('success', __('sys.store_item_success'));
+            return redirect()->route('groups.index')->with('success', __('sys.update_item_success'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect()->route('groups.index')->with('error', __('sys.store_item_error'));
+            return redirect()->route('groups.index')->with('error', __('sys.update_item_error'));
         }
     }
 
@@ -148,10 +148,10 @@ public function group_role(Request $request, $id)
 
         try {
             $group->delete();
-            return redirect()->route('userGroups.index')->with('success', __('sys.store_item_success'));
+            return redirect()->route('userGroups.index')->with('success', __('sys.delete_item_success'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect()->route('userGroups.index')->with('error', __('sys.store_item_error'));
+            return redirect()->route('userGroups.index')->with('error', __('sys.delete_item_error'));
         }
     }
 }

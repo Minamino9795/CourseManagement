@@ -6,7 +6,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item active">
-                        <a href="https://thptatuc-backend.quanlythietbitruonghoc.com/users"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Quản Lý
+                        <a href="{{ route('users.index') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Quản Lý
                             Người Dùng</a>
                     </li>
                 </ol>
@@ -36,7 +36,7 @@
                             <div class="col-md-6 mb-4">
                                 <label for="tf1">Mật khẩu<abbr name="Trường bắt buộc"></abbr></label>
 
-                                <input name="password" value="{{ $user->password }}" type="password" class="form-control" id="" placeholder="Nhập mật khẩu">
+                                <input name="password"  type="password" class="form-control" id="" placeholder="Nhập mật khẩu">
                                 <small id="" class="form-text text-muted"></small>
                             </div>
 
@@ -83,21 +83,21 @@
                             <div class="col-md-6 mb-4">
                                 <label for="tf1">Ảnh<abbr name="Trường bắt buộc"></abbr></label>
                                 <input type="file" class="form-control" name="image">
-                                <img src="{{ asset('storage/'.$user->image) }}" width="90px" height="90px" id="blah1" alt="">
+                                <img src="{{ asset($user->image) }}" width="90px" height="90px" id="blah1" alt="">
                                 <small id="" class="form-text text-muted"></small>
                             </div>
                             <div class="col-md-6 mb-4">
                                 <label for="tf1">Trạng thái<abbr name="Trường bắt buộc">*</abbr></label>
                                 <select name="status" id="" class="form-control">
-                                    <option value="{{ \App\Models\Category::INACTIVE }}">0</option>
-                                    <option value="{{ \App\Models\Category::ACTIVE }}">1</option>
+                                    <option value="{{ \App\Models\Category::INACTIVE }}">Không tồn tại</option>
+                                    <option value="{{ \App\Models\Category::ACTIVE }}">Tồn tại</option>
                                 </select>
                                 <small id="" class="form-text text-muted"></small>
                             </div>
                         
                         </div>
                         <div class="form-actions">
-                            <a class="btn btn-secondary float-right" href="https://thptatuc-backend.quanlythietbitruonghoc.com/users">Hủy</a>
+                            <a class="btn btn-secondary float-right" href="{{ route('users.index') }}">Hủy</a>
                             <button class="btn btn-primary ml-auto" type="submit">Lưu thay đổi</button>
                         </div>
                     </div>
