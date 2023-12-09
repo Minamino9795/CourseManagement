@@ -18,6 +18,7 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Category::class);
         $paginate = 3;
         $query = Category::select('*');
 
@@ -40,6 +41,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Category::class);
+
         return view('admin.categories.create');
     }
 
@@ -97,6 +100,7 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, string $id)
     {
+        $this->authorize('update', Category::class);
         $categories = Category::find($id);
 
         $categories->name = $request->name;
@@ -117,6 +121,7 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         try {
+            $this->authorize('delete', Category::class);
             $item = Category::findOrFail($id);
             $item->delete();
             return redirect()->route('categories.index')->with('success', __('sys.destroy_item_success'));
