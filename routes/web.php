@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/layouts', function () {
     return view('admin.layouts.master');
 });
-use App\Http\Controllers\TenController;
+
 
 Route::resource('categories', CategoryController::class);
 Route::resource('chapters', \App\Http\Controllers\ChapterController::class);

@@ -45,6 +45,7 @@
                                 </form>
                             </div>
                         </div>
+                        @include('admin.includes.global.alert')
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
