@@ -15,34 +15,15 @@ class LessionController extends Controller
 	public function index(Request $request)
 	{
 		$this->authorize('viewAny', Lession::class);
+
 		$limit = $request->limit ? $request->limit : 2;
 		$query = Lession::select('*');
-		if ($request->has('search')) {
-			$search = $request->search;
-			$lessions = Lession::where('name', 'like', "%$search%")
-				->orWhere('type', 'like', "%$search%");
-		}
-		if ($request->name) {
-			$query->where('name', $request->name);
-		}
-		if ($request->type) {
-			$query->where('type', $request->type);
-		}
 
-		if ($request->content) {
-			$query->where('content', $request->content);
+		if (isset($request->searchname)) {
+			$query->where('name', 'LIKE', "%$request->searchname%");
 		}
-
-		if ($request->image_url) {
-			$query->where('image_url', $request->image_url);
-		}
-
-		if ($request->video_url) {
-			$query->where('video_url', $request->video_url);
-		}
-
-		if ($request->duration) {
-			$query->where('duration', $request->duration);
+		if (isset($request->search)) {
+			$query->where('type', 'LIKE', "%$request->search%");
 		}
 		$query->orderBy('id', 'DESC');
 		$items = $query->paginate($limit);
