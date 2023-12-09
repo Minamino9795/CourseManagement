@@ -88,6 +88,7 @@ class CategoryController extends Controller
     {
         
             $categories = Category::findOrFail($id);
+            $this->authorize('update',  $categories);
             $params = [
                 'categories' => $categories
             ];
@@ -100,7 +101,6 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, string $id)
     {
-        $this->authorize('update', Category::class);
         $categories = Category::find($id);
 
         $categories->name = $request->name;
@@ -121,8 +121,8 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         try {
-            $this->authorize('delete', Category::class);
             $item = Category::findOrFail($id);
+            $this->authorize('delete', $item);
             $item->delete();
             return redirect()->route('categories.index')->with('success', __('sys.destroy_item_success'));
         } catch (QueryException $e) {
