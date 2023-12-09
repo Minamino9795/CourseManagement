@@ -1,4 +1,4 @@
-@extends('admin.layouts.master');
+@extends('admin.layouts.master')
 @section('content')
     <div class="page">
         <div class="page-inner">
@@ -20,14 +20,7 @@
                             <i class="fa-solid fa fa-plus"></i>
                             <span class="ml-1">Thêm Mới</span>
                         </a>
-                        <a href="" class="btn btn-primary mr-2">
-                            <i class="fa-solid fa fa-arrow-down"></i>
-                            <span class="ml-1">Import Excel</span>
-                        </a>
-                        <a href="" class="btn btn-primary mr-2">
-                            <i class="fa-solid fa fa-arrow-up"></i>
-                            <span class="ml-1">Export Excel</span>
-                        </a>
+                       
                     </div>
                 </div>
             </header>
@@ -40,7 +33,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <input name="s" class="form-control" type="text"
-                                                placeholder=" tên..." value="">
+                                                placeholder=" tên..." value="{{ request('s') }}">
                                         </div>
                                         <div class="col-lg-2">
                                             <button class="btn btn-secondary" data-toggle="modal"

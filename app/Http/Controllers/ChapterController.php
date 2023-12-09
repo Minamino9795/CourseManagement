@@ -17,11 +17,12 @@ class ChapterController extends Controller
      */
 	public function index(Request $request)
     {
+        $this->authorize('viewAny', Chapter::class);
         $limit = $request->limit ? $request->limit : 2;
         $query = Chapter::select('*');
 	    if (isset($request->s)) {
 			$query->whereHas('course', function ($query) use ($request) {
-				$query->where('name', 'like', "%{$request->s}%");
+				$query->where('name', 'like', "%$request->s%");
 			});
 		}
 	
@@ -45,6 +46,7 @@ class ChapterController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Chapter::class);
 		$courses = Course::all(); 
 		$params = 
 		[
@@ -98,6 +100,7 @@ class ChapterController extends Controller
     {
 		try {
             $item = Chapter::findOrFail($id);
+            $this->authorize('update',  $item);
 			$courses = Course::all();
             $params = [
                 'item' => $item,
@@ -144,6 +147,7 @@ class ChapterController extends Controller
     {
 		try {
             $item = Chapter::findOrFail($id);
+            $this->authorize('delete', $item);
             $item->delete();
             return redirect()->route('chapters.index')->with('success', __('sys.destroy_item_success'));
         } catch (ModelNotFoundException $e) {
