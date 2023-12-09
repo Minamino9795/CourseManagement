@@ -28,8 +28,8 @@
                             <form action="{{ route('lessions.index') }}" method="GET" class="search-form">
                                 <div class="row">
                                     <div class="col">
-                                        <input name="search" class="form-control" type="text" placeholder=" Tên..."
-                                            value="{{ request('search') }}">
+                                        <input name="searchname" class="form-control" type="text" placeholder=" Tên..."
+                                            value="{{ request('searchname') }}">
                                     </div>
                                     <div class="col">
                                         <input name="search" class="form-control" type="text"
