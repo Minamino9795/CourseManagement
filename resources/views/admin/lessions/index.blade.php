@@ -18,14 +18,6 @@
                             <i class="fa-solid fa fa-plus"></i>
                             <span class="ml-1">Thêm Mới</span>
                         </a>
-                        <a href="" class="btn btn-primary mr-2">
-                            <i class="fa-solid fa fa-arrow-down"></i>
-                            <span class="ml-1">Import Excel</span>
-                        </a>
-                        <a href="" class="btn btn-primary mr-2">
-                            <i class="fa-solid fa fa-arrow-up"></i>
-                            <span class="ml-1">Export Excel</span>
-                        </a>
                     </div>
                 </div>
             </header>
@@ -37,11 +29,11 @@
                                 <div class="row">
                                     <div class="col">
                                         <input name="search" class="form-control" type="text" placeholder=" Tên..."
-                                            value="">
+                                            value="{{ request('search') }}">
                                     </div>
                                     <div class="col">
                                         <input name="search" class="form-control" type="text"
-                                            placeholder=" Loại bài học ..." value="">
+                                            placeholder=" Loại bài học ..." value="{{ request('search') }}">
                                     </div>
                                     <div class="col-lg-2">
                                         <button class="btn btn-secondary" data-toggle="modal" data-target="#modalSaveSearch"
