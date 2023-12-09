@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\LessionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,4 +22,4 @@ Route::get('/layouts', function () {
 Route::resource('categories', CategoryController::class);
 Route::resource('chapters', \App\Http\Controllers\ChapterController::class);
 
-Route::resource('lessions', LessionController::class);
+Route::resource('lessions', \App\Http\Controllers\LessionController::class);
