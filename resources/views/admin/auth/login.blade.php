@@ -9,16 +9,7 @@
         </h1>
 
     </header><!-- form -->
-    @if (session('success'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('success') }}
-                </div>
-            @endif
-            @if (session('error'))
-                <div class="alert alert-danger" role="alert">
-                    {{ session('error') }}
-                </div>
-            @endif
+   
     <form class="auth-form" method="post" action="{{ route('postLogin') }}">
         @csrf
         <div class="form-group">
@@ -33,7 +24,17 @@
                 <input type="password" id="inputPassword" name="password" value="{{old('password')}}" class="form-control" placeholder="Password">
                 <label for="inputPassword">Mật Khẩu</label>
             </div>
-        </div><!-- /.form-group -->
+        </div>
+        @if (session('success'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if (session('error'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('error') }}
+                </div>
+            @endif<!-- /.form-group -->
         <!-- .form-group -->
         <div class="form-group">
             <button class="btn btn-lg btn-primary btn-block" type="submit">Đăng Nhập</button>

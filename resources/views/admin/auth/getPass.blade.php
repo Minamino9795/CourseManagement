@@ -30,7 +30,7 @@
             <label class="d-block text-left" for="inputUser">Xác nhận mật khẩu mới</label>
             <input id="password_confirmation" type="password" name="password_confirmation" value="" required="" autofocus="" class="form-control form-control-lg">
         </div>
-        @error('password')
+        @error('password_confirmation')
                 <span>{{ $message }}</span>
             @enderror
         <!-- /.form-group -->

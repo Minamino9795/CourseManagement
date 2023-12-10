@@ -50,7 +50,7 @@ class ForgotPasswordController extends Controller
         }
     }
 
-    public function resetPasswordPost(ResetPasswordRequest $request)
+    public function resetPasswordPost(Request $request)
 {
     $token = $request->token;
     $user = User::where('token', $token)->first();
