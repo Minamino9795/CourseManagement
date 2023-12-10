@@ -71,6 +71,7 @@ class CategoryController extends Controller
     {
         try{
             $items= Category::findOrFail($id);
+            $this->authorize('view', $items);
             $params= [
                 'items'=>$items
             ];
