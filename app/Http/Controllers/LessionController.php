@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
-
 class LessionController extends Controller
 {
 	use UploadFileTrait;
@@ -123,20 +122,24 @@ class LessionController extends Controller
 		}
 	}
 	// xoas
-	public function destroy(string $id)
-	{
-		try {
-			$item = Lession::findOrFail($id);
-			$item->delete();
-			return redirect()->route('lessions.index')->with('success', __('sys.destroy_item_success'));
-		} catch (ModelNotFoundException $e) {
-			Log::error($e->getMessage());
-			return redirect()->route('lessions.index')->with('error', __('sys.item_not_found'));
-		} catch (QueryException  $e) {
-			Log::error($e->getMessage());
-			return redirect()->route('lessions.index')->with('error', __('sys.destroy_item_error'));
-		}
-	}
+
+public function destroy(string $id)
+{
+	$item = Lession::findOrFail($id);
+	$this->authorize('delete', $item);
+    try {
+     
+        $item->delete();
+        return redirect()->route('lessions.index')->with('success', __('sys.destroy_item_success'));
+    } catch (ModelNotFoundException $e) {
+        Log::error($e->getMessage());
+        return redirect()->route('lessions.index')->with('error', __('sys.item_not_found'));
+    } catch (QueryException  $e) {
+        Log::error($e->getMessage());
+        return redirect()->route('lessions.index')->with('error', __('sys.destroy_item_error'));
+  
+}
+}
 	public function show($id)
 	{
 		try {
