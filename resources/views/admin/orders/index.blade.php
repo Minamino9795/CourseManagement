@@ -17,7 +17,7 @@
 
                     <a href="{{ route('orders.export') }}" class="btn btn-primary mr-2">
                         <i class="fa-solid fa fa-arrow-up"></i>
-                        <span class="ml-1">Export Excel</span>
+                        <span class="ml-1">Xuất File Excel</span>
                     </a>
                 </div>
             </div>
@@ -130,19 +130,23 @@
                                                 </span></td>
                                         @endif
                                         <td>
+                                            @if (Auth::user()->hasPermission('orders_update'))
                                             <span class="sr-only">Edit</span> <a
-                                            href="{{ route('orders.edit', $item->id) }}"
-                                            class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i>
-                                            <span class="sr-only">Remove</span></a>
-                                        <form method="POST" action="{{ route('orders.destroy', $item->id) }}"
-                                            class="d-inline">
-                                            @csrf
-                                            @method('DELETE') <button type="submit"
-                                                onclick="return confirm('Bạn có chắc chắn muốn xóa không ?')"
-                                                class="btn btn-sm btn-icon btn-secondary"><i
-                                                    class="far fa-trash-alt"></i>
-                                            </button>
-                                        </form>
+                                                href="{{ route('orders.edit', $item->id) }}"
+                                                class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i>
+                                                <span class="sr-only">Remove</span></a>
+                                                @endif
+                                            @if (Auth::user()->hasPermission('orders_delete'))                                               
+                                            <form method="POST" action="{{ route('orders.destroy', $item->id) }}"
+                                                class="d-inline">
+                                                @csrf
+                                                @method('DELETE') <button type="submit"
+                                                    onclick="return confirm('Bạn có chắc chắn muốn xóa không ?')"
+                                                    class="btn btn-sm btn-icon btn-secondary"><i
+                                                        class="far fa-trash-alt"></i>
+                                                </button>
+                                            </form>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

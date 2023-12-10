@@ -20,6 +20,7 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Order::class);
         $paginate = 4;
         $query = Order::select('*');
         $course = Course::get();
@@ -56,9 +57,10 @@ class OrderController extends Controller
     public function edit(string $id)
     {
         try {
+            $item = Order::findOrFail($id);
+            $this->authorize('update',  $item);
             $courses = Course::get();
             $user = User::get();
-            $item = Order::findOrFail($id);
             // dd($item);
             $params = [
                 'item' => $item,
@@ -99,6 +101,7 @@ class OrderController extends Controller
     {
         try {
             $item = Order::findOrFail($id);
+            $this->authorize('delete', $item);
             $item->delete();
             return redirect()->route('orders.index')->with('success', __('sys.destroy_item_success'));
         } catch (ModelNotFoundException $e) {
