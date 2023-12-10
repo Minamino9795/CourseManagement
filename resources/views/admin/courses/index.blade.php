@@ -14,10 +14,12 @@
             <div class="d-md-flex align-items-md-start">
                 <h1 class="page-title mr-sm-auto">Quản Lý Khóa Học</h1>
                 <div class="btn-toolbar">
-                    <a href="{{ route('courses.create') }}" class="btn btn-primary mr-2">
-                        <i class="fa-solid fa fa-plus"></i>
-                        <span class="ml-1">Thêm Mới</span>
-                    </a>
+                    @if (Auth::user()->hasPermission('courses_create'))
+                        <a href="{{ route('courses.create') }}" class="btn btn-primary mr-2">
+                            <i class="fa-solid fa fa-plus"></i>
+                            <span class="ml-1">Thêm Mới</span>
+                        </a>
+                    @endif
                 </div>
             </div>
         </header>
@@ -135,28 +137,32 @@
                                             <p>{{ $item->level->name }}</p>
                                         </td>
                                         <td>
-
-                                            <span class="sr-only">Show</span>
-                                            <a href="{{ route('courses.show', $item->id) }}"
-                                                class="btn btn-sm btn-icon btn-secondary">
-                                                <i class="fa fa-eye"></i>
+                                            @if (Auth::user()->hasPermission('courses_view'))
                                                 <span class="sr-only">Show</span>
-                                            </a>
-
-
-                                            <span class="sr-only">Edit</span> <a
-                                                href="{{ route('courses.edit', $item->id) }}"
-                                                class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i>
-                                                <span class="sr-only">Remove</span></a>
-                                            <form method="POST" action="{{ route('courses.destroy', $item->id) }}"
-                                                class="d-inline">
-                                                @csrf
-                                                @method('DELETE') <button type="submit"
-                                                    onclick="return confirm('Bạn có chắc chắn muốn xóa không ?')"
+                                                <a href="{{ route('courses.show', $item->id) }}"
+                                                    class="btn btn-sm btn-icon btn-secondary">
+                                                    <i class="fa fa-eye"></i>
+                                                    <span class="sr-only">Show</span>
+                                                </a>
+                                            @endif
+                                            @if (Auth::user()->hasPermission('courses_update'))
+                                                <span class="sr-only">Edit</span> <a
+                                                    href="{{ route('courses.edit', $item->id) }}"
                                                     class="btn btn-sm btn-icon btn-secondary"><i
-                                                        class="far fa-trash-alt"></i>
-                                                </button>
-                                            </form>
+                                                        class="fa fa-pencil-alt"></i>
+                                                    <span class="sr-only">Remove</span></a>
+                                            @endif
+                                            @if (Auth::user()->hasPermission('courses_delete'))
+                                                <form method="POST" action="{{ route('courses.destroy', $item->id) }}"
+                                                    class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE') <button type="submit"
+                                                        onclick="return confirm('Bạn có chắc chắn muốn xóa không ?')"
+                                                        class="btn btn-sm btn-icon btn-secondary"><i
+                                                            class="far fa-trash-alt"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
