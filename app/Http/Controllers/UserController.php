@@ -22,7 +22,7 @@ class UserController extends Controller
     use UploadFileTrait;
     public function index(Request $request)
     {
-        // $this->authorize('viewAny', User::class);
+        $this->authorize('viewAny', User::class);
         $query = User::select('*');
         if (isset($request->filter['name']) && $request->filter['name']) {
             $name = $request->filter['name'];
