@@ -14,7 +14,7 @@ class OrderSeeder extends Seeder
     public function run(): void
     {
         $order = new Order();
-        $order->course_id = 14;
+        $order->course_id = 1;
         $order->user_id = 1;
         $order->status = 1;    
         $order->save();

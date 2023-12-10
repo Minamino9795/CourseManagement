@@ -26,10 +26,9 @@ class ChapterController extends Controller
         });
     }
 
-    if ($request->name) {
-        $query->where('name', $request->name);
+    if (isset($request->name)) {
+        $query->where('name', 'LIKE', "%$request->name%");
     }
-
     if ($request->course_id) {
         $query->where('course_id', $request->course_id);
     }

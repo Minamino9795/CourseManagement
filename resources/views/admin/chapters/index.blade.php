@@ -35,7 +35,11 @@
                                     <div class="row">
                                         <div class="col">
                                             <input name="s" class="form-control" type="text"
-                                                placeholder="Nhập tên khoá học..." value="">
+                                                placeholder="Nhập tên khoá học..." value="{{ request('s') }}">
+                                        </div>
+                                        <div class="col">
+                                            <input name="name" class="form-control" type="text"
+                                                placeholder="Nhập tên chương học..." value="{{ request('name') }}">
                                         </div>
                                         <div class="col-lg-2">
                                             <button class="btn btn-secondary" data-toggle="modal"
