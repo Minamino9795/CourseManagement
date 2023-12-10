@@ -10,4 +10,8 @@ return [
     'add_new' => 'Thêm mới',
     'login_item_success' => 'Đăng nhập thành công',
     'login_item_error' => 'Đăng nhập thành công',
+    'group_item_success' => 'Cấp quyền thành công',
+    'group_item_error' => 'Cấp quyền thất bại',
+    'resetPassword_success' => 'Cập nhật mật khẩu thành công',
+    'resetPassword_error' => 'Cập nhật mật khẩu thất bại',
 ];
