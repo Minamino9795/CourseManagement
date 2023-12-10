@@ -1,5 +1,4 @@
 <header class="app-header app-header-dark">
-
     <div class="top-bar">
         <div class="top-bar-brand">
             <button class="hamburger hamburger-squeeze mr-2" type="button" data-toggle="aside-menu" aria-label="toggle aside menu">
@@ -7,7 +6,8 @@
                     <span class="hamburger-inner"></span>
                 </span>
             </button>
-        </div>
+            <a href="/">KHÓA HỌC ONLINE</a>
+        </div>      
         <div class="top-bar-list">
             <div class="top-bar-item px-2 d-md-none d-lg-none d-xl-none">
                 <button class="hamburger hamburger-squeeze" type="button" data-toggle="aside" aria-label="toggle menu">

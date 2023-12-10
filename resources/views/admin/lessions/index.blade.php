@@ -66,27 +66,32 @@
                                     @foreach ($items as $key => $item)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>
-                                                <p class="text-xs font-weight-bold mb-0">{{ $item->name }}</p>
-
+                                            <td class="name">
+                                                <p>{{ $item->name }}</p>
                                             </td>
-                                            <td>{{ $item->type }}</td>
-                                            <td>{{ $item->content }}</td>
-                                            <td> <img width="90px" height="90px" src="{{ asset($item->image_url) }}"
-                                                    alt="">
-                                            </td>
-                                            <td>{{ $item->video_url }}</td>
-                                            <td>{{ $item->duration }}</td>
                                             <td>
-                                                {{-- <span class="sr-only">Show</span>
-                                            <a href="{{ route('lessions.show', $item->id) }}"
-                                                class="btn btn-sm btn-icon btn-secondary">
-                                                <i class="fa fa-eye"></i>
-                                                <span class="sr-only">Show</span>
-                                            </a> --}}
+                                                <p>{{ $item->type }}</p>
+                                            </td>
+                                            <td class="content">
+                                                <p>{{ $item->content }}</p>
+                                            </td>
+                                            <td>
+                                                @if ($item->image_url)
+                                                    <img width="100" height="90" src="{{ asset($item->image_url) }}"
+                                                        alt="Image">
+                                                @endif
+                                            </td>
+                                            <td class="video_url-cell">
+                                                <a href="{{ asset($item->video_url) }}"
+                                                    target="_blank">{{ asset($item->video_url) }}</a>
+                                            </td>
+                                            <td>
+                                                <p>{{ $item->duration }} phút</p>
+                                            </td>
+                                            <td>                                        
                                                 @if (Auth::user()->hasPermission('lessions_update'))
-                                                    <span class="sr-only">Edit</span> <a
-                                                        href="{{ route('lessions.edit', $item->id) }}"
+                                                    <span class="sr-only">Edit</span>
+                                                    <a href="{{ route('lessions.edit', $item->id) }}"
                                                         class="btn btn-sm btn-icon btn-secondary"><i
                                                             class="fa fa-pencil-alt"></i> <span
                                                             class="sr-only">Remove</span></a>
@@ -117,4 +122,27 @@
                         </div>
                     </div>
                 </div>
+                <style>
+                    .video_url-cell {
+                        max-width: 150px;
+                        text-overflow: ellipsis;
+                    }
+    
+                    .video_url-cell p {
+                        margin: 0;
+                    }
+    
+                    .content {
+                        max-width: 100px;
+                        text-overflow: ellipsis;
+                        margin: 0;
+                    }
+    
+                    .name {
+                        max-width: 100px;
+                        text-overflow: ellipsis;
+                        margin: 0;
+                    }
+                </style>
             @endsection
+          

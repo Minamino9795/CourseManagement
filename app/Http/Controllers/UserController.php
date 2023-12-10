@@ -22,55 +22,25 @@ class UserController extends Controller
     {
         $this->authorize('viewAny', User::class);
         $query = User::select('*');
-        if (isset($request->filter['name']) && $request->filter['name']) {
-            $name = $request->filter['name'];
-            $query->where('name', 'LIKE', '%' . $name . '%');
+        if (isset($request->name)) {
+            $query->where('name', 'LIKE', "%$request->name%");
         }
-        if (isset($request->filter['email']) && $request->filter['email']) {
-            $email = $request->filter['email'];
-            $query->where('email', 'LIKE', '%' . $email . '%');
-        }
-        if (isset($request->filter['image']) && $request->filter['image']) {
-            $image = $request->filter['image'];
-            $query->where('image', $image);
-        }
-        if (isset($request->filter['phone']) && $request->filter['phone']) {
-            $phone = $request->filter['phone'];
-            $query->where('phone', $phone);
-        }
-        if (isset($request->filter['address']) && $request->filter['address']) {
-            $address = $request->filter['address'];
-            $query->where('address', $address);
-        }
-        if (isset($request->filter['gender']) && $request->filter['gender']) {
-            $gender = $request->filter['gender'];
-            $query->where('gender', 'LIKE', '%' . $gender . '%');
-        }
-        if (isset($request->filter['birthday']) && $request->filter['birthday']) {
-            $birthday = $request->filter['birthday'];
-            $query->where('birthday', 'LIKE', '%' . $birthday . '%');
-        }
-        if (isset($request->filter['group_id']) && $request->filter['group_id']) {
-            $group_id = $request->filter['group_id'];
-            $query->where('group_id', 'LIKE', '%' . $group_id . '%');
-        }
-        if (isset($request->filter['status']) && $request->filter['status']) {
-            $status = $request->filter['status'];
-            $query->where('status', 'LIKE', '%' . $status . '%');
-        }
-        if ($request->s) {
-            $query->where('name', 'LIKE', '%' . $request->s . '%');
-            $query->orwhere('id', $request->s);
-        }
-
-
+        if (isset($request->email)) {
+            $query->where('email', 'LIKE', "%$request->email%");
+        }      
+        if (isset($request->phone)) {
+            $query->where('phone', 'LIKE', "%$request->phone%");
+        }   
+        if (isset($request->group_id)) {
+            $query->where('group_id', $request->group_id);
+        }   
         $query->orderBy('id', 'desc');
         $users = $query->paginate(20);
         $groups = Group::all();
         $params = [
             'users' => $users,
             'groups' =>  $groups,
-            'filter' => $request->filter,
+            'request' => $request,
             'user_role' => 'all'
         ];
         return view('admin.users.index', $params);

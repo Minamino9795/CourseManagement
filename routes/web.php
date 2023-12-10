@@ -23,10 +23,10 @@ use Illuminate\Support\Facades\Route;
 
     return view('welcome');
     });
-    Route::resource('courses', \App\Http\Controllers\CourseController::class);
     Route::get('/layouts', function () {
-    return view('admin.layouts.master');
-    });
+        return view('admin.layouts.master');
+    })->name('layouts');
+    
     Route::prefix('users')->group(function () {
     Route::get('/trash', [UserController::class, 'trashedItems'])->name('users.trash');
     Route::delete('/force_destroy/{id}', [UserController::class, 'force_destroy'])->name('users.force_destroy');
