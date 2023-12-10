@@ -5,7 +5,6 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,9 +57,9 @@ Route::post('/resetPasswordPost', [\App\Http\Controllers\ForgotPasswordControlle
 Route::get('/show/{id}', [GroupController::class, 'show'])->name('groups.show');
 Route::put('/group_role/{id}', [GroupController::class, 'group_role'])->name('groups.group_role');
 
-Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
-Route::get('orders/edit/{id}', [OrderController::class, 'edit'])->name('orders.edit');
-Route::put('orders/update/{id}', [OrderController::class, 'update'])->name('orders.update');
-Route::delete('orders/destroy/{id}', [OrderController::class, 'destroy'])->name('orders.destroy');
+Route::get('/orders', [App\Http\Controllers\OrderController::class, 'index'])->name('orders.index');
+Route::get('orders/edit/{id}', [App\Http\Controllers\OrderController::class, 'edit'])->name('orders.edit');
+Route::put('orders/update/{id}', [App\Http\Controllers\OrderController::class, 'update'])->name('orders.update');
+Route::delete('orders/destroy/{id}', [App\Http\Controllers\OrderController::class, 'destroy'])->name('orders.destroy');
 
-Route::get('/exportOrder', [OrderController::class, 'exportOrder'])->name('orders.export');
+Route::get('/exportOrder', [App\Http\Controllers\OrderController::class, 'exportOrder'])->name('orders.export');
