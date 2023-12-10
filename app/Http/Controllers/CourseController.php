@@ -102,9 +102,10 @@ class CourseController extends Controller
     public function show(string $id)
     {
         try {
+            $item = Course::findOrFail($id);
+            $this->authorize('view', $item);
             $categories = Category::get();
             $levels = Level::get();
-            $item = Course::findOrFail($id);
             $params = [
                 'item' => $item,
                 'categories' => $categories,
