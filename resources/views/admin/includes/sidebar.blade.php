@@ -8,6 +8,7 @@
                 </a>
             </li>
             <li class="menu-header">Danh Mục </li>
+            @if (Auth::user()->hasPermission('categories_viewAny'))
             <li class="menu-item has-child">
                 <a href="" class="menu-link"><span class="menu-icon"><i class="fas fa-users"></i></span>
                     <span class="menu-text">Danh mục</span></a>
@@ -17,8 +18,9 @@
                         <a href="{{ route('categories.index') }}" class="menu-link" tabindex="-1">Danh Sách</a>
                     </li>
                 </ul>
+                @endif
             </li>
-
+            @if (Auth::user()->hasPermission('courses_viewAny'))
             <li class="menu-item has-child">
                 <a href="" class="menu-link">
                     <span class="menu-icon">
@@ -34,7 +36,8 @@
                     </li>
                 </ul>
             </li>
-
+            @endif
+            @if (Auth::user()->hasPermission('courses_viewAny'))
             <li class="menu-item has-child">
                 <a href="" class="menu-link">
                     <span class="menu-icon">
@@ -49,8 +52,9 @@
                         </a>
                     </li>
                 </ul>
+                @endif
             </li>
-
+            @if (Auth::user()->hasPermission('lessions_viewAny'))
             <li class="menu-item has-child">
                 <a href="" class="menu-link">
                     <span class="menu-icon">
@@ -66,7 +70,25 @@
                     </li>
                 </ul>
             </li>
-
+            @endif
+            @if (Auth::user()->hasPermission('levels_viewAny'))
+            <li class="menu-item has-child">
+                <a href="" class="menu-link">
+                    <span class="menu-icon">
+                        <i class="fas fa-level-up-alt"></i>
+                    </span>
+                    <span class="menu-text">Cấp độ</span>
+                </a>
+                <ul class="menu">
+                    <li class="menu-item">
+                        <a href="{{ route('levels.index') }}" class="menu-link" tabindex="-1">
+                            Danh Sách Các Cấp Độ
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            @endif
+            @if (Auth::user()->hasPermission('groups_viewAny'))
             <li class="menu-item has-child">
                 <a href="" class="menu-link">
                     <span class="menu-icon">
@@ -82,7 +104,25 @@
                     </li>
                 </ul>
             </li>
-
+            @endif
+            @if (Auth::user()->hasPermission('users_viewAny'))
+            <li class="menu-item has-child">
+                <a href="" class="menu-link">
+                    <span class="menu-icon">
+                        <i class="fas fa-user"></i>
+                    </span>
+                    <span class="menu-text">Thành viên</span>
+                </a>
+                <ul class="menu">
+                    <li class="menu-item">
+                        <a href="{{ route('users.index') }}" class="menu-link" tabindex="-1">
+                            Danh Sách
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            @endif
+            @if (Auth::user()->hasPermission('orders_viewAny'))
             <li class="menu-item has-child">
                 <a href="" class="menu-link">
                     <span class="menu-icon">
@@ -98,6 +138,7 @@
                     </li>
                 </ul>
             </li>
+            @endif
         </ul>
     </nav>
 </div>
