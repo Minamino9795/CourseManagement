@@ -6,7 +6,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item active">
-                            <a href="#"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang Chủ</a>
+                            <a href="{{ route('groups.index') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang Chủ</a>
                         </li>
                     </ol>
                 </nav>
@@ -27,11 +27,11 @@
                     <div class="card-body">
                         <div class="row mb-2">
                             <div class="col">
-                                <form action="https://thptatuc-backend.quanlythietbitruonghoc.com/groups" method="GET"
+                                <form action="{{ route('groups.index') }}" method="GET"
                                     id="form-search">
                                     <div class="row">
                                         <div class="col">
-                                            <input name="search" value="" class="form-control" type="text"
+                                            <input name="search" value="{{ request('search') }}" class="form-control" type="text"
                                                 placeholder=" tên...">
                                         </div>
                                         <div class="col-lg-2">
