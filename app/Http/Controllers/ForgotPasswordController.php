@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ForgotPasswordRequest;
+use App\Http\Requests\ResetPasswordRequest;
 use Illuminate\Support\Facades\Mail;
 
 class ForgotPasswordController extends Controller
@@ -20,21 +22,13 @@ class ForgotPasswordController extends Controller
         return view('admin.auth.forgot_password');
     }
 
-    public function forgetPasswordPost(Request $request)
+    public function forgetPasswordPost(ForgotPasswordRequest $request)
     {
-        $request->validate([
-            'email' => 'required|email|exists:users',
-        ], [
-            'email.required' => 'Vui lòng nhập địa chỉ email hợp lệ',
-            'email.exists' => 'Email này không tồn tại trong hệ thống',
-        ]);
         $newToken = strtoupper(Str::random(10));
         $user = User::where('email', $request->email)->first();
-
-        DB::table('password_reset_tokens')->updateOrInsert(
-            ['email' => $user->email],
-            ['token' => $newToken]
-        );
+        // Create or Update token
+        $user->token = $newToken;
+        $user->save();
 
         Mail::send('admin.auth.send_email', compact('user'), function ($email) use ($user) {
             $email->subject('Lấy lại mật khẩu');
@@ -47,46 +41,28 @@ class ForgotPasswordController extends Controller
     function resetPassword(Request $request)
     {   
         $token = $request->token;
-        $user = DB::table('password_reset_tokens')
-                    ->where('token', $token)
-                    ->first();
-
+        $user = User::where('token',$token)->first();
         if ($user) {
-            return view('getPass', compact('user'));
+            return view('admin.auth.getPass', compact('user'));
         } else {
             // Xử lý khi không tìm thấy người dùng hoặc token không khớp
             return redirect()->back()->with('error', 'Token không hợp lệ');
         }
     }
 
-    function resetPasswordPost(Request $request)
-    {
-        $request->validate([
-            "password" => "required|string|min:6|confirmed",
-            "password_confirmation" => "required"
-        ]);
+    public function resetPasswordPost(Request $request)
+{
+    $token = $request->token;
+    $user = User::where('token', $token)->first();
 
-        $token = $request->token;
-        $user = DB::table('password_reset_tokens')
-                    ->where('token', $token)
-                    ->first();
+    if ($user) {
+        $user->password = Hash::make($request->password);
+        $user->save();
+        
 
-        if ($user) {
-            $updatePassword = User::where("email", $user->email)
-                ->update(["password" => Hash::make($request->password)]);
-
-            if ($updatePassword) {
-               
-                DB::table('password_reset_tokens')->where('token', $token)->delete();
-
-                return redirect()->back()->with('success', 'Mật khẩu đã được cập nhật thành công');
-            } else {
-             
-                return redirect()->back()->with('error', 'Không thể cập nhật mật khẩu');
-            }
-        } else {
-          
-            return redirect()->back()->with('error', 'Token không hợp lệ');
-        }
+        return view('admin.auth.login')->with('success', 'Mật khẩu đã được cập nhật thành công');
+    } else {
+        return redirect()->back()->with('error', 'Token không hợp lệ');
     }
+}
 }

@@ -60,5 +60,6 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Group::class, 'group_id', 'id');
     }
-
+    const ACTIVE = 1;
+    const INACTIVE = 0;
 }
