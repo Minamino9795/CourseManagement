@@ -26,20 +26,14 @@ class LevelController extends Controller
         $this->authorize('viewAny', Level::class);
         $query = Level::select('*');
         $limit = $request->limit ? $request->limit : 5;
-
-        if (isset($request->s)) {
-            $query->where('name', 'like', "%$request->name%")
-                ->orWhere('level', 'like', "%$request->level%")
-                ->orWhere('status', 'like', "%$request->status%");
+        if (isset($request->name)) {
+            $query->where('name', 'LIKE', "%$request->name%");
         }
-        if ($request->name) {
-            $query->where('name', $request->name);
+        if (isset($request->level)) {
+            $query->where('level', 'LIKE', "%$request->level%");
         }
-        if ($request->level) {
-            $query->where('level', $request->level);
-        }
-        if ($request->status) {
-            $query->where('status', $request->status);
+        if (isset($request->searchstatus)) {
+            $query->where('status', $request->searchstatus);
         }
 
         $query->orderBy('id', 'DESC');
