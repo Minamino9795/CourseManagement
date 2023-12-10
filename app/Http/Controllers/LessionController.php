@@ -2,45 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Traits\UploadFileTrait;
-
 use App\Http\Requests\LessionRequest;
 use App\Models\Lession;
-use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+
 class LessionController extends Controller
 {
-	use UploadFileTrait;
-
+	// hien thi all
 	public function index(Request $request)
 	{
-		$limit = $request->limit ? $request->limit : 5;
+		$this->authorize('viewAny', Lession::class);
+
+		$limit = $request->limit ? $request->limit : 2;
 		$query = Lession::select('*');
-		
-		if (isset($request->name)) {
-			$query->where('name', 'like', "%$request->name%");
 
+		if (isset($request->searchname)) {
+			$query->where('name', 'LIKE', "%$request->searchname%");
 		}
-		if (isset($request->type)) {
-			$query->where('type', 'like', "%$request->type%");
-		}
-
-		if ($request->content) {
-			$query->where('content', $request->content);
-		}
-
-		if ($request->image_url) {
-			$query->where('image_url', $request->image_url);
-		}
-
-		if ($request->video_url) {
-			$query->where('video_url', $request->video_url);
-		}
-
-		if ($request->duration) {
-			$query->where('duration', $request->duration);
+		if (isset($request->search)) {
+			$query->where('type', 'LIKE', "%$request->search%");
 		}
 		$query->orderBy('id', 'DESC');
 		$items = $query->paginate($limit);
@@ -55,24 +38,31 @@ class LessionController extends Controller
 	// Thêm
 	public function create()
 	{
+		$this->authorize('create', Lession::class);
 		return view('admin.lessions.create');
 	}
 	public function store(LessionRequest $request)
 	{
 		try {
 
-			$item = new Lession();
-			$item->name = $request->name;
-			$item->type = $request->type;
-			$item->content = $request->content;
-			$item->video_url = $request->video_url;
-			$item->duration = $request->duration;
-
-			if ($request->hasFile('image_url')) {
-				$item->image_url = $this->uploadFile($request->file('image_url'), 'uploads');
+			$lessions = new Lession();
+			$lessions->name = $request->name;
+			$lessions->type = $request->type;
+			$lessions->content = $request->content;
+			$lessions->video_url = $request->video_url;
+			$lessions->duration = $request->duration;
+			// xử lý ảnh
+			$fieldName = 'image_url';
+			if ($request->hasFile($fieldName)) {
+				$fullFileNameOrigin = $request->file($fieldName)->getClientOriginalName();
+				$fileNameOrigin = pathinfo($fullFileNameOrigin, PATHINFO_FILENAME);
+				$extension = $request->file($fieldName)->getClientOriginalExtension();
+				$fileName = $fileNameOrigin . '-' . rand() . '_' . time() . '.' . $extension;
+				$path = 'storage/' . $request->file($fieldName)->storeAs('public/images', $fileName);
+				$path = str_replace('public/', '', $path);
+				$lessions->image_url = $path;
 			}
-
-			$item->save();
+			$lessions->save();
 			return redirect()->route('lessions.index')->with('success', __('sys.store_item_success'));
 		} catch (QueryException $e) {
 			Log::error($e->getMessage());
@@ -86,6 +76,8 @@ class LessionController extends Controller
 	{
 		try {
 			$item = Lession::findOrfail($id);
+			$this->authorize('update',  $item);
+
 			$params =
 				[
 					'item' => $item,
@@ -93,64 +85,54 @@ class LessionController extends Controller
 			return view('admin.lessions.edit', $params);
 		} catch (ModelNotFoundException $e) {
 			Log::error($e->getMessage());
-			// dd($e->getMessage());
 			return redirect()->route('lessions.index')->with('error', __('sys.item_not_found'));
 		}
 	}
-	public function update(LessionRequest $request, $id)
+	public function update(LessionRequest $request, string $id)
 	{
 		try {
-			$item = Lession::findOrfail($id);
-			$item->name = $request->name;
-			$item->type = $request->type;
-			$item->content = $request->content;
-			$item->video_url = $request->video_url;
-			$item->duration = $request->duration;
-
-			if ($request->hasFile('image_url')) {
-				$item->image_url = $this->uploadFile($request->file('image_url'), 'uploads');
+			$items = Lession::findOrfail($id);
+			$items->name = $request->name;
+			$items->type = $request->type;
+			$items->content = $request->content;
+			$items->video_url = $request->video_url;
+			$items->duration = $request->duration;
+			// xử lý ảnh
+			$fieldName = 'image_url';
+			if ($request->hasFile($fieldName)) {
+				$fullFileNameOrigin = $request->file($fieldName)->getClientOriginalName();
+				$fileNameOrigin = pathinfo($fullFileNameOrigin, PATHINFO_FILENAME);
+				$extension = $request->file($fieldName)->getClientOriginalExtension();
+				$fileName = $fileNameOrigin . '-' . rand() . '_' . time() . '.' . $extension;
+				$path = 'storage/' . $request->file($fieldName)->storeAs('public/images', $fileName);
+				$path = str_replace('public/', '', $path);
+				$items->image_url = $path;
 			}
-
-			$item->save();
+			$items->save();
 			return redirect()->route('lessions.index')->with('success', __('sys.update_item_success'));
 		} catch (ModelNotFoundException $e) {
 			Log::error($e->getMessage());
-			return redirect()->route('lessions.index')->with('error', __('sys.item_not_found'));
+			return redirect()->route('chapters.index')->with('error', __('sys.item_not_found'));
 		} catch (QueryException $e) {
 			Log::error($e->getMessage());
-			return redirect()->route('lessions.index')->with('error', __('sys.update_item_error'));
+			dd($e->getMessage());
+			return redirect()->route('chapters.index')->with('error', __('sys.update_item_error'));
 		}
 	}
 	// xoas
-
-public function destroy(string $id)
-{
-	$item = Lession::findOrFail($id);
-	$this->authorize('delete', $item);
-    try {
-     
-        $item->delete();
-        return redirect()->route('lessions.index')->with('success', __('sys.destroy_item_success'));
-    } catch (ModelNotFoundException $e) {
-        Log::error($e->getMessage());
-        return redirect()->route('lessions.index')->with('error', __('sys.item_not_found'));
-    } catch (QueryException  $e) {
-        Log::error($e->getMessage());
-        return redirect()->route('lessions.index')->with('error', __('sys.destroy_item_error'));
-  
-}
-}
-	public function show($id)
+	public function destroy(string $id)
 	{
 		try {
 			$item = Lession::findOrFail($id);
-			$params = [
-				'item' => $item
-			];
-			return view("admin.lessions.show", $params);
+			$this->authorize('delete', $item);
+			$item->delete();
+			return redirect()->route('lessions.index')->with('success', __('sys.destroy_item_success'));
 		} catch (ModelNotFoundException $e) {
 			Log::error($e->getMessage());
 			return redirect()->route('lessions.index')->with('error', __('sys.item_not_found'));
+		} catch (QueryException  $e) {
+			Log::error($e->getMessage());
+			return redirect()->route('lessions.index')->with('error', __('sys.destroy_item_error'));
 		}
 	}
 }
