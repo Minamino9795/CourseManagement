@@ -1,5 +1,6 @@
 @extends('admin.layouts.login')
 @section('content')
+
 <main class="auth">
     <header id="auth-header" class="auth-header" style="background-image: url(assets/images/illustration/img-1.png);">
         <h1>
@@ -8,19 +9,13 @@
         </h1>
 
     </header><!-- form -->
-
+   
     <form class="auth-form" method="post" action="{{ route('postLogin') }}">
         @csrf
-        @if (Session::has('success'))
-        <div class="alert alert-danger">{{session::get('success')}}</div>
-        @endif
         <div class="form-group">
             <div class="form-label-group">
                 <input type="text" id="inputUser" name="email" class="form-control" value="{{old('email')}}" placeholder="Username" autofocus="">
                 <label for="inputUser">Email</label>
-                @if ($errors->any())
-                    <p style="color:red">{{ $errors->first('email') }}</p>
-                @endif
             </div>
         </div><!-- /.form-group -->
         <!-- .form-group -->
@@ -28,22 +23,19 @@
             <div class="form-label-group">
                 <input type="password" id="inputPassword" name="password" value="{{old('password')}}" class="form-control" placeholder="Password">
                 <label for="inputPassword">Mật Khẩu</label>
-                @if ($errors->any())
-                    <p style="color:red">{{ $errors->first('password') }}</p>
-                @endif
             </div>
-        </div><!-- /.form-group -->
-        <!-- .form-group -->
+        </div>
         @if (session('success'))
-            <div class="alert alert-success" role="alert">
-                {{ session('success') }}
-            </div>
-        @endif
-        @if (session('error'))
-            <div class="alert alert-danger" role="alert">
-                {{ session('error') }}
-            </div>
-        @endif
+                <div class="alert alert-success" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if (session('error'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('error') }}
+                </div>
+            @endif<!-- /.form-group -->
+        <!-- .form-group -->
         <div class="form-group">
             <button class="btn btn-lg btn-primary btn-block" type="submit">Đăng Nhập</button>
         </div><!-- /.form-group -->

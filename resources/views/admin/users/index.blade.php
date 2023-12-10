@@ -14,15 +14,24 @@
                 <div class="d-md-flex align-items-md-start">
                     <h1 class="page-title mr-sm-auto">Quản Lý Người Dùng</h1>
                     <div class="btn-toolbar">
-                        <a href="{{ route('users.create') }}" class="btn btn-primary mr-2">
-                            <i class="fa-solid fa fa-plus"></i>
-                            <span class="ml-1">Thêm Mới</span>
-                        </a>
+                        @if (Auth::user()->hasPermission('users_create'))
+                            <a href="{{ route('users.create') }}" class="btn btn-primary mr-2">
+                                <i class="fa-solid fa fa-plus"></i>
+                                <span class="ml-1">Thêm Mới</span>
+                            </a>
+                        @endif
                     </div>
                 </div>
             </header>
             <div class="page-section">
                 <div class="card card-fluid">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active " href="{{ route('users.index') }}">Tất Cả</a>
+                            </li>
+                        </ul>
+                    </div>
                     <div class="card-body">
                         <div class="row mb-2">
                             <div class="col">
@@ -57,10 +66,9 @@
                                         </div>
                                     </div>
                                 </form>
-
+                                @include('admin.includes.global.alert')
                             </div>
                         </div>
-                        @include('admin.includes.global.alert')
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -91,27 +99,39 @@
                                             <td>{{ $user->phone }}</td>
                                             <td>{{ $user->groups->name }}</td>
                                             <td>{{ $user->gender }}</td>
-                                            <td>{{ $user->status }}</td>
+                                            @if ($user->status == \App\Models\User::ACTIVE)
+                                                <td><span>
+                                                        <i class="fas fa-check-circle"></i> Tồn tại
+                                                    </span></td>
+                                            @else
+                                                <td> <span>
+                                                        <i class="fas fa-times-circle"></i> Không tồn tại
+                                                    </span></td>
+                                            @endif
                                             <td>
-                                                <span class="sr-only">Edit</span> <a
-                                                    href="{{ route('users.edit', $user->id) }}"
-                                                    class="btn btn-sm btn-icon btn-secondary"><i
-                                                        class="fa fa-pencil-alt"></i> <span
-                                                        class="sr-only">Remove</span></a>
-                                                @if ($user->id != 1)
-                                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST"
-                                                        class="d-inline">
-                                                        <input type="hidden" name="_token"
-                                                            value="NM6SM622JIITOK1NKyz0F1iHE94JPaBpFlKOs6yV"> <input
-                                                            type="hidden" name="_method" value="DELETE"> <button
-                                                            type="submit"
-                                                            onclick="return confirm('Bạn có muốn xóa không ?')"
-                                                            class="btn btn-sm btn-icon btn-secondary"><i
-                                                                class="far fa-trash-alt"></i>
-                                                        </button>
-                                                        @csrf
-                                                        @method('delete')
-                                                    </form>
+                                                @if (Auth::user()->hasPermission('users_update'))
+                                                    <span class="sr-only">Edit</span> <a
+                                                        href="{{ route('users.edit', $user->id) }}"
+                                                        class="btn btn-sm btn-icon btn-secondary"><i
+                                                            class="fa fa-pencil-alt"></i> <span
+                                                            class="sr-only">Remove</span></a>
+                                                @endif
+                                                @if (Auth::user()->hasPermission('users_delete'))
+                                                    @if ($user->id != 1)
+                                                        <form action="{{ route('users.destroy', $user->id) }}"
+                                                            method="POST" class="d-inline">
+                                                            <input type="hidden" name="_token"
+                                                                value="NM6SM622JIITOK1NKyz0F1iHE94JPaBpFlKOs6yV"> <input
+                                                                type="hidden" name="_method" value="DELETE"> <button
+                                                                type="submit"
+                                                                onclick="return confirm('Bạn có muốn xóa không ?')"
+                                                                class="btn btn-sm btn-icon btn-secondary"><i
+                                                                    class="far fa-trash-alt"></i>
+                                                            </button>
+                                                            @csrf
+                                                            @method('delete')
+                                                        </form>
+                                                    @endif
                                                 @endif
                                             </td>
                                         </tr>

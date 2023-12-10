@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ForgotPasswordRequest;
+use App\Http\Requests\ResetPasswordRequest;
 use Illuminate\Support\Facades\Mail;
 
 class ForgotPasswordController extends Controller
@@ -15,50 +17,55 @@ class ForgotPasswordController extends Controller
     /**
      * Display a listing of the resource.
      */
-   function forgetPassword(){
-    return view('admin.auth.forgot-password');
-   }
+    function forgetPassword()
+    {
+        return view('admin.auth.forgot_password');
+    }
 
-   function forgetPasswordPost(Request $request)
-{
-    $request->validate([
-        'email' => "required|email|exists:users",
-    ]);
-    $token = Str::random(64);
+    public function forgetPasswordPost(ForgotPasswordRequest $request)
+    {
+        $newToken = strtoupper(Str::random(10));
+        $user = User::where('email', $request->email)->first();
+        // Create or Update token
+        $user->token = $newToken;
+        $user->save();
 
-    DB::table('password_reset_tokens')->updateOrInsert(
-        ['email' => $request->email],
-        ['token' => $token, 'created_at' => Carbon::now()]
-    );
+        Mail::send('admin.auth.send_email', compact('user'), function ($email) use ($user) {
+            $email->subject('Lấy lại mật khẩu');
+            $email->to($user->email, $user->name);
+        });
 
-    Mail::send("admin.auth.send-password", ['token' => $token], function ($message) use ($request) {
-        $message->to($request->email);
-        $message->subject("Reset Password");
-    });
+        return redirect()->back()->with('success', 'Vui lòng kiểm tra email để lấy lại mật khẩu');
+    }
 
-    return redirect()->to(route('forgetPassword'))->with("success", "Chúng tôi đã gửi liên kết đặt lại mật khẩu đến email của bạn");
-}
+    function resetPassword(Request $request)
+    {
+        $token = $request->token;
+        $user = User::where('token', $token)->first();
+        if ($user) {
+            return view('admin.auth.getPass', compact('user'));
+        } else {
+            // Xử lý khi không tìm thấy người dùng hoặc token không khớp
+            return redirect()->back()->with('error', 'Token không hợp lệ');
+        }
+    }
 
-   function resetPassword($token){
-    return view('admin.auth.send-password',compact('token'));
-   }
-
-   function resetPasswordPost(Request $request){
-            $request->validate([
-                "email" => "required|email|exists:users",
-                "password" => "required|sting|min:6|confirmed",
-                "password_confirmation" => "required"
-            ]);
-            $updatePassword = DB::table('password_reset_tokens')
-            ->where([
-                "email" => $request->email,
-                "token" => $request->token
-            ])->first();
-            if(!$updatePassword){
-                return redirect()->to(route('resetPassword'))->with('error',"invalid");
+    public function resetPasswordPost(ResetPasswordRequest $request)
+    {
+        $token = $request->token;
+        $user = User::where('token', $token)->first();
+        if ($user) {
+            // Kiểm tra mật khẩu xác nhận
+            if ($request->password !== $request->password_confirmation) {
+                return redirect()->back()->with('error', 'Mật khẩu xác nhận không trùng khớp');
             }
-            User::where("email",$request->email)
-            ->update(["password"=>Hash::make($request->password)]);
 
-   }
+            $user->password = Hash::make($request->password);
+            $user->save();
+
+            return redirect()->route('login')->with('success', 'Mật khẩu đã được cập nhật thành công');
+        } else {
+            return redirect()->back()->with('error', 'Token không hợp lệ');
+        }
+    }
 }

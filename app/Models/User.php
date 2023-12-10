@@ -65,4 +65,6 @@ class User extends Authenticatable
         return $this->hasMany(Order::class, 'user_id', 'id');
     }
 
+    const ACTIVE = 1;
+    const INACTIVE = 0;
 }

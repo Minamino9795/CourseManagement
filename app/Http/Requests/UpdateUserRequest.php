@@ -26,7 +26,6 @@ class UpdateUserRequest extends FormRequest
             'address' => 'required',
             'email' => 'required',
             'phone' => 'required',
-            'password' => 'required',
             'gender' => 'required',
             'birthday' => 'required',
         ];
@@ -36,7 +35,6 @@ class UpdateUserRequest extends FormRequest
         return [
             'name.required' => 'Bạn không được để trống !',
             'email.required' => 'Bạn không được để trống !',
-            'password.required' => 'Bạn không được để trống !',
             'address.required' => 'Bạn không được để trống !',
             'phone.required' => 'Bạn không được để trống !',
             'gender.required' => 'Bạn không được để trống !',
