@@ -36,7 +36,7 @@
                             <div class="col-md-6 mb-4">
                                 <label for="tf1">Mật khẩu<abbr name="Trường bắt buộc"></abbr></label>
 
-                                <input name="password"  type="password" class="form-control" id="" placeholder="Nhập mật khẩu">
+                                <input name="password"  type="password" value="" class="form-control" id="" placeholder="Nhập mật khẩu">
                                 <small id="" class="form-text text-muted"></small>
                             </div>
 
