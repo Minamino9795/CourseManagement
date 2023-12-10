@@ -15,11 +15,12 @@
             <div class="d-md-flex align-items-md-start">
                 <h1 class="page-title mr-sm-auto">Cấp độ khóa học</h1>
                 <div class="btn-toolbar">
-                    <a href="{{ route('levels.create') }}" class="btn btn-primary mr-2">
-                        <i class="fa-solid fa fa-plus"></i>
-                        <span class="ml-1">Thêm Mới</span>
-                    </a>
-
+                    @if (Auth::user()->hasPermission('levels_create'))
+                        <a href="{{ route('levels.create') }}" class="btn btn-primary mr-2">
+                            <i class="fa-solid fa fa-plus"></i>
+                            <span class="ml-1">Thêm Mới</span>
+                        </a>
+                    @endif
                 </div>
             </div>
         </header>
@@ -106,20 +107,25 @@
                                 @endif
 
                                 <td>
-                                    <form action="{{ route('levels.destroy', $item->id) }}" style="display:inline"
-                                        method="post">
-                                        @csrf
-                                        @method('DELETE')
+                                    @if (Auth::user()->hasPermission('levels_update'))
+                                        <span class="sr-only">Edit</span>
+                                        <a href="{{ route('levels.edit', $item->id) }}"
+                                            class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i>
+                                            <span class="sr-only">Remove</span></a>
+                                    @endif
+                                    @if (Auth::user()->hasPermission('levels_delete'))
+                                        <form action="{{ route('levels.destroy', $item->id) }}" style="display:inline"
+                                            method="post">
+                                            @csrf
+                                            @method('DELETE')
 
-                                        <button onclick="return confirm('Bạn có chắc chắn muốn xóa không ?')"
-                                            class="btn btn-sm btn-icon btn-secondary"><i
-                                                class="far fa-trash-alt"></i></button>
+                                            <button onclick="return confirm('Bạn có chắc chắn muốn xóa không ?')"
+                                                class="btn btn-sm btn-icon btn-secondary"><i
+                                                    class="far fa-trash-alt"></i></button>
 
-                                    </form>
-                                    <span class="sr-only">Edit</span>
-                                    <a href="{{ route('levels.edit', $item->id) }}"
-                                        class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i>
-                                        <span class="sr-only">Remove</span></a>
+                                        </form>
+                                    @endif
+
                                 </td>
                                 </tr>
                             </tbody>
