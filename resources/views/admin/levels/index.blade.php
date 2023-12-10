@@ -1,12 +1,11 @@
 @extends('admin.layouts.master')
-
 @section('content')
     <div class="page-inner">
         <header class="page-title-bar">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item active">
-                        <a href="{{ route ('levels.index') }}">
+                        <a href="{{ route('levels.index') }}">
                             <i class="breadcrumb-icon fa fa-angle-left mr-2"></i>
                             Trang Chủ
                         </a>
@@ -16,35 +15,26 @@
             <div class="d-md-flex align-items-md-start">
                 <h1 class="page-title mr-sm-auto">Cấp độ khóa học</h1>
                 <div class="btn-toolbar">
-                    <a href="{{ route('levels.create') }}" class="btn btn-primary mr-2">
-                        <i class="fa-solid fa fa-plus"></i>
-                        <span class="ml-1">Thêm Mới</span>
-                    </a>
-                    <a href="" class="btn btn-primary mr-2">
-                        <i class="fa-solid fa fa-arrow-down"></i>
-                        <span class="ml-1">Import Excel</span>
-                    </a>
-                    <a href="" class="btn btn-primary mr-2">
-                        <i class="fa-solid fa fa-arrow-up"></i>
-                        <span class="ml-1">Export Excel</span>
-                    </a>
+                    @if (Auth::user()->hasPermission('levels_create'))
+                        <a href="{{ route('levels.create') }}" class="btn btn-primary mr-2">
+                            <i class="fa-solid fa fa-plus"></i>
+                            <span class="ml-1">Thêm Mới</span>
+                        </a>
+                    @endif
                 </div>
             </div>
         </header>
         <div class="page-section">
             <div class="card card-fluid">
-                {{-- <div class="card-header">
+                <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
                         <li class="nav-item">
                             <a class="nav-link active " href="">Tất
                                 Cả</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="">Thùng
-                                Rác</a>
-                        </li>
+
                     </ul>
-                </div> --}}
+                </div>
                 {{-- alert --}}
                 @include('admin.includes.global.alert')
 
@@ -55,18 +45,29 @@
                             <form action="{{ route('levels.index') }}" method="GET" id="form-search">
                                 <div class="row">
                                     <div class="col">
-                                        <input name="name" value="" class="form-control" type="text"
-                                            placeholder=" Tên khóa học...">
+                                        <input name="name" value="{{ request('name') }}" class="form-control"
+                                            type="text" placeholder=" Tên khóa học...">
                                     </div>
 
                                     <div class="col">
-                                        <input name="level" value="" class="form-control" type="text"
-                                            placeholder=" Cấp độ...">
+                                        <input name="level" value="{{ request('level') }}" class="form-control"
+                                            type="text" placeholder=" Cấp độ...">
                                     </div>
 
                                     <div class="col">
-                                        <input name="status" value="" class="form-control" type="text"
-                                            placeholder=" Trạng thái...">
+                                        <select name="searchstatus" class="form-control">
+                                            <option value=""
+                                                {{ request('searchstatus') === '' && !request()->has('search') ? 'selected' : '' }}>
+                                                Trạng thái</option>
+                                            <option value="{{ \App\Models\Level::INACTIVE }}"
+                                                {{ request('searchstatus') === \App\Models\Level::INACTIVE ? 'selected' : '' }}>
+                                                Đang đóng
+                                            </option>
+                                            <option value="{{ \App\Models\Level::ACTIVE }}"
+                                                {{ request('searchstatus') === \App\Models\Level::ACTIVE ? 'selected' : '' }}>
+                                                Đang mở
+                                            </option>
+                                        </select>
                                     </div>
                                     <div class="col-lg-2">
                                         <button class="btn btn-secondary" data-toggle="modal" data-target="#modalSaveSearch"
@@ -81,7 +82,7 @@
                             <thead>
                                 <tr>
                                     <th> STT </th>
-                                    <th> Tên cấp độ</th>
+                                    <th> Tên khóa học</th>
                                     <th> Cấp độ </th>
                                     <th> Trạng thái </th>
                                     <th> Chức năng </th>
@@ -106,20 +107,25 @@
                                 @endif
 
                                 <td>
-                                    <form action="{{ route('levels.destroy', $item->id) }}" style="display:inline"
-                                        method="post">
-                                        @csrf
-                                        @method('DELETE')
+                                    @if (Auth::user()->hasPermission('levels_update'))
+                                        <span class="sr-only">Edit</span>
+                                        <a href="{{ route('levels.edit', $item->id) }}"
+                                            class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i>
+                                            <span class="sr-only">Remove</span></a>
+                                    @endif
+                                    @if (Auth::user()->hasPermission('levels_delete'))
+                                        <form action="{{ route('levels.destroy', $item->id) }}" style="display:inline"
+                                            method="post">
+                                            @csrf
+                                            @method('DELETE')
 
-                                        <button onclick="return confirm('Bạn có chắc chắn muốn xóa không ?')"
-                                            class="btn btn-sm btn-icon btn-secondary"><i
-                                                class="far fa-trash-alt"></i></button>
+                                            <button onclick="return confirm('Bạn có chắc chắn muốn xóa không ?')"
+                                                class="btn btn-sm btn-icon btn-secondary"><i
+                                                    class="far fa-trash-alt"></i></button>
 
-                                    </form>
-                                    <span class="sr-only">Edit</span>
-                                    <a href="{{ route('levels.edit', $item->id) }}"
-                                        class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i>
-                                        <span class="sr-only">Remove</span></a>
+                                        </form>
+                                    @endif
+
                                 </td>
                                 </tr>
                             </tbody>
@@ -141,4 +147,24 @@
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var selectedStatus = "{{ request('searchstatus') }}";
+            if (selectedStatus) {
+                $('select[name="searchstatus"]').val(selectedStatus);
+            }
+            $('select[name="searchstatus"]').change(function() {
+                selectedStatus = $(this).val();
+            });
+            $('#form-search').submit(function() {
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'searchstatus',
+                    value: selectedStatus
+                }).appendTo($(this));
+                return true;
+            });
+        });
+    </script>
 @endsection
