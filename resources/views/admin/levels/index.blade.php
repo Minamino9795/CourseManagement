@@ -1,12 +1,11 @@
 @extends('admin.layouts.master')
-
 @section('content')
     <div class="page-inner">
         <header class="page-title-bar">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item active">
-                        <a href="">
+                        <a href="{{ route('levels.index') }}">
                             <i class="breadcrumb-icon fa fa-angle-left mr-2"></i>
                             Trang Chủ
                         </a>
@@ -20,31 +19,20 @@
                         <i class="fa-solid fa fa-plus"></i>
                         <span class="ml-1">Thêm Mới</span>
                     </a>
-                    <a href="" class="btn btn-primary mr-2">
-                        <i class="fa-solid fa fa-arrow-down"></i>
-                        <span class="ml-1">Import Excel</span>
-                    </a>
-                    <a href="" class="btn btn-primary mr-2">
-                        <i class="fa-solid fa fa-arrow-up"></i>
-                        <span class="ml-1">Export Excel</span>
-                    </a>
+                   
                 </div>
             </div>
         </header>
         <div class="page-section">
             <div class="card card-fluid">
-                {{-- <div class="card-header">
+                <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
                         <li class="nav-item">
                             <a class="nav-link active " href="">Tất
                                 Cả</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="">Thùng
-                                Rác</a>
-                        </li>
+                        </li>                      
                     </ul>
-                </div> --}}
+                </div>
                 {{-- alert --}}
                 @include('admin.includes.global.alert')
 
@@ -55,17 +43,17 @@
                             <form action="{{ route('levels.index') }}" method="GET" id="form-search">
                                 <div class="row">
                                     <div class="col">
-                                        <input name="name" value="" class="form-control" type="text"
+                                        <input name="name" value="{{ request('name') }}" class="form-control" type="text"
                                             placeholder=" Tên khóa học...">
                                     </div>
 
                                     <div class="col">
-                                        <input name="level" value="" class="form-control" type="text"
+                                        <input name="level" value="{{ request('level') }}" class="form-control" type="text"
                                             placeholder=" Cấp độ...">
                                     </div>
 
                                     <div class="col">
-                                        <input name="status" value="" class="form-control" type="text"
+                                        <input name="status" value="{{ request('status') }}" class="form-control" type="text"
                                             placeholder=" Trạng thái...">
                                     </div>
                                     <div class="col-lg-2">

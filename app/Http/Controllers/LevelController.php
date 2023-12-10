@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Level;
-use App\Http\Requests\CreateLevelRequest;
-;
+use App\Http\Requests\CreateLevelRequest;;
+
 use Illuminate\Http\Request;
 use App\Traits\UploadFileTrait;
 use Illuminate\Database\QueryException;
@@ -22,6 +23,7 @@ class LevelController extends Controller
 
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Level::class);
         $query = Level::select('*');
         $limit = $request->limit ? $request->limit : 5;
 
@@ -31,13 +33,13 @@ class LevelController extends Controller
                 ->orWhere('status', 'like', "%$request->status%");
         }
         if ($request->name) {
-            $query->where('name',$request->name);
+            $query->where('name', $request->name);
         }
         if ($request->level) {
-            $query->where('level',$request->level);
-
-        }  if ($request->status) {
-            $query->where('status',$request->status);
+            $query->where('level', $request->level);
+        }
+        if ($request->status) {
+            $query->where('status', $request->status);
         }
 
         $query->orderBy('id', 'DESC');
@@ -53,8 +55,8 @@ class LevelController extends Controller
      */
     public function create()
     {
-       
-       return view ('admin.levels.create');
+        $this->authorize('create', Level::class);
+        return view('admin.levels.create');
     }
 
     /**
@@ -64,12 +66,12 @@ class LevelController extends Controller
     {
         try {
 
-        // dd($request->all() );
-        $item = new Level();
-        $item->name = $request->name;
-        $item->level = $request->level;
-        $item->status = $request->status;
-        // dd($item);
+            // dd($request->all() );
+            $item = new Level();
+            $item->name = $request->name;
+            $item->level = $request->level;
+            $item->status = $request->status;
+            // dd($item);
             $item->save();
             Log::info('Level store successfully. ID: ' . $item->id);
             return redirect()->route('levels.index')->with('success', __('sys.store_item_success'));
@@ -94,17 +96,15 @@ class LevelController extends Controller
     {
         try {
             $item = Level::findOrFail($id);
+            $this->authorize('update',  $item);
             $params = [
                 'item' => $item
             ];
             return view("admin.levels.edit", $params);
-            } 
-        catch (ModelNotFoundException $e) 
-            {
+        } catch (ModelNotFoundException $e) {
             Log::error($e->getMessage());
             return redirect()->route('levels.index')->with('error', __('sys.item_not_found'));
-            }
-
+        }
     }
 
     /**
@@ -114,8 +114,7 @@ class LevelController extends Controller
     {
         // dd($request->all());
 
-        try
-        {
+        try {
             $item = Level::findOrFail($id);
             $item->name = $request->name;
             $item->level = $request->level;
@@ -123,8 +122,7 @@ class LevelController extends Controller
             $item->save();
 
             return redirect()->route('levels.index')->with('success', __('sys.update_item_success'));
-        }
-        catch (ModelNotFoundException $e) {
+        } catch (ModelNotFoundException $e) {
             Log::error($e->getMessage());
             return redirect()->route('levels.index')->with('error', __('sys.item_not_found'));
         } catch (QueryException $e) {
@@ -140,6 +138,7 @@ class LevelController extends Controller
     {
         try {
             $item = Level::findOrFail($id);
+            $this->authorize('delete', $item);
             $item->delete();
             return redirect()->route('levels.index')->with('success', __('sys.destroy_item_success'));
         } catch (ModelNotFoundException $e) {

@@ -19,6 +19,5 @@ Route::get('/layouts', function () {
 });
 
 Route::resource('levels',\App\Http\Controllers\LevelController::class);
-use App\Http\Controllers\TenController;
 
 Route::resource('categories', CategoryController::class);
