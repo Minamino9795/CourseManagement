@@ -14,10 +14,12 @@
                 <div class="d-md-flex align-items-md-start">
                     <h1 class="page-title mr-sm-auto">Quản Lý Bài Học</h1>
                     <div class="btn-toolbar">
-                        <a href="{{ route('lessions.create') }}" class="btn btn-primary mr-2">
-                            <i class="fa-solid fa fa-plus"></i>
-                            <span class="ml-1">Thêm Mới</span>
-                        </a>
+                        @if (Auth::user()->hasPermission('lessions_create'))
+                            <a href="{{ route('lessions.create') }}" class="btn btn-primary mr-2">
+                                <i class="fa-solid fa fa-plus"></i>
+                                <span class="ml-1">Thêm Mới</span>
+                            </a>
+                        @endif
                     </div>
                 </div>
             </header>
@@ -82,11 +84,14 @@
                                                 <i class="fa fa-eye"></i>
                                                 <span class="sr-only">Show</span>
                                             </a> --}}
-                                                <span class="sr-only">Edit</span> <a
-                                                    href="{{ route('lessions.edit', $item->id) }}"
-                                                    class="btn btn-sm btn-icon btn-secondary"><i
-                                                        class="fa fa-pencil-alt"></i> <span
-                                                        class="sr-only">Remove</span></a>
+                                                @if (Auth::user()->hasPermission('lessions_update'))
+                                                    <span class="sr-only">Edit</span> <a
+                                                        href="{{ route('lessions.edit', $item->id) }}"
+                                                        class="btn btn-sm btn-icon btn-secondary"><i
+                                                            class="fa fa-pencil-alt"></i> <span
+                                                            class="sr-only">Remove</span></a>
+                                                @endif
+                                                @if (Auth::user()->hasPermission('lessions_delete'))
                                                 <form action="{{ route('lessions.destroy', $item->id) }}" method="POST"
                                                     class="d-inline">
                                                     @method('DELETE')
@@ -97,6 +102,7 @@
                                                             class="far fa-trash-alt"></i>
                                                     </button>
                                                 </form>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
