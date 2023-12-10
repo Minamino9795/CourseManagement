@@ -19,7 +19,7 @@
                         <i class="fa-solid fa fa-plus"></i>
                         <span class="ml-1">Thêm Mới</span>
                     </a>
-                   
+
                 </div>
             </div>
         </header>
@@ -30,7 +30,8 @@
                         <li class="nav-item">
                             <a class="nav-link active " href="">Tất
                                 Cả</a>
-                        </li>                      
+                        </li>
+
                     </ul>
                 </div>
                 {{-- alert --}}
@@ -43,18 +44,29 @@
                             <form action="{{ route('levels.index') }}" method="GET" id="form-search">
                                 <div class="row">
                                     <div class="col">
-                                        <input name="name" value="{{ request('name') }}" class="form-control" type="text"
-                                            placeholder=" Tên khóa học...">
+                                        <input name="name" value="{{ request('name') }}" class="form-control"
+                                            type="text" placeholder=" Tên khóa học...">
                                     </div>
 
                                     <div class="col">
-                                        <input name="level" value="{{ request('level') }}" class="form-control" type="text"
-                                            placeholder=" Cấp độ...">
+                                        <input name="level" value="{{ request('level') }}" class="form-control"
+                                            type="text" placeholder=" Cấp độ...">
                                     </div>
 
                                     <div class="col">
-                                        <input name="status" value="{{ request('status') }}" class="form-control" type="text"
-                                            placeholder=" Trạng thái...">
+                                        <select name="searchstatus" class="form-control">
+                                            <option value=""
+                                                {{ request('searchstatus') === '' && !request()->has('search') ? 'selected' : '' }}>
+                                                Trạng thái</option>
+                                            <option value="{{ \App\Models\Level::INACTIVE }}"
+                                                {{ request('searchstatus') === \App\Models\Level::INACTIVE ? 'selected' : '' }}>
+                                                Đang đóng
+                                            </option>
+                                            <option value="{{ \App\Models\Level::ACTIVE }}"
+                                                {{ request('searchstatus') === \App\Models\Level::ACTIVE ? 'selected' : '' }}>
+                                                Đang mở
+                                            </option>
+                                        </select>
                                     </div>
                                     <div class="col-lg-2">
                                         <button class="btn btn-secondary" data-toggle="modal" data-target="#modalSaveSearch"
@@ -129,4 +141,24 @@
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var selectedStatus = "{{ request('searchstatus') }}";
+            if (selectedStatus) {
+                $('select[name="searchstatus"]').val(selectedStatus);
+            }
+            $('select[name="searchstatus"]').change(function() {
+                selectedStatus = $(this).val();
+            });
+            $('#form-search').submit(function() {
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'searchstatus',
+                    value: selectedStatus
+                }).appendTo($(this));
+                return true;
+            });
+        });
+    </script>
 @endsection
