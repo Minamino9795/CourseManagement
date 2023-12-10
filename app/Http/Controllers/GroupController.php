@@ -12,9 +12,7 @@ use App\Http\Requests\UserGroupRequest;
 use App\Http\Requests\UpdateUserGroupRequest;
 class GroupController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index(Request $request)
     {
         $this->authorize('viewAny',Group::class);
@@ -25,9 +23,9 @@ class GroupController extends Controller
             $name = $request->filter['name'];
             $query->where('name', 'LIKE', '%' . $name . '%');
         }
-        if ($request->s) {
-            $query->where('name', 'LIKE', '%' . $request->s . '%');
-            $query->orwhere('id', $request->s);
+        if ($request->search) {
+            $query->where('name', 'LIKE', '%' . $request->search . '%');
+            $query->orwhere('id', $request->search);
         }
 
         $query->orderBy('id', 'desc');
@@ -41,9 +39,7 @@ class GroupController extends Controller
         return view('admin.groups.index', $params);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    
     public function create()
     {
         $this->authorize('create', Group::class);
@@ -51,9 +47,7 @@ class GroupController extends Controller
         return view('admin.groups.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(UserGroupRequest $request)
     {
         $userGroup = new Group();
@@ -61,27 +55,25 @@ class GroupController extends Controller
         $userGroup->save();
         try {
             $userGroup->save();
-            return redirect()->route('groups.index')->with('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
+            return redirect()->route('groups.index')->with('success', __('sys.store_item_success'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect()->route('groups.index')->with('error', 'Thêm' . ' ' . $request->name . ' ' .  'không thành công');
+            return redirect()->route('groups.index')->with('error', __('sys.store_item_success'));
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
+    
     public function show($id)
 {
     $group = Group::find($id);
 
     $current_user = Auth::user();
     $userRoles = $group->roles->pluck('id', 'name')->toArray();
-    // dd($userRoles);
+    
     $roles = Role::all();
     $group_names = [];
 
-    /////lấy tên nhóm quyền
+    
     foreach ($roles as $role) {
         $group_names[$role->group_name][] = $role;
     }
@@ -103,38 +95,32 @@ public function group_role(Request $request, $id)
         $group->roles()->detach();
         $group->roles()->attach($request->roles);
 
-        return redirect()->route('groups.index')->with('success', 'Cấp quyền thành công !');
+        return redirect()->route('groups.index')->with('success', __('sys.update_item_success'));
     } catch (\Exception $e) {
-        return redirect()->route('groups.index')->with('error', 'Đã xảy ra lỗi khi cấp quyền: ' . $e->getMessage());
+        return redirect()->route('groups.index')->with('error', __('sys.update_item_error'));
     }
 }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+   
     public function edit($id)
     {
         $userGroup = Group::find($id);
         $this->authorize('update',  $userGroup);
-        // $current_user = Auth::user();
-        // $userRoles = $userGroup->roles->pluck('id', 'name')->toArray();
-        // dd($current_user->userGroup->roles->toArray());
+        
         $roles = Role::all()->toArray();
         $group_names = [];
         foreach ($roles as $role) {
             $group_names[$role['group_name']][] = $role;
         }
         $params = [
-            // 'userRoles' => $userRoles,
+            
             'group_names' => $group_names,
             'userGroup' => $userGroup
         ];
         return view('admin.groups.edit', $params);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    
     public function update(UpdateUserGroupRequest $request, $id)
     {
         $userGroup = Group::find($id);
@@ -142,20 +128,18 @@ public function group_role(Request $request, $id)
 
         try {
             $userGroup->save();
-            //detach xóa hết tất cả các record của bảng trung gian hiện tại
+            
             $userGroup->roles()->detach();
-            //attach cập nhập các record của bảng trung gian hiện tại
+            
             $userGroup->roles()->attach($request->roles);
-            return redirect()->route('groups.index')->with('success', 'Sửa' . ' ' . $request->name . ' ' .  'thành công');
+            return redirect()->route('groups.index')->with('success', __('sys.update_item_success'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect()->route('groups.index')->with('error', 'Sửa' . ' ' . $request->name . ' ' .  ' không thành công');
+            return redirect()->route('groups.index')->with('error', __('sys.update_item_error'));
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    
     public function destroy($id)
     {
         $group = Group::find($id);
@@ -164,10 +148,10 @@ public function group_role(Request $request, $id)
 
         try {
             $group->delete();
-            return redirect()->route('userGroups.index')->with('success', 'Xóa  thành công');
+            return redirect()->route('userGroups.index')->with('success', __('sys.delete_item_success'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect()->route('userGroups.index')->with('error', 'Xóa không thành công');
+            return redirect()->route('userGroups.index')->with('error', __('sys.delete_item_error'));
         }
     }
 }
