@@ -41,7 +41,7 @@
 
                                     </div>
                                 </form>
-
+                                @include('admin.includes.global.alert')
                             </div>
 
 

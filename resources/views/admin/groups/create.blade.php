@@ -1,6 +1,5 @@
 @extends('admin.layouts.master')
 @section('content')
-
 <div class="page">
     <div class="page-inner">
         <header class="page-title-bar">
