@@ -14,18 +14,12 @@
             <div class="d-md-flex align-items-md-start">
                 <h1 class="page-title mr-sm-auto">Quản Lý Danh Mục Khóa Học</h1>
                 <div class="btn-toolbar">
-                    <a href="{{ route('categories.create') }}" class="btn btn-primary mr-2">
-                        <i class="fa-solid fa fa-plus"></i>
-                        <span class="ml-1">Thêm Mới</span>
-                    </a>
-                    <a href="" class="btn btn-primary mr-2">
-                        <i class="fa-solid fa fa-arrow-down"></i>
-                        <span class="ml-1">Import Excel</span>
-                    </a>
-                    <a href="" class="btn btn-primary mr-2">
-                        <i class="fa-solid fa fa-arrow-up"></i>
-                        <span class="ml-1">Export Excel</span>
-                    </a>
+                    @if (Auth::user()->hasPermission('categories_create'))
+                        <a href="{{ route('categories.create') }}" class="btn btn-primary mr-2">
+                            <i class="fa-solid fa fa-plus"></i>
+                            <span class="ml-1">Thêm Mới</span>
+                        </a>
+                    @endif
                 </div>
             </div>
         </header>
@@ -83,7 +77,6 @@
                                 <tr>
                                     <th>STT</th>
                                     <th>Tên danh mục</th>
-                                    {{-- <th>Mô tả</th> --}}
                                     <th>Trạng thái</th>
                                     <th>Chức năng</th>
                                 </tr>
@@ -101,9 +94,6 @@
                                         <td>
                                             <p>{{ $category->name }}</p>
                                         </td>
-                                        {{-- <td>
-                                            <p>{!! $category->description !!}</p>
-                                        </td> --}}
                                         @if ($category->status == \App\Models\Category::ACTIVE)
                                             <td><span>
                                                     <i class="fas fa-check-circle"></i> Đang mở
@@ -115,28 +105,33 @@
                                         @endif
 
                                         <td>
-
-                                            <span class="sr-only">Show</span>
-                                            <a href="{{ route('categories.show', $category->id) }}"
-                                                class="btn btn-sm btn-icon btn-secondary">
-                                                <i class="fa fa-eye"></i>
+                                            @if (Auth::user()->hasPermission('categories_view'))
                                                 <span class="sr-only">Show</span>
-                                            </a>
-
-
-                                            <span class="sr-only">Edit</span> <a
-                                                href="{{ route('categories.edit', $category->id) }}"
-                                                class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i>
-                                                <span class="sr-only">Remove</span></a>
-                                            <form method="POST" action="{{ route('categories.destroy', $category->id) }}"
-                                                class="d-inline">
-                                                @csrf
-                                                @method('DELETE') <button type="submit"
-                                                    onclick="return confirm('Bạn có chắc chắn muốn xóa không ?')"
+                                                <a href="{{ route('categories.show', $category->id) }}"
+                                                    class="btn btn-sm btn-icon btn-secondary">
+                                                    <i class="fa fa-eye"></i>
+                                                    <span class="sr-only">Show</span>
+                                                </a>
+                                            @endif
+                                            @if (Auth::user()->hasPermission('categories_update'))
+                                                <span class="sr-only">Edit</span> <a
+                                                    href="{{ route('categories.edit', $category->id) }}"
                                                     class="btn btn-sm btn-icon btn-secondary"><i
-                                                        class="far fa-trash-alt"></i>
-                                                </button>
-                                            </form>
+                                                        class="fa fa-pencil-alt"></i>
+                                                    <span class="sr-only">Remove</span></a>
+                                            @endif
+                                            @if (Auth::user()->hasPermission('categories_delete'))
+                                                <form method="POST"
+                                                    action="{{ route('categories.destroy', $category->id) }}"
+                                                    class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE') <button type="submit"
+                                                        onclick="return confirm('Bạn có chắc chắn muốn xóa không ?')"
+                                                        class="btn btn-sm btn-icon btn-secondary"><i
+                                                            class="far fa-trash-alt"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
