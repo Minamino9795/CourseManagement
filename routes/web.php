@@ -19,60 +19,52 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    
+    Route::get('/', function () {
+
     return view('welcome');
-}); 
-Route::resource('courses',\App\Http\Controllers\CourseController::class );
-Route::get('/layouts', function () {
+    });
+    Route::resource('courses', \App\Http\Controllers\CourseController::class);
+    Route::get('/layouts', function () {
     return view('admin.layouts.master');
-});
-
-Route::resource('levels',\App\Http\Controllers\LevelController::class);
-
-Route::resource('categories', CategoryController::class);
-Route::resource('chapters', \App\Http\Controllers\ChapterController::class);
-
-Route::resource('lessions', LessionController::class);
-
-Route::resource('categories', CategoryController::class);
-Route::resource('courses', CourseController::class);
-
-
-
-Route::prefix('users')->group(function () {
+    });
+    Route::prefix('users')->group(function () {
     Route::get('/trash', [UserController::class, 'trashedItems'])->name('users.trash');
     Route::delete('/force_destroy/{id}', [UserController::class, 'force_destroy'])->name('users.force_destroy');
     Route::get('/restore/{id}', [UserController::class, 'restore'])->name('users.restore');
-});
+    });
 
 
-Route::group(['middleware' => 'auth'], function () {
+    Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', UserController::class);
     Route::resource('groups', GroupController::class);
-});
-//Login-Logout
-Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::post('/postLogin', [AuthController::class, 'postLogin'])->name('postLogin');
+    Route::get('/show/{id}', [GroupController::class, 'show'])->name('groups.show');
+    Route::put('/group_role/{id}', [GroupController::class, 'group_role'])->name('groups.group_role');
+    Route::resource('levels', \App\Http\Controllers\LevelController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('chapters', \App\Http\Controllers\ChapterController::class);
+    Route::resource('lessions', LessionController::class);
+    Route::resource('courses', CourseController::class);
+
+    Route::get('/orders', [App\Http\Controllers\OrderController::class, 'index'])->name('orders.index');
+    Route::get('orders/edit/{id}', [App\Http\Controllers\OrderController::class, 'edit'])->name('orders.edit');
+    Route::put('orders/update/{id}', [App\Http\Controllers\OrderController::class, 'update'])->name('orders.update');
+    Route::delete('orders/destroy/{id}', [App\Http\Controllers\OrderController::class, 'destroy'])->name('orders.destroy');
+    Route::get('/exportOrder', [App\Http\Controllers\OrderController::class, 'exportOrder'])->name('orders.export');
+    });
+        //Login-Logout
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('/postLogin', [AuthController::class, 'postLogin'])->name('postLogin');
 
 
-Route::get('/forgetPassword', [\App\Http\Controllers\ForgotPasswordController::class, 'forgetPassword'])
+    Route::get('/forgetPassword', [\App\Http\Controllers\ForgotPasswordController::class, 'forgetPassword'])
     ->name('forgetPassword');
-Route::post('/forgetPasswordPost', [\App\Http\Controllers\ForgotPasswordController::class, 'forgetPasswordPost'])
+    Route::post('/forgetPasswordPost', [\App\Http\Controllers\ForgotPasswordController::class, 'forgetPasswordPost'])
     ->name('forgetPasswordPost');
-Route::get('/reset-password/{token}', [\App\Http\Controllers\ForgotPasswordController::class, 'resetPassword'])
+    Route::get('/reset-password/{token}', [\App\Http\Controllers\ForgotPasswordController::class, 'resetPassword'])
     ->name('resetPassword');
-Route::post('/resetPasswordPost', [\App\Http\Controllers\ForgotPasswordController::class, 'resetPasswordPost'])
+    Route::post('/resetPasswordPost', [\App\Http\Controllers\ForgotPasswordController::class, 'resetPasswordPost'])
     ->name('resetPasswordPost');
 
 
-Route::get('/show/{id}', [GroupController::class, 'show'])->name('groups.show');
-Route::put('/group_role/{id}', [GroupController::class, 'group_role'])->name('groups.group_role');
-
-Route::get('/orders', [App\Http\Controllers\OrderController::class, 'index'])->name('orders.index');
-Route::get('orders/edit/{id}', [App\Http\Controllers\OrderController::class, 'edit'])->name('orders.edit');
-Route::put('orders/update/{id}', [App\Http\Controllers\OrderController::class, 'update'])->name('orders.update');
-Route::delete('orders/destroy/{id}', [App\Http\Controllers\OrderController::class, 'destroy'])->name('orders.destroy');
-
-Route::get('/exportOrder', [App\Http\Controllers\OrderController::class, 'exportOrder'])->name('orders.export');
+  
