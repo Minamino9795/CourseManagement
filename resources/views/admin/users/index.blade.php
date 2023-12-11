@@ -66,7 +66,7 @@
                                         </div>
                                     </div>
                                 </form>
-                                @include('admin.includes.global.alert')
+                                {{-- @include('admin.includes.global.alert') --}}
                             </div>
                         </div>
                         <div class="table-responsive">
