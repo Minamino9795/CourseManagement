@@ -78,9 +78,8 @@
                                                 @csrf
                                                 @method('delete')
                                                 @if (Auth::user()->hasPermission('groups_delete'))
-                                                    <input type="hidden" name="_token"
-                                                        value="CNND3NJoI2a9s3VW6nf8WdMH48c3KoYnodRDcvL3"> <input
-                                                        type="hidden" name="_method" value="DELETE"> <button type="submit"
+                                                    <input type="hidden" name=""> <input type="hidden"
+                                                        name="_method" value="DELETE"> <button type="submit"
                                                         onclick="return confirm('Bạn có muốn xóa không ?')"
                                                         class="btn btn-sm btn-icon btn-secondary"><i
                                                             class="far fa-trash-alt"></i></button>
