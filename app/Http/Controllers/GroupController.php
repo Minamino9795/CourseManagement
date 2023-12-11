@@ -144,8 +144,6 @@ public function group_role(Request $request, $id)
     {
         $group = Group::find($id);
         $this->authorize('delete', $group);
-
-
         try {
             $group->delete();
             return redirect()->route('userGroups.index')->with('success', __('sys.delete_item_success'));

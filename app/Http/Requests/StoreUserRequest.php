@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreUserRequest extends FormRequest
 {
@@ -29,6 +30,12 @@ class StoreUserRequest extends FormRequest
             'password' => 'required',
             'gender' => 'required',
             'birthday' => 'required',
+            'image' => 'required',
+            'group_id' => [
+                'required',
+                Rule::notIn(['--Vui lòng chọn--']),
+            ],
+            'status' => 'required',
         ];
     }
     public function messages(): array
@@ -41,6 +48,10 @@ class StoreUserRequest extends FormRequest
             'phone.required' => 'Bạn không được để trống !',
             'gender.required' => 'Bạn không được để trống !',
             'birthday.required' => 'Bạn không được để trống !',
+            'image.required' => 'Bạn không được để trống !',
+            'group_id.required' => 'chức vụ không được để trống.',
+            'group_id.not_in' => 'Vui lòng chọn một chức vụ.',
+            'status.required' => 'Bạn không được để trống !',
             'email.unique' => 'Tên email đã tồn tại !',
             'phone.unique' => 'Số điện thoại đã tồn tại !',
         ];
