@@ -132,10 +132,10 @@ public function group_role(Request $request, $id)
             $userGroup->roles()->detach();
             
             $userGroup->roles()->attach($request->roles);
-            return redirect()->route('groups.index')->with('success', __('Thêm thành công'));
+            return redirect()->route('groups.index')->with('success', __('Cập nhật thành công'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect()->route('groups.index')->with('error', __('Thêm thất bại'));
+            return redirect()->route('groups.index')->with('error', __('Cập nhật thất bại'));
         }
     }
 
