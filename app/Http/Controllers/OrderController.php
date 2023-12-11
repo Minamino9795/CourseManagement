@@ -93,6 +93,7 @@ class OrderController extends Controller
             return redirect()->route('orders.index')->with('error', __('Cập nhật thất bại'));
         }
     }
+    
 
     /**
      * Remove the specified resource from storage.
