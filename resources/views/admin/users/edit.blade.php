@@ -15,8 +15,8 @@
         </header>
         <div class="page-section">
             <form method="post" action="{{route('users.update',$user->id)}}" enctype="multipart/form-data">
-            @csrf
-        @method('PUT')
+                @csrf
+                @method('PUT')
                 <div class="card">
                     <div class="card-body">
                         <legend>Thông tin cơ bản</legend>
@@ -36,7 +36,7 @@
                             <div class="col-md-6 mb-4">
                                 <label for="tf1">Mật khẩu<abbr name="Trường bắt buộc"></abbr></label>
 
-                                <input name="password"  type="password" class="form-control" id="" placeholder="Nhập mật khẩu">
+                                <input name="password" type="password" class="form-control" id="" placeholder="Nhập mật khẩu">
                                 <small id="" class="form-text text-muted"></small>
                             </div>
 
@@ -62,18 +62,18 @@
                         <div class="row">
                             <div class="col-md-6 mb-4">
                                 <label for="tf1">Giới tính<abbr name="Trường bắt buộc">*</abbr></label>
-                                <select value="{{ $user->gender }}" name="gender" id="" class="form-control">
-                                    <option value="Nam" {{ old('gender') === 'Nam' ? ' selected' : '' }}>Nam</option>
-                                    <option value="Nữ" {{ old('gender') === 'Nữ' ? ' selected' : '' }}>Nữ</option>
-                                    <option value="Khác" {{ old('gender') === 'Khác' ? ' selected' : '' }}>Khác
+                                <select name="gender" id="" class="form-control">
+                                    <option value="Nam" {{ old('gender', $user->gender) === 'Nam' ? ' selected' : '' }}>Nam</option>
+                                    <option value="Nữ" {{ old('gender', $user->gender) === 'Nữ' ? ' selected' : '' }}>Nữ</option>
+                                    <option value="Khác" {{ old('gender', $user->gender) === 'Khác' ? ' selected' : '' }}>Khác</option>
                                 </select>
                                 <small id="" class="form-text text-muted"></small>
                             </div>
                             <div class="col-md-6 mb-4">
                                 <label for="tf1">Chức vụ<abbr name="Trường bắt buộc">*</abbr></label>
                                 <select name="group_id" id="" class="form-control">
-                                @foreach ($groups as $group)
-                                    <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                    @foreach ($groups as $group)
+                                    <option value="{{ $group->id }}" {{ old('group_id', $user->group_id) == $group->id ? ' selected' : '' }}>{{ $group->name }}</option>
                                     @endforeach
                                 </select>
                                 <small id="" class="form-text text-muted"></small>
@@ -83,18 +83,17 @@
                             <div class="col-md-6 mb-4">
                                 <label for="tf1">Ảnh<abbr name="Trường bắt buộc"></abbr></label>
                                 <input type="file" class="form-control" name="image">
-                                <img src="{{ asset($user->image) }}" width="90px" height="90px" id="blah1" alt="">
+                                <img src="{{ asset(old('image', $user->image)) }}" width="90px" height="90px" id="blah1" alt="">
                                 <small id="" class="form-text text-muted"></small>
                             </div>
                             <div class="col-md-6 mb-4">
                                 <label for="tf1">Trạng thái<abbr name="Trường bắt buộc">*</abbr></label>
                                 <select name="status" id="" class="form-control">
-                                    <option value="{{ \App\Models\Category::INACTIVE }}">Không tồn tại</option>
-                                    <option value="{{ \App\Models\Category::ACTIVE }}">Tồn tại</option>
+                                    <option value="{{ \App\Models\Category::INACTIVE }}" {{ old('status', $user->status) == \App\Models\Category::INACTIVE ? ' selected' : '' }}>Không tồn tại</option>
+                                    <option value="{{ \App\Models\Category::ACTIVE }}" {{ old('status', $user->status) == \App\Models\Category::ACTIVE ? ' selected' : '' }}>Tồn tại</option>
                                 </select>
                                 <small id="" class="form-text text-muted"></small>
                             </div>
-                        
                         </div>
                         <div class="form-actions">
                             <a class="btn btn-secondary float-right" href="{{ route('users.index') }}">Hủy</a>

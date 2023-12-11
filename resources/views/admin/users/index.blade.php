@@ -1,5 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
+    {{-- @include('admin.includes.global.alert') --}}
     <div class="page">
         <div class="page-inner">
             <header class="page-title-bar">
@@ -38,25 +39,24 @@
                                 <form action="{{ route('users.index') }}" method="GET" id="form-search">
                                     <div class="row">
                                         <div class="col">
-                                            <input name="filter[name]" class="form-control" type="text"
-                                                placeholder=" tên..." value="">
+                                            <input name="name" class="form-control" type="text" placeholder=" tên..."
+                                                value="{{ request('name') }}">
                                         </div>
                                         <div class="col">
-                                            <input name="filter[email]" class="form-control" type="text"
-                                                placeholder=" E-mail..." value="">
+                                            <input name="email" class="form-control" type="text"
+                                                placeholder=" E-mail..." value="{{ request('email') }}">
                                         </div>
                                         <div class="col">
-                                            <input name="filter[phone]" class="form-control" type="text"
-                                                placeholder=" số điện thoại..." value="">
+                                            <input name="phone" class="form-control" type="text"
+                                                placeholder=" số điện thoại..." value="{{ request('phone') }}">
                                         </div>
                                         <div class="col">
-                                            <select name="filter[group_id]" class="form-control">
+                                            <select name="group_id" class="form-control">
                                                 <option value="">Chức vụ...</option>
                                                 @foreach ($groups as $group)
                                                     <option value="{{ $group->id }}"
-                                                        {{ isset($request->filter['group_id']) && $request->filter['group_id'] == $group->id ? 'selected' : '' }}>
-                                                        {{ $group->name }}
-                                                    </option>
+                                                        {{ $request->group_id == $group->id ? 'selected' : '' }}>
+                                                        {{ $group->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -66,7 +66,7 @@
                                         </div>
                                     </div>
                                 </form>
-                                {{-- @include('admin.includes.global.alert') --}}
+
                             </div>
                         </div>
                         <div class="table-responsive">
