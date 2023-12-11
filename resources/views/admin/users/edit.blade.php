@@ -25,11 +25,17 @@
                                 <label for="tf1">Tên người dùng<abbr name="Trường bắt buộc">*</abbr></label>
                                 <input name="name" value="{{ $user->name }}" type="text" class="form-control" id="" placeholder="Nhập tên giáo viên">
                                 <small id="" class="form-text text-muted"></small>
+                                @error('name')
+                                <div style="color: red">{{ $message }}</div>
+                            @enderror
                             </div>
                             <div class="col-md-6 mb-4">
                                 <label for="tf1">Email<abbr name="Trường bắt buộc">*</abbr></label>
                                 <input name="email" type="text" value="{{ $user->email }}" class="form-control" id="" placeholder="Nhập E-mail">
                                 <small id="" class="form-text text-muted"></small>
+                                @error('email')
+                                <div style="color: red">{{ $message }}</div>
+                            @enderror
                             </div>
                         </div>
                         <div class="row">
@@ -44,6 +50,9 @@
                                 <label for="tf1">Địa chỉ<abbr name="Trường bắt buộc">*</abbr></label>
                                 <input name="address" value="{{ $user->address }}" type="text" value="test" class="form-control" id="" placeholder="Nhập địa chỉ">
                                 <small id="" class="form-text text-muted"></small>
+                                @error('address')
+                                <div style="color: red">{{ $message }}</div>
+                            @enderror
                             </div>
                         </div>
                         <div class="row">
@@ -51,11 +60,17 @@
                                 <label for="tf1">Số điện thoại<abbr name="Trường bắt buộc">*</abbr></label>
                                 <input name="phone" type="text" value="{{ $user->phone }}" class="form-control" id="" placeholder="Nhập số điện thoại">
                                 <small id="" class="form-text text-muted"></small>
+                                @error('phone')
+                                <div style="color: red">{{ $message }}</div>
+                            @enderror
                             </div>
                             <div class="col-md-6 mb-4">
                                 <label for="tf1">Ngày sinh<abbr name="Trường bắt buộc">*</abbr></label>
                                 <input name="birthday" type="date" value="{{ $user->birthday }}" class="form-control" id="" placeholder="">
                                 <small id="" class="form-text text-muted"></small>
+                                @error('birthday')
+                                <div style="color: red">{{ $message }}</div>
+                            @enderror
                             </div>
 
                         </div>
@@ -68,6 +83,9 @@
                                     <option value="Khác" {{ old('gender', $user->gender) === 'Khác' ? ' selected' : '' }}>Khác</option>
                                 </select>
                                 <small id="" class="form-text text-muted"></small>
+                                @error('gender')
+                                <div style="color: red">{{ $message }}</div>
+                            @enderror
                             </div>
                             <div class="col-md-6 mb-4">
                                 <label for="tf1">Chức vụ<abbr name="Trường bắt buộc">*</abbr></label>
@@ -77,14 +95,20 @@
                                     @endforeach
                                 </select>
                                 <small id="" class="form-text text-muted"></small>
+                                @error('group_id')
+                                <div style="color: red">{{ $message }}</div>
+                            @enderror
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-4">
-                                <label for="tf1">Ảnh<abbr name="Trường bắt buộc"></abbr></label>
+                                <label for="image">Ảnh<abbr name="Trường bắt buộc"></abbr></label>
                                 <input type="file" class="form-control" name="image">
                                 <img src="{{ asset(old('image', $user->image)) }}" width="90px" height="90px" id="blah1" alt="">
                                 <small id="" class="form-text text-muted"></small>
+                                @error('image')
+                                <div style="color: red">{{ $message }}</div>
+                            @enderror
                             </div>
                             <div class="col-md-6 mb-4">
                                 <label for="tf1">Trạng thái<abbr name="Trường bắt buộc">*</abbr></label>
@@ -93,6 +117,9 @@
                                     <option value="{{ \App\Models\Category::ACTIVE }}" {{ old('status', $user->status) == \App\Models\Category::ACTIVE ? ' selected' : '' }}>Tồn tại</option>
                                 </select>
                                 <small id="" class="form-text text-muted"></small>
+                                @error('status')
+                                <div style="color: red">{{ $message }}</div>
+                            @enderror
                             </div>
                         </div>
                         <div class="form-actions">

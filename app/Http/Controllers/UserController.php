@@ -161,10 +161,10 @@ class UserController extends Controller
         try {
             $user->save();
 
-            return redirect()->route('users.index')->with('success', __('sys.update_item_success'));
+            return redirect()->route('users.index')->with('success', __('cập nhật thành công'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return back()->with('error', __('sys.update_item_error'));
+            return back()->with('error', __('Cập nhật thất bại'));
         }
     }
 
