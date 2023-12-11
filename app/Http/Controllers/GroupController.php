@@ -144,14 +144,12 @@ public function group_role(Request $request, $id)
     {
         $group = Group::find($id);
         $this->authorize('delete', $group);
-
-
         try {
             $group->delete();
-            return redirect()->route('userGroups.index')->with('success', __('sys.delete_item_success'));
+            return redirect()->route('groups.index')->with('success', __('sys.delete_item_success'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect()->route('userGroups.index')->with('error', __('sys.delete_item_error'));
+            return redirect()->route('groups.index')->with('error', __('sys.delete_item_error'));
         }
     }
 }
