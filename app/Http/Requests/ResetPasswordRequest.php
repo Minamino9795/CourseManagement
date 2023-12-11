@@ -22,15 +22,15 @@ class ResetPasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "password" => "required|min:6",
+            "password" => "required|min:6|confirmed",
             "password_confirmation" => "required",
-            "password_confirmation" => "confirmed",
         ];
     }
     public function messages()
     {
         return [
             'password.required' => 'Vui lòng nhập mật khẩu mới',
+            'password.confirmed' => 'Mật khẩu xác nhận không trùng khớp',
             'password.min' => 'Mật khẩu không được dưới 6 ký tự',
             'password_confirmation.required' => 'Vui lòng xác nhận mật khẩu',
             'password_confirmation.confirmed' => 'Mật khẩu xác nhận không giống với mật khẩu mới',

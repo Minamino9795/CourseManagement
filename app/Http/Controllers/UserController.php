@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Group;
 use Illuminate\Http\Request;
 use App\Traits\UploadFileTrait;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -127,9 +128,21 @@ class UserController extends Controller
         }
     }
 
-    public function show(User $user)
+    public function show(string $id)
     {
-        //
+        try {
+            $item = User::findOrFail($id);
+            $this->authorize('view', $item);
+            $group = Group::get();
+            $params = [
+                'groups' => $group,
+                'item' => $item
+            ];
+            return view("admin.users.show", $params);
+        } catch (ModelNotFoundException $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('users.index')->with('error', __('sys.item_not_found'));
+        }
     }
 
 

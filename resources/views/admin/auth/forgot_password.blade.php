@@ -3,7 +3,7 @@
 <main class="auth">
     <header id="auth-header" class="auth-header" style="background-image: url(assets/images/illustration/img-1.png);">
         <h1>
-            QUẢN LÝ THIẾT BỊ
+            QUẢN LÝ KHÓA HỌC
             <span class="sr-only">Sign In</span>
         </h1>
 

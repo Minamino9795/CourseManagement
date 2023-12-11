@@ -23,9 +23,9 @@ class GroupController extends Controller
             $name = $request->filter['name'];
             $query->where('name', 'LIKE', '%' . $name . '%');
         }
-        if ($request->s) {
-            $query->where('name', 'LIKE', '%' . $request->s . '%');
-            $query->orwhere('id', $request->s);
+        if ($request->search) {
+            $query->where('name', 'LIKE', '%' . $request->search . '%');
+            $query->orwhere('id', $request->search);
         }
 
         $query->orderBy('id', 'desc');

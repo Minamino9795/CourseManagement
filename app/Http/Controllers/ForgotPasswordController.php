@@ -39,9 +39,9 @@ class ForgotPasswordController extends Controller
     }
 
     function resetPassword(Request $request)
-    {   
+    {
         $token = $request->token;
-        $user = User::where('token',$token)->first();
+        $user = User::where('token', $token)->first();
         if ($user) {
             return view('admin.auth.getPass', compact('user'));
         } else {
@@ -50,19 +50,22 @@ class ForgotPasswordController extends Controller
         }
     }
 
-    public function resetPasswordPost(Request $request)
-{
-    $token = $request->token;
-    $user = User::where('token', $token)->first();
+    public function resetPasswordPost(ResetPasswordRequest $request)
+    {
+        $token = $request->token;
+        $user = User::where('token', $token)->first();
+        if ($user) {
+            // Kiểm tra mật khẩu xác nhận
+            if ($request->password !== $request->password_confirmation) {
+                return redirect()->back()->with('error', 'Mật khẩu xác nhận không trùng khớp');
+            }
 
-    if ($user) {
-        $user->password = Hash::make($request->password);
-        $user->save();
-        
+            $user->password = Hash::make($request->password);
+            $user->save();
 
-        return view('admin.auth.login')->with('success', 'Mật khẩu đã được cập nhật thành công');
-    } else {
-        return redirect()->back()->with('error', 'Token không hợp lệ');
+            return redirect()->route('login')->with('success', 'Mật khẩu đã được cập nhật thành công');
+        } else {
+            return redirect()->back()->with('error', 'Token không hợp lệ');
+        }
     }
-}
 }
