@@ -23,7 +23,7 @@
                         <div class="row">
                             <div class="col-md-6 mb-4">
                                 <label for="tf1">Tên người dùng<abbr name="Trường bắt buộc">*</abbr></label>
-                                <input name="name" value="{{ old('name') }}" type="text" class="form-control" id="" placeholder="Nhập tên giáo viên">
+                                <input name="name" value="{{ old('name') }}" type="text" class="form-control" id="" placeholder="Nhập tên người dùng">
                                 <small id="" class="form-text text-muted"></small>
                                 @if ($errors->any())
                                 <p style="color:red">{{ $errors->first('name') }}</p>
