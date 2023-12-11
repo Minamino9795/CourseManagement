@@ -93,6 +93,7 @@ class OrderController extends Controller
             return redirect()->route('orders.index')->with('error', __('sys.update_item_error'));
         }
     }
+    
 
     /**
      * Remove the specified resource from storage.
