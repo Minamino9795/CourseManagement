@@ -57,10 +57,10 @@ class CategoryController extends Controller
         $categories->status = $request->status;
         try {
             $categories->save();
-            return redirect()->route('categories.index')->with('success', __('sys.store_item_success'));
+            return redirect()->route('categories.index')->with('success', __('Thêm thành công'));
         } catch (QueryException $e) {
             Log::error($e->getMessage());
-            return redirect()->route('categories.index')->with('error', __('sys.store_item_error'));
+            return redirect()->route('categories.index')->with('error', __('Thêm thất bại'));
         }
     }
 
@@ -78,7 +78,7 @@ class CategoryController extends Controller
             return view('admin.categories.show',$params);
         }catch(QueryException $e){
             Log::error($e->getMessage());
-            return redirect()->route('categories.index')->with('error', __('sys.item_not_found'));
+            return redirect()->route('categories.index')->with('error', __('Không tìm thấy kết quả thích hợp'));
         }
     }
 
@@ -109,10 +109,10 @@ class CategoryController extends Controller
         $categories->status = $request->status;
         try {
             $categories->save();
-            return redirect()->route('categories.index')->with('success', __('sys.update_item_success'));
+            return redirect()->route('categories.index')->with('success', __('Cập nhật thành công'));
         } catch (QueryException $e) {
             Log::error($e->getMessage());
-            return redirect()->route('categories.index')->with('error', __('sys.update_item_error'));
+            return redirect()->route('categories.index')->with('error', __('Cập nhật thất bại'));
         }
     }
 
@@ -125,13 +125,13 @@ class CategoryController extends Controller
             $item = Category::findOrFail($id);
             $this->authorize('delete', $item);
             $item->delete();
-            return redirect()->route('categories.index')->with('success', __('sys.destroy_item_success'));
+            return redirect()->route('categories.index')->with('success', __('Xóa thành công'));
         } catch (QueryException $e) {
             Log::error($e->getMessage());
-            return redirect()->route('categories.index')->with('error', __('sys.item_not_found'));
+            return redirect()->route('categories.index')->with('error', __('Không tìm thấy kết quả thích hợp'));
         } catch (QueryException  $e) {
             Log::error($e->getMessage());
-            return redirect()->route('categories.index')->with('error', __('sys.destroy_item_error'));
+            return redirect()->route('categories.index')->with('error', __('Xóa thất bại'));
         }
     }
 }

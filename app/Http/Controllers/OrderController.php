@@ -84,13 +84,13 @@ class OrderController extends Controller
             $item->status = $request->status;
             // dd($item);
             $item->save();
-            return redirect()->route('orders.index')->with('success', __('sys.update_item_success'));
+            return redirect()->route('orders.index')->with('success', __('Cập nhật thành công'));
         } catch (ModelNotFoundException $e) {
             Log::error($e->getMessage());
-            return redirect()->route('orders.index')->with('error', __('sys.item_not_found'));
+            return redirect()->route('orders.index')->with('error', __('Không tìm thấy kết quả thích hợp'));
         } catch (QueryException  $e) {
             Log::error($e->getMessage());
-            return redirect()->route('orders.index')->with('error', __('sys.update_item_error'));
+            return redirect()->route('orders.index')->with('error', __('Cập nhật thất bại'));
         }
     }
 
@@ -103,13 +103,13 @@ class OrderController extends Controller
             $item = Order::findOrFail($id);
             $this->authorize('delete', $item);
             $item->delete();
-            return redirect()->route('orders.index')->with('success', __('sys.destroy_item_success'));
+            return redirect()->route('orders.index')->with('success', __('Xóa thành công'));
         } catch (ModelNotFoundException $e) {
             Log::error($e->getMessage());
-            return redirect()->route('orders.index')->with('error', __('sys.item_not_found'));
+            return redirect()->route('orders.index')->with('error', __('Không tìm thấy kết quả thích hợp'));
         } catch (QueryException  $e) {
             Log::error($e->getMessage());
-            return redirect()->route('orders.index')->with('error', __('sys.destroy_item_error'));
+            return redirect()->route('orders.index')->with('error', __('Xóa thất bại'));
         }
     }
 

@@ -55,10 +55,10 @@ class GroupController extends Controller
         $userGroup->save();
         try {
             $userGroup->save();
-            return redirect()->route('groups.index')->with('success', __('sys.store_item_success'));
+            return redirect()->route('groups.index')->with('success', __('Thêm thành công'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect()->route('groups.index')->with('error', __('sys.store_item_success'));
+            return redirect()->route('groups.index')->with('error', __('Thêm thất bại'));
         }
     }
 
@@ -95,9 +95,9 @@ public function group_role(Request $request, $id)
         $group->roles()->detach();
         $group->roles()->attach($request->roles);
 
-        return redirect()->route('groups.index')->with('success', __('sys.update_item_success'));
+        return redirect()->route('groups.index')->with('success', __('Cấp quyền thành công'));
     } catch (\Exception $e) {
-        return redirect()->route('groups.index')->with('error', __('sys.update_item_error'));
+        return redirect()->route('groups.index')->with('error', __('Cấp quyền thất bại'));
     }
 }
 
@@ -132,10 +132,10 @@ public function group_role(Request $request, $id)
             $userGroup->roles()->detach();
             
             $userGroup->roles()->attach($request->roles);
-            return redirect()->route('groups.index')->with('success', __('sys.update_item_success'));
+            return redirect()->route('groups.index')->with('success', __('Thêm thành công'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect()->route('groups.index')->with('error', __('sys.update_item_error'));
+            return redirect()->route('groups.index')->with('error', __('Thêm thất bại'));
         }
     }
 
@@ -146,10 +146,10 @@ public function group_role(Request $request, $id)
         $this->authorize('delete', $group);
         try {
             $group->delete();
-            return redirect()->route('groups.index')->with('success', __('sys.delete_item_success'));
+            return redirect()->route('groups.index')->with('success', __('Xóa thành công'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect()->route('groups.index')->with('error', __('sys.delete_item_error'));
+            return redirect()->route('groups.index')->with('error', __('Xóa thất bại'));
         }
     }
 }

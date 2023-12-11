@@ -63,11 +63,11 @@ class LessionController extends Controller
 				$lessions->image_url = $path;
 			}
 			$lessions->save();
-			return redirect()->route('lessions.index')->with('success', __('sys.store_item_success'));
+			return redirect()->route('lessions.index')->with('success', __('Thêm thành công'));
 		} catch (QueryException $e) {
 			Log::error($e->getMessage());
 			dd($e->getMessage());
-			return redirect()->route('lessions.index')->with('error', __('sys.store_item_error'));
+			return redirect()->route('lessions.index')->with('error', __('Thêm thất bại'));
 		}
 	}
 
@@ -85,7 +85,7 @@ class LessionController extends Controller
 			return view('admin.lessions.edit', $params);
 		} catch (ModelNotFoundException $e) {
 			Log::error($e->getMessage());
-			return redirect()->route('lessions.index')->with('error', __('sys.item_not_found'));
+			return redirect()->route('lessions.index')->with('error', __('Không tìm thấy kết quả thích hợp'));
 		}
 	}
 	public function update(LessionRequest $request, string $id)
@@ -109,14 +109,14 @@ class LessionController extends Controller
 				$items->image_url = $path;
 			}
 			$items->save();
-			return redirect()->route('lessions.index')->with('success', __('sys.update_item_success'));
+			return redirect()->route('lessions.index')->with('success', __('Cập nhật thành công'));
 		} catch (ModelNotFoundException $e) {
 			Log::error($e->getMessage());
-			return redirect()->route('chapters.index')->with('error', __('sys.item_not_found'));
+			return redirect()->route('chapters.index')->with('error', __('Không tìm thấy kết quả thích hợp'));
 		} catch (QueryException $e) {
 			Log::error($e->getMessage());
 			dd($e->getMessage());
-			return redirect()->route('chapters.index')->with('error', __('sys.update_item_error'));
+			return redirect()->route('chapters.index')->with('error', __('Cập nhật thất bại'));
 		}
 	}
 	// xoas
@@ -126,13 +126,13 @@ class LessionController extends Controller
 			$item = Lession::findOrFail($id);
 			$this->authorize('delete', $item);
 			$item->delete();
-			return redirect()->route('lessions.index')->with('success', __('sys.destroy_item_success'));
+			return redirect()->route('lessions.index')->with('success', __('Xóa thành công'));
 		} catch (ModelNotFoundException $e) {
 			Log::error($e->getMessage());
-			return redirect()->route('lessions.index')->with('error', __('sys.item_not_found'));
+			return redirect()->route('lessions.index')->with('error', __('Không tìm thấy kết quả thích hợp'));
 		} catch (QueryException  $e) {
 			Log::error($e->getMessage());
-			return redirect()->route('lessions.index')->with('error', __('sys.destroy_item_error'));
+			return redirect()->route('lessions.index')->with('error', __('Xóa thất bại'));
 		}
 	}
 }

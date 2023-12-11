@@ -86,13 +86,13 @@ class CourseController extends Controller
         // dd($courses);
         try {
             $courses->save();
-            return redirect()->route('courses.index')->with('success', __('sys.store_item_success'));
+            return redirect()->route('courses.index')->with('success', __('Thêm thành công'));
         } catch (QueryException $e) {
             if ($courses->image_url) {
                 $this->deleteFile([$courses->image_url]);
             }
             Log::error($e->getMessage());
-            return redirect()->route('courses.index')->with('error', __('sys.store_item_error'));
+            return redirect()->route('courses.index')->with('error', __('Thêm thất bại'));
         }
     }
 
@@ -114,7 +114,7 @@ class CourseController extends Controller
             return view("admin.courses.show", $params);
         } catch (ModelNotFoundException $e) {
             Log::error($e->getMessage());
-            return redirect()->route('asset.index')->with('error', __('sys.item_not_found'));
+            return redirect()->route('asset.index')->with('error', __('Không tìm thấy kết quả thích hợp'));
         }
     }
 
@@ -137,7 +137,7 @@ class CourseController extends Controller
             return view("admin.courses.edit", $params);
         } catch (ModelNotFoundException $e) {
             Log::error($e->getMessage());
-            return redirect()->route('courses.index')->with('error', __('sys.item_not_found'));
+            return redirect()->route('courses.index')->with('error', __('Không tìm thấy kết quả thích hợp'));
         }
     }
 
@@ -162,13 +162,13 @@ class CourseController extends Controller
             $item->video_url = $request->video_url;
             // dd($item);
             $item->save();
-            return redirect()->route('courses.index')->with('success', __('sys.update_item_success'));
+            return redirect()->route('courses.index')->with('success', __('Cập nhật thành công'));
         } catch (ModelNotFoundException $e) {
             Log::error($e->getMessage());
-            return redirect()->route('courses.index')->with('error', __('sys.item_not_found'));
+            return redirect()->route('courses.index')->with('error', __('Không tìm thấy kết quả thích hợp'));
         } catch (QueryException  $e) {
             Log::error($e->getMessage());
-            return redirect()->route('courses.index')->with('error', __('sys.update_item_error'));
+            return redirect()->route('courses.index')->with('error', __('Cập nhật thất bại'));
         }
     }
 
@@ -181,13 +181,13 @@ class CourseController extends Controller
             $item = Course::findOrFail($id);
             $this->authorize('delete', $item);
             $item->delete();
-            return redirect()->route('courses.index')->with('success', __('sys.destroy_item_success'));
+            return redirect()->route('courses.index')->with('success', __('Xóa thành công'));
         } catch (ModelNotFoundException $e) {
             Log::error($e->getMessage());
-            return redirect()->route('courses.index')->with('error', __('sys.item_not_found'));
+            return redirect()->route('courses.index')->with('error', __('Không tìm thấy kết quả thích hợp'));
         } catch (QueryException  $e) {
             Log::error($e->getMessage());
-            return redirect()->route('courses.index')->with('error', __('sys.destroy_item_error'));
+            return redirect()->route('courses.index')->with('error', __('Xóa thất bại'));
         }
     }
 }
