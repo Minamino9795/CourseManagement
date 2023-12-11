@@ -35,10 +35,10 @@
                             Beni Arisandi
                         </h6>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-                        <a class="dropdown-item" href="user-profile.html">
+                        <a class="dropdown-item" href="{{ route('users.show',$current_user->id) }}">
 
                             <span class="dropdown-icon"><i class="bi bi-person"></i></span>
-                            Cá nhân
+                            Trang cá nhân
                         </a>
                         <a class="dropdown-item" href="{{ route('logout') }}">
                             <span class="dropdown-icon"><i class="fas fa-sign-out-alt"></i></span>
