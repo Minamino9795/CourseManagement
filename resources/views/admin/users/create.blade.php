@@ -23,7 +23,7 @@
                         <div class="row">
                             <div class="col-md-6 mb-4">
                                 <label for="tf1">Tên người dùng<abbr name="Trường bắt buộc">*</abbr></label>
-                                <input name="name" value="{{ old('name') }}" type="text" class="form-control" id="" placeholder="Nhập tên giáo viên">
+                                <input name="name" value="{{ old('name') }}" type="text" class="form-control" id="" placeholder="Nhập tên người dùng">
                                 <small id="" class="form-text text-muted"></small>
                                 @if ($errors->any())
                                 <p style="color:red">{{ $errors->first('name') }}</p>
@@ -68,10 +68,10 @@
                             <div class="row">
                                 <div class="col-md-6 mb-4">
                                     <label for="tf1">Ảnh đại diện</label>
-                                    <input name="image" type="file" class="form-control-file">
-                                    @if ($errors->any())
-                                    <p style="color:red">{{ $errors->first('image') }}</p>
-                                    @endif
+                                    <input name="image" type="file" value="{{ old('image') }}" class="form-control-file">
+                                    @error('image')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror
                                 </div>
                             </div>
                         </div>
@@ -102,14 +102,15 @@
                             <div class="col-md-6 mb-4">
                                 <label for="tf1">Chức vụ<abbr name="Trường bắt buộc">*</abbr></label>
                                 <select name="group_id" id="" class="form-control">
+                                    <option>--Vui lòng chọn--</option>
                                     @foreach ($groups as $group)
                                     <option value="{{ $group->id }}">{{ $group->name }}</option>
                                     @endforeach
                                 </select>
                                 <small id="" class="form-text text-muted"></small>
-                                @if ($errors->any())
-                                <p style="color:red">{{ $errors->first('group_id') }}</p>
-                                @endif
+                                @error('group_id')
+                                        <div style="color: red">{{ $message }}</div>
+                                    @enderror
                             </div>
                             <div class="col-md-6 mb-4">
                                 <label for="tf1">Trạng thái<abbr name="Trường bắt buộc">*</abbr></label>
@@ -119,6 +120,9 @@
                                     <option value="{{ \App\Models\User::ACTIVE }}">Tồn tại</option>
                                 </select>
                                 <small id="" class="form-text text-muted"></small>
+                                @if ($errors->any())
+                                <p style="color:red">{{ $errors->first('status') }}</p>
+                                @endif
                             </div>
                         </div>
                         <div class="form-actions">

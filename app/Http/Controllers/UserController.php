@@ -91,10 +91,10 @@ class UserController extends Controller
 
             $user->save();
 
-            return redirect()->route('users.index')->with('success', __('sys.store_item_success'));
+            return redirect()->route('users.index')->with('success', __('Thêm thành công'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect()->route('users.index')->with('error', __('sys.store_item_error'));
+            return redirect()->route('users.index')->with('error', __('Thêm thất bại'));
         }
     }
 
@@ -110,7 +110,7 @@ class UserController extends Controller
             return view("admin.users.show", $params);
         } catch (ModelNotFoundException $e) {
             Log::error($e->getMessage());
-            return redirect()->route('users.index')->with('error', __('sys.item_not_found'));
+            return redirect()->route('users.index')->with('error', __('Không tìm thấy kết quả thích hợp'));
         }
     }
 
@@ -160,10 +160,10 @@ class UserController extends Controller
         try {
             $user->save();
 
-            return redirect()->route('users.index')->with('success', __('sys.update_item_success'));
+            return redirect()->route('users.index')->with('success', __('cập nhật thành công'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return back()->with('error', __('sys.update_item_error'));
+            return back()->with('error', __('Cập nhật thất bại'));
         }
     }
 
@@ -176,10 +176,10 @@ class UserController extends Controller
 
         try {
             $user->delete();
-            return redirect()->route('users.index')->with('success', __('sys.delete_item_success'));
+            return redirect()->route('users.index')->with('success', __('Xóa thành công'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect()->route('users.index')->with('error', __('sys.delete_item_error'));
+            return redirect()->route('users.index')->with('error', __('Xáo thất bại'));
         }
     }
 }

@@ -71,10 +71,10 @@ class LevelController extends Controller
             // dd($item);
             $item->save();
             Log::info('Level store successfully. ID: ' . $item->id);
-            return redirect()->route('levels.index')->with('success', __('sys.store_item_success'));
+            return redirect()->route('levels.index')->with('success', __('Thêm thành công'));
         } catch (QueryException $e) {
             Log::error($e->getMessage());
-            return redirect()->route('levels.index')->with('error', __('sys.store_item_error'));
+            return redirect()->route('levels.index')->with('error', __('Thêm thất bại'));
         }
     }
 
@@ -100,7 +100,7 @@ class LevelController extends Controller
             return view("admin.levels.edit", $params);
         } catch (ModelNotFoundException $e) {
             Log::error($e->getMessage());
-            return redirect()->route('levels.index')->with('error', __('sys.item_not_found'));
+            return redirect()->route('levels.index')->with('error', __('Không tìm thấy kết quả thích hợp'));
         }
     }
 
@@ -118,13 +118,13 @@ class LevelController extends Controller
             $item->status = $request->status;
             $item->save();
 
-            return redirect()->route('levels.index')->with('success', __('sys.update_item_success'));
+            return redirect()->route('levels.index')->with('success', __('Cập nhật thành công'));
         } catch (ModelNotFoundException $e) {
             Log::error($e->getMessage());
-            return redirect()->route('levels.index')->with('error', __('sys.item_not_found'));
+            return redirect()->route('levels.index')->with('error', __('Không tìm thấy kết quả thích hợp'));
         } catch (QueryException $e) {
             Log::error($e->getMessage());
-            return redirect()->route('levels.index')->with('error', __('sys.update_item_error'));
+            return redirect()->route('levels.index')->with('error', __('Cập nhật thất bại'));
         }
     }
 
@@ -137,13 +137,13 @@ class LevelController extends Controller
             $item = Level::findOrFail($id);
             $this->authorize('delete', $item);
             $item->delete();
-            return redirect()->route('levels.index')->with('success', __('sys.destroy_item_success'));
+            return redirect()->route('levels.index')->with('success', __('Xóa thành công'));
         } catch (ModelNotFoundException $e) {
             Log::error($e->getMessage());
-            return redirect()->route('levels.index')->with('error', __('sys.item_not_found'));
+            return redirect()->route('levels.index')->with('error', __('Không tìm thấy kết quả thích hợp'));
         } catch (QueryException  $e) {
             Log::error($e->getMessage());
-            return redirect()->route('levels.index')->with('error', __('sys.destroy_item_error'));
+            return redirect()->route('levels.index')->with('error', __('Xóa thất bại'));
         }
     }
 }

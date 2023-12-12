@@ -73,11 +73,11 @@ class ChapterController extends Controller
             $item->save();
             Log::info('Chapter store successfully. ID: ' . $item->id);
 
-            return redirect()->route('chapters.index')->with('success', __('sys.store_item_success'));
+            return redirect()->route('chapters.index')->with('success', __('Thêm thành công'));
         } catch (QueryException $e) {
             Log::error($e->getMessage());
             dd($e->getMessage());
-            return redirect()->route('chapters.index')->with('error', __('sys.store_item_error'));
+            return redirect()->route('chapters.index')->with('error', __('Thêm thất bại'));
         }
     }
 
@@ -105,7 +105,7 @@ class ChapterController extends Controller
             return view("admin.chapters.edit", $params);
         } catch (ModelNotFoundException $e) {
             Log::error($e->getMessage());
-            return redirect()->route('chapters.index')->with('error', __('sys.item_not_found'));
+            return redirect()->route('chapters.index')->with('error', __('Không tìm thấy kết quả thích hợp'));
         }
     }
 
@@ -119,15 +119,15 @@ class ChapterController extends Controller
             $item->name = $request->name;
             $item->course_id = $request->course_id;
             $item->save();
-            return redirect()->route('chapters.index')->with('success', __('sys.update_item_success'));
+            return redirect()->route('chapters.index')->with('success', __('Cập nhật thành công'));
         } catch (ModelNotFoundException $e) {
             Log::error($e->getMessage());
-            return redirect()->route('chapters.index')->with('error', __('sys.item_not_found'));
+            return redirect()->route('chapters.index')->with('error', __('Không tìm thấy kết quả thích hợp'));
         } catch (QueryException $e) {
             Log::error($e->getMessage());
             dd($e->getMessage());
 
-            return redirect()->route('chapters.index')->with('error', __('sys.update_item_error'));
+            return redirect()->route('chapters.index')->with('error', __('Cập nhật thất bại'));
         }
     }
 
@@ -140,13 +140,13 @@ class ChapterController extends Controller
             $item = Chapter::findOrFail($id);
             $this->authorize('delete', $item);
             $item->delete();
-            return redirect()->route('chapters.index')->with('success', __('sys.destroy_item_success'));
+            return redirect()->route('chapters.index')->with('success', __('Xóa thành công'));
         } catch (ModelNotFoundException $e) {
             Log::error($e->getMessage());
-            return redirect()->route('chapters.index')->with('error', __('sys.item_not_found'));
+            return redirect()->route('chapters.index')->with('error', __('sKhông tìm thấy kết quả thích hợp'));
         } catch (QueryException  $e) {
             Log::error($e->getMessage());
-            return redirect()->route('chapters.index')->with('error', __('sys.destroy_item_error'));
+            return redirect()->route('chapters.index')->with('error', __('Xóa thất bại'));
         }
     }
 }

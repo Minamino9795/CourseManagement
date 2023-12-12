@@ -38,24 +38,24 @@
                                 <form action="{{ route('users.index') }}" method="GET" id="form-search">
                                     <div class="row">
                                         <div class="col">
-                                            <input name="name" class="form-control" type="text"
-                                                placeholder=" tên..." value="{{  request('name')  }}">
+                                            <input name="name" class="form-control" type="text" placeholder=" tên..."
+                                                value="{{ request('name') }}">
                                         </div>
                                         <div class="col">
                                             <input name="email" class="form-control" type="text"
-                                                placeholder=" E-mail..." value="{{  request('email')  }}">
+                                                placeholder=" E-mail..." value="{{ request('email') }}">
                                         </div>
                                         <div class="col">
                                             <input name="phone" class="form-control" type="text"
-                                                placeholder=" số điện thoại..." value="{{  request('phone')  }}">
+                                                placeholder=" số điện thoại..." value="{{ request('phone') }}">
                                         </div>
                                         <div class="col">
                                             <select name="group_id" class="form-control">
                                                 <option value="">Chức vụ...</option>
                                                 @foreach ($groups as $group)
-                                                <option value="{{ $group->id }}"
-                                                    {{ $request->group_id == $group->id ? 'selected' : '' }}>
-                                                    {{ $group->name }}</option>
+                                                    <option value="{{ $group->id }}"
+                                                        {{ $request->group_id == $group->id ? 'selected' : '' }}>
+                                                        {{ $group->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
