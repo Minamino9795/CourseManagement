@@ -37,7 +37,7 @@
                 </ul>
             </li>
             @endif
-            @if (Auth::user()->hasPermission('courses_viewAny'))
+            @if (Auth::user()->hasPermission('chapters_viewAny'))
             <li class="menu-item has-child">
                 <a href="" class="menu-link">
                     <span class="menu-icon">
