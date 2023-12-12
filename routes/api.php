@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\ChapterController;
+use App\Http\Controllers\Api\LessionController;
+use App\Http\Controllers\Api\LevelController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::apiResource('lessions', LessionController::class);
+Route::apiResource('chapters', ChapterController::class);
+Route::apiResource('levels', LevelController::class);

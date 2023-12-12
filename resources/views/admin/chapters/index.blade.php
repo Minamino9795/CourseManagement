@@ -90,16 +90,15 @@
                             </table>
                             <div style="float:right">
                             </div>
+                            {{ $items->links('pagination::bootstrap-5') }}
+                        <div style="float:right">
+
+                        </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- Pagination -->
-            <div class="card-footer pt-1 pb-1">
-                <div class="float-end">
-                    {{ $items->appends(request()->query())->links() }}
-                </div>
-            </div>
         </div>
     </div>
 @endsection

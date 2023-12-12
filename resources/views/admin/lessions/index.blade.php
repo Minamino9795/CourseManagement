@@ -117,8 +117,9 @@
                             <div>
                             </div>
                         </div>
-                        <div class="float-end">
-                            {{ $items->appends(request()->query())->links() }}
+                        {{ $items->links('pagination::bootstrap-5') }}
+                        <div style="float:right">
+
                         </div>
                     </div>
                 </div>

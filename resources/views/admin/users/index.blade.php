@@ -84,9 +84,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($users as $user)
+                                    @foreach ($users as $key => $user)
                                         <tr>
-                                            <td>{{ $user->id }}</td>
+                                            <td>{{ $key + 1 }}</td>
                                             <td>
                                                 <a href="#" class="tile tile-img mr-1">
                                                     <img class="img-fluid" src="{{ asset($user->image) }}" alt="">
