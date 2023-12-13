@@ -16,4 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/courses', [App\Http\Controllers\Api\CourseController::class, 'index']);
+Route::get('/courses', [App\Http\Controllers\Api\CourseApiController::class, 'index']);
+Route::get('/categories', [App\Http\Controllers\Api\CourseApiController::class, 'index']);
+Route::get('/chapters', [App\Http\Controllers\Api\CourseApiController::class, 'index']);
+Route::get('/lessions', [App\Http\Controllers\Api\CourseApiController::class, 'index']);
+Route::get('/levels', [App\Http\Controllers\Api\CourseApiController::class, 'index']);

@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Chapter;
 use Illuminate\Http\Request;
-use App\Models\Course;
-use App\Models\User;
-class CourseController extends Controller
+
+class ChapterApiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-     $items = Course::all();
-     return response()->json($items);
+        $items = Chapter::all();
+        return response()->json($items);
     }
 
     /**
@@ -48,17 +48,4 @@ class CourseController extends Controller
     {
         //
     }
-    // public function register(Request $request, $id)
-    // {
-    //     $course = Course::findOrFail($id);
-    //     $user = User::findOrFail($request->user_id);
-
-    //     if ($user->courses()->where('course_id', $id)->exists()) {
-    //         return response()->json(['message' => 'Bạn đã đăng ký khóa học này trước đó']);
-    //     }
-
-    //     $user->courses()->attach($id);
-
-    //     return response()->json(['message' => 'Đăng ký và thanh toán khóa học thành công']);
-    // }
 }
