@@ -21,7 +21,7 @@ class AuthApiController extends Controller
     {
         //Kiểm tra dử liệu đầu vào
         $validator = Validator::make($request->all(), [
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required'
         ]);
 
@@ -45,5 +45,26 @@ class AuthApiController extends Controller
             'expires_in' => Config::get('jwt.ttl'), //thời gian tồn tại của token
         ]);
     }
+    public function register(Request $request)
+    {
+        $request->validate(
+            [
+                'name'  => 'required',
+                'email' => 'required|email|unique:users',
+                'password' => 'required|min:6',    
+            ]
+            );
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+    
+            return response()->json([
+                'message' => 'User created successfully',
+                'user' => $user
+            ]);
+    }
+  
  
 }
