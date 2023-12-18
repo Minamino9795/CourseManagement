@@ -88,7 +88,7 @@
                                         <tr>
                                             <td>{{ $user->id }}</td>
                                             <td>
-                                                <a href="#" class="tile tile-img mr-1">
+                                                <a href="{{ route('users.show',$current_user->id) }}" class="tile tile-img mr-1">
                                                     <img class="img-fluid" src="{{ asset($user->image) }}" alt="">
                                                 </a>
                                                 <a>{{ $user->name }}</a>

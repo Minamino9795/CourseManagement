@@ -27,9 +27,9 @@
                         <input name="name" type="text" class="form-control" id="name"
                             placeholder="Nhập tên chương học" value="{{ old('name') }}">
                         <small id="" class="form-text text-muted"></small>
-                        {{-- @error('name')
+                         @error('name')
                             <div style="color: red">{{ $message }}</div>
-                        @enderror --}}
+                        @enderror 
                     </div>
 
                     <div class="form-group">
@@ -41,9 +41,9 @@
                             @endforeach
                         </select>
                         <small class="form-text text-muted"></small>
-                        {{-- @error('course_id')
+                         @error('course_id')
                             <div style="color: red">{{ $message }}</div>
-                        @enderror --}}
+                        @enderror 
                     </div>
                     <div class="form-actions">
                         <a class="btn btn-secondary float-right" href="{{ route('chapters.index') }}">

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class LessionController extends Controller
 {
@@ -49,7 +50,6 @@ class LessionController extends Controller
 			$lessions->name = $request->name;
 			$lessions->type = $request->type;
 			$lessions->content = $request->content;
-			$lessions->video_url = $request->video_url;
 			$lessions->duration = $request->duration;
 			// xử lý ảnh
 			$fieldName = 'image_url';
@@ -62,6 +62,14 @@ class LessionController extends Controller
 				$path = str_replace('public/', '', $path);
 				$lessions->image_url = $path;
 			}
+			// xử lý video 
+			if ($request->hasFile('video_url')) {
+				$file = $request->file('video_url');
+				$fileName = time() . '_' . $file->getClientOriginalName();
+				$file->storeAs('public/videos', $fileName);
+				$lessions->video_url = $fileName;
+			}
+
 			$lessions->save();
 			return redirect()->route('lessions.index')->with('success', __('Thêm thành công'));
 		} catch (QueryException $e) {
@@ -108,6 +116,23 @@ class LessionController extends Controller
 				$path = str_replace('public/', '', $path);
 				$items->image_url = $path;
 			}
+			// // xư lý video
+			$existingVideo = $items->video_url; // Gán giá trị cho biến $existingVideo
+			if ($request->hasFile('video_url')) {
+				$file = $request->file('video_url');
+				$fileName = time() . '_' . $file->getClientOriginalName();
+				$file->storeAs('public/videos', $fileName);
+				if ($existingVideo) {
+					$oldFilePath = 'videos/' . $existingVideo;
+
+					if (Storage::disk('public')->exists($oldFilePath)) {
+						Storage::disk('public')->delete($oldFilePath);
+					}
+				}
+				$items->video_url = $fileName;
+			} else {
+				$items->video_url = $existingVideo;
+			}
 			$items->save();
 			return redirect()->route('lessions.index')->with('success', __('Cập nhật thành công'));
 		} catch (ModelNotFoundException $e) {
@@ -134,5 +159,10 @@ class LessionController extends Controller
 			Log::error($e->getMessage());
 			return redirect()->route('lessions.index')->with('error', __('Xóa thất bại'));
 		}
+	}
+	public function show($id)
+	{
+		$item = Lession::find($id);
+		return view('admin.lessions.show', compact('item'));
 	}
 }

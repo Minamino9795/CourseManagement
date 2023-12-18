@@ -43,6 +43,8 @@ use Illuminate\Support\Facades\Route;
     Route::resource('categories', CategoryController::class);
     Route::resource('chapters', \App\Http\Controllers\ChapterController::class);
     Route::resource('lessions', LessionController::class);
+    Route::get('/show/{id}', [LessionController::class, 'show'])->name('lession.show'); 
+
     Route::resource('courses', CourseController::class);
 
     Route::get('/orders', [App\Http\Controllers\OrderController::class, 'index'])->name('orders.index');

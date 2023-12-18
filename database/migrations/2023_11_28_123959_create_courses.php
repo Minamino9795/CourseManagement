@@ -21,6 +21,8 @@ return new class extends Migration
             $table->foreignId('level_id')->constrained('levels');
             $table->string('image_url');
             $table->string('video_url');
+            $table->string('image_url')->nullable()->change();
+            $table->string('video_url')->nullable()->change();
 
         });
     }

@@ -25,9 +25,7 @@ class LessionRequest extends FormRequest
             'name' => 'required',
             'type' => 'required',
             'content' => 'required',
-            'video_url' => 'required',
             'duration' => 'required',
-            'image_url' => 'required',
             
         ];
         if ($this->old_image) {
@@ -41,9 +39,7 @@ class LessionRequest extends FormRequest
             'name.required' => 'Tên bắt buộc nhập',
             'type.required' => 'Loại bài học bắt buộc nhập',
             'content.required' => 'Nội dung bắt buộc nhập',
-            'video_url.required' => 'Video bắt buộc nhập',
             'duration.required' => 'Thời gian bắt buộc nhập',
-            'image_url.required' => 'Ảnh bắt buộc nhập',
         ];
     }
 }

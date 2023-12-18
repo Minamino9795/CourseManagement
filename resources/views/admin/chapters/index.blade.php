@@ -33,7 +33,7 @@
                                 <form action="" method="GET" id="form-search">
                                     <div class="row">
                                         <div class="col">
-                                            <input name="s" class="form-control" type="text" placeholder=" tên..."
+                                            <input name="s" class="form-control" type="text" placeholder=" Tên"
                                                 value="{{ request('s') }}">
                                         </div>
                                         <div class="col-lg-2">
@@ -95,11 +95,11 @@
                 </div>
             </div>
             <!-- Pagination -->
-            <div class="card-footer pt-1 pb-1">
-                <div class="float-end">
+      
+            <div style="float:right">
                     {{ $items->appends(request()->query())->links() }}
                 </div>
-            </div>
+           
         </div>
     </div>
 @endsection

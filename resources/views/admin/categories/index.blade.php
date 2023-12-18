@@ -41,7 +41,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <input name="searchname" class="form-control" type="text"
-                                            placeholder=" Tìm tên danh mục..." value="{{ request('searchname') }}">
+                                            placeholder=" Tìm tên danh mục" value="{{ request('searchname') }}">
 
                                     </div>
 
@@ -137,9 +137,9 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{ $items->links('pagination::bootstrap-5') }}
+                       
                         <div style="float:right">
-
+                        {{ $items->links('pagination::bootstrap-4') }}
                         </div>
                     </div>
                 </div>

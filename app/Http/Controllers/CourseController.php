@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class CourseController extends Controller
 {
@@ -81,8 +82,13 @@ class CourseController extends Controller
         if ($request->hasFile('image_url')) {
             $courses->image_url = $this->uploadFile($request->file('image_url'), 'uploads');
         }
-        $courses->video_url = $request->video_url;
-
+        //    xử lý video
+        if ($request->hasFile('video_url')) {
+            $file = $request->file('video_url');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/videos', $fileName);
+            $courses->video_url = $fileName;
+        }
         // dd($courses);
         try {
             $courses->save();
@@ -159,7 +165,23 @@ class CourseController extends Controller
             if ($request->hasFile('image_url')) {
                 $item->image_url = $this->uploadFile($request->file('image_url'), 'uploads');
             }
-            $item->video_url = $request->video_url;
+           	// // xư lý video
+			$existingVideo = $item->video_url; // Gán giá trị cho biến $existingVideo
+			if ($request->hasFile('video_url')) {
+				$file = $request->file('video_url');
+				$fileName = time() . '_' . $file->getClientOriginalName();
+				$file->storeAs('public/videos', $fileName);
+				if ($existingVideo) {
+					$oldFilePath = 'videos/' . $existingVideo;
+
+					if (Storage::disk('public')->exists($oldFilePath)) {
+						Storage::disk('public')->delete($oldFilePath);
+					}
+				}
+				$item->video_url = $fileName;
+			} else {
+				$item->video_url = $existingVideo;
+			}
             // dd($item);
             $item->save();
             return redirect()->route('courses.index')->with('success', __('Cập nhật thành công'));

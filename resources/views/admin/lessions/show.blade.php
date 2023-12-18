@@ -1,5 +1,5 @@
-@extends('admin.layouts.master')
-@section('content')
+    @extends('admin.layouts.master')
+    @section('content')
     <div class="page-inner">
         <header class="page-title-bar">
             <nav aria-label="breadcrumb">
@@ -18,22 +18,20 @@
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active " href="">Tất Cả</a>
+                            <a class="nav-link active" href="">Tất Cả</a>
                         </li>
-
                     </ul>
                 </div>
                 <div class="table-responsive">
                     <table class="table text-center">
                         <thead>
                             <tr>
-                                <th>STT</th>
+                                <th>ID</th>
                                 <th>Tên bài học</th>
                                 <th>Loại bài học</th>
                                 <th>Nội dung bài học</th>
                                 <th>Hình ảnh</th>
                                 <th>Video</th>
-                                <th>Thời gian</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,55 +46,54 @@
                                 <td class="name">
                                     <p>{{ $item->name }}</p>
                                 </td>
-                                <td >
+                                <td>
                                     <p>{{ $item->type }}</p>
                                 </td>
+                                <style>
+                                    .content-wrapper.collapsed .content-text {
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                        max-height: 60px;
+                                        width: 300px; 
+                                        /* Chiều cao tối đa của nội dung khi thu gọn */
+                                    }
+                                </style>
+
                                 <td class="content">
-                                    <p>{{ $item->content }}</p>
+                                    <div class="content-wrapper collapsed" data-item-id="{{ $item->id }}">
+                                        <p class="content-text"  width="12px">{{ $item->content }}</p>
+                                    </div>
+                                    <button class="view-more-button" onclick="expandContent({{ $item->id }})">Xem thêm</button>
                                 </td>
+
+                                <script>
+                                    function expandContent(itemId) {
+                                        var contentWrapper = document.querySelector('.content-wrapper[data-item-id="' + itemId + '"]');
+                                        contentWrapper.classList.remove('collapsed');
+                                    }
+                                </script>
                                 <td>
                                     @if ($item->image_url)
-                                        <img width="100" height="90" src="{{ asset($item->image_url) }}"
-                                            alt="Image">
+                                    <img width="100" height="90" src="{{ asset($item->image_url) }}" alt="Image">
+                                    @else
+                                    Không có ảnh
                                     @endif
                                 </td>
                                 <td class="video_url-cell">
-                                    <a href="{{ asset($item->video_url) }}"
-                                        target="_blank">{{ asset($item->video_url) }}</a>
+                                    @if ($item->video_url)
+                                    <video width="300" height="400" controls>
+                                        <source src="{{ asset('storage/videos/' . $item->video_url) }}" type="video/mp4">
+                                    </video>    
+                                    @else
+                                    <p>Không có video</p>
+                                    @endif
                                 </td>
-                                <td >
-                                    <p>{{ $item->duration }} phút</p>
-                                </td>
+
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-    </div>
-    </div>
-@endsection
-
-<style>
-    .video_url-cell {
-        max-width: 150px;
-        text-overflow: ellipsis;
-    }
-
-    .video_url-cell p {
-        margin: 0;
-    }
-
-    .content  {
-        max-width: 100px;
-        text-overflow: ellipsis;
-        margin: 0;
-    }
-
-    .name  {
-        max-width: 100px;
-        text-overflow: ellipsis;
-        margin: 0;
-    }
-    
-</style>
+    @endsection

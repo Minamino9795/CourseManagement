@@ -41,13 +41,10 @@ class CourseRequest extends FormRequest
                 'required',
                 Rule::notIn(['--Vui lòng chọn--']),
             ],
-            'image_url' => 'required',
-            'video_url' => 'required'
+          
 
         ];
-        if ($this->old_image) {
-            unset($rules['image_url']);
-        }
+       
         return $rules;
     }
     public function messages()
@@ -63,9 +60,7 @@ class CourseRequest extends FormRequest
             'category_id.not_in' => 'Vui lòng chọn một giá trị cho Danh mục.',
             'level_id.required' => 'Cấp độ không được để trống.',
             'level_id.not_in' => 'Vui lòng chọn một giá trị cho Cấp độ.',
-            'image_url.required' => 'Ảnh không được để trống.',
-            'video_url.required' => 'Video không được để trống.',
-
+          
         ];
     }
 }

@@ -100,8 +100,8 @@
                             </tbody>
                             <!-- /tbody -->
                         </table><!-- /.table -->
-                        {{ $userGroups->appends(request()->query()) }}
                         <div style="float:right">
+                            {{ $userGroups->appends(request()->query()) }}
 
                         </div>
 
