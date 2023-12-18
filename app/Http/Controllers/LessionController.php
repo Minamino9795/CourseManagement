@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LessionRequest;
+use App\Models\Course;
 use App\Models\Lession;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
@@ -17,7 +18,7 @@ class LessionController extends Controller
 	{
 		$this->authorize('viewAny', Lession::class);
 
-		$limit = $request->limit ? $request->limit : 2;
+		$limit = $request->limit ? $request->limit : 10;
 		$query = Lession::select('*');
 
 		if (isset($request->searchname)) {
@@ -40,7 +41,11 @@ class LessionController extends Controller
 	public function create()
 	{
 		$this->authorize('create', Lession::class);
-		return view('admin.lessions.create');
+		$items = Course::get();
+        $params = [
+            'items' => $items,
+        ];
+		return view('admin.lessions.create',$params);
 	}
 	public function store(LessionRequest $request)
 	{
@@ -51,6 +56,8 @@ class LessionController extends Controller
 			$lessions->type = $request->type;
 			$lessions->content = $request->content;
 			$lessions->duration = $request->duration;
+			$lessions->course_id = $request->course_id;
+
 			// xử lý ảnh
 			$fieldName = 'image_url';
 			if ($request->hasFile($fieldName)) {
@@ -165,4 +172,5 @@ class LessionController extends Controller
 		$item = Lession::find($id);
 		return view('admin.lessions.show', compact('item'));
 	}
+	
 }

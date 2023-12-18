@@ -17,11 +17,11 @@ class Course extends Model
         'level_id',
         'image_url',
         'video_url'
-   ];
-   protected $primaryKey = 'id';
-   protected $table = 'courses';
-   public $timestamps = false;
-   const ACTIVE = 1;
+    ];
+    protected $primaryKey = 'id';
+    protected $table = 'courses';
+    public $timestamps = false;
+    const ACTIVE = 1;
     const INACTIVE = 0;
     public function category()
     {
@@ -30,5 +30,11 @@ class Course extends Model
     public function level()
     {
         return $this->belongsTo(Level::class, 'level_id', 'id');
+    }
+
+
+    public function lessions()
+    {
+        return $this->hasMany(Lession::class, 'course_id', 'id');
     }
 }

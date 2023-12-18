@@ -1,103 +1,225 @@
-@extends('admin.layouts.master')
-@section('content')
-<div class="page-inner">
-    <header class="page-title-bar">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active">
-                    <a href="{{ route('courses.index') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Quản Lý
-                        Khóa Học</a>
-                </li>
-            </ol>
-        </nav>
-        <!-- <button type="button" class="btn btn-success btn-floated"><span class="fa fa-plus"></span></button> -->
-        <div class="d-md-flex align-items-md-start">
-            <h1 class="page-title mr-sm-auto">Chi Tiết Khóa Học</h1>
-            <div class="btn-toolbar">
+</html>
+<!DOCTYPE html>
+<html lang="en">
 
-                <a href="" class="btn btn-primary mr-2">
-                    <i class="fa-solid fa fa-arrow-down"></i>
-                    <span class="ml-1">Import Excel</span>
-                </a>
-                <a href="" class="btn btn-primary mr-2">
-                    <i class="fa-solid fa fa-arrow-up"></i>
-                    <span class="ml-1">Export Excel</span>
-                </a>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('apple-touch-icon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/favicon.ico') }}">
+    <meta name="theme-color" content="#3063A0">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/stylesheets/theme.min.css') }}" data-skin="default">
+    <link rel="stylesheet" href="{{ asset('assets/stylesheets/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/aos.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/icofont.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/plugins_plyr.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link href="
+        https://cdn.jsdelivr.net/npm/@icon/icofont@1.0.1-alpha.1/icofont.min.css
+        "
+        rel="stylesheet">
+    @yield('header')
+</head>
+
+<body class=" default-skin pace-done">
+    <div class="app">
+        @include('admin.includes.header');
+
+        <aside class="app-aside app-aside-expand-md app-aside-light">
+            <div class="aside-content">
+                <header class="aside-header d-block d-md-none">
+                    <button class="btn-account" type="button" data-toggle="collapse"
+                        data-target="#dropdown-aside"><span class="user-avatar user-avatar-lg"><img
+                                src="assets/images/avatars/profile.jpg" alt=""></span> <span
+                            class="account-icon"><span class="fa fa-caret-down fa-lg"></span></span> <span
+                            class="account-summary"><span class="account-name">Beni Arisandi</span> <span
+                                class="account-description">Marketing Manager</span></span></button>
+                    <div id="dropdown-aside" class="dropdown-aside collapse">
+                        <div class="pb-3">
+                            <a class="dropdown-item" href="user-profile.html"><span
+                                    class="dropdown-icon oi oi-person"></span> Profile</a> <a class="dropdown-item"
+                                href="auth-signin-v1.html"><span class="dropdown-icon oi oi-account-logout"></span>
+                                Logout</a>
+                            <div class="dropdown-divider"></div><a class="dropdown-item" href="#">Help
+                                Center</a>
+                            <a class="dropdown-item" href="#">Ask Forum</a> <a class="dropdown-item"
+                                href="#">Keyboard Shortcuts</a>
+                        </div>
+                    </div>
+                </header>
+                @include('admin.includes.sidebar')
+                <footer class="aside-footer border-top p-2">
+                </footer>
             </div>
-        </div>
-    </header>
-    <div class="page-section">
-        <div class="card card-fluid">
-            <div class="card-header">
-                <ul class="nav nav-tabs card-header-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link active " href="">Tất Cả</a>
-                    </li>
+        </aside>
+        <main class="app-main">
+            <div class="wrapper">
+                <div class="page">
+                    <div class="tution sp_bottom_100 sp_top_50">
+                        <div class="container-fluid full__width__padding">
+                            <header class="page-title-bar">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item active">
+                                            <a href="{{ route('courses.index') }}"><i
+                                                    class="breadcrumb-icon fa fa-angle-left mr-2"></i>Quay lại</a>
+                                        </li>
+                                    </ol>
+                                </nav>
+                            </header>
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12" data-aos="fade-up">
 
-                </ul>
-            </div>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>Khóa học</th>
-                            <th>Mô tả</th>
-                            <th>Hình ảnh</th>
-                            <th>Video</th>
+                                    <div class="accordion content__cirriculum__wrap" id="accordionExample">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingOne">
+                                                <button class="accordion-button" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                                                    aria-expanded="true" aria-controls="collapseOne">
 
-                        </tr>
-                    </thead>
-                    <tbody>
+                                                    bài học
+                                                </button>
+                                            </h2>
+                                            <div id="collapseOne" class="accordion-collapse collapse show"
+                                                aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
 
-                        <tr>
-                            <td>
-                                <div class="d-flex px-2 py-1">
-                                    <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="mb-0 text-sm">{{ $item->id }}</h6>
+
+
+
+
+                                                    @foreach ($lessions as $lession)
+                                                        <div class="scc__wrap" data-lesson-id="{{ $lession->id }}">
+                                                            <div class="scc__info">
+                                                                <i class="icofont-file-text"></i>
+                                                                <h5> <a href="#" class="lesson-link"
+                                                                        data-video-url="{{ asset('storage/videos/' . $lession->video_url) }}">
+                                                                        <span>{{ $lession->name }}</span>
+                                                                    </a>
+                                                                </h5>
+                                                                </h5>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+
+                                                </div>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
-                            </td>
-                            <td>
-                                <p>{{ $item->name }}</p>
-                            </td>
-                            <style>
-                                .description-cell {
-                                    max-width: 500px;
-                                    text-overflow: ellipsis;
-                                }
 
-                                .description-cell p {
-                                    margin: 0;
-                                }
-                            </style>
-                            <td class="description-cell">
-                                <p>{{ $item->description }}</p>
-                            </td>
-                            <td>
-                                    @if ($item->image_url)
-                                    <img width="100" height="90" src="{{ asset($item->image_url) }}" alt="Image">
-                                    @else
-                                    Không có ảnh
-                                    @endif
-                                </td>
-                                <td class="video_url-cell">
-                                    @if ($item->video_url)
-                                    <video width="300" height="400" controls>
-                                        <source src="{{ asset('storage/videos/' . $item->video_url) }}" type="video/mp4">
-                                    </video>    
-                                    @else
-                                    <p>Không có video</p>
-                                    @endif
-                                </td>
-                    </tbody>
-                </table>
+                                <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12" data-aos="fade-up">
+                                    <div class="lesson__content__main">
+                                        <div class="lesson__content__wrap">
+                                            <h3>Video Bài Học</h3>
 
+                                        </div>
 
+                                        <div class="plyr__video-embed rbtplayer">
+                                            <div class="video-wrapper">
+                                                <iframe id="lessonVideoIframe" allowfullscreen
+                                                    allow="autoplay"></iframe>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <style>
+                                    .video-wrapper {
+                                        position: relative;
+                                        overflow: hidden;
+                                        padding-bottom: 56.25%;
+
+                                    }
+
+                                    .video-wrapper iframe {
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;
+                                        width: 100%;
+                                        height: 100%;
+                                    }
+                                </style>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="page-inner">
+                    <header class="page-title-bar">
+                        <h1 class="page-title"></h1>
+                    </header>
+                    <div class="page-section">
+                        <div class="section-block">
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
     </div>
-</div><!-- /.page -->
-</div><!-- /.wrapper -->
-</div>
-@endsection
+    </main>
+    </div>
+    <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/popper.js/umd/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/pace-progress/pace.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/stacked-menu/js/stacked-menu.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+    <script src="assets/javascript/theme.min.js"></script>
+    <script src="{{ asset('assets/js/vendor/modernizr-3.5.0.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('assets/js/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ asset('assets/js/slick.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.meanmenu.min.js') }}"></script>
+    <script src="{{ asset('assets/js/ajax-form.js') }}"></script>
+    <script src="{{ asset('assets/js/wow.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.scrollUp.min.js') }}"></script>
+    <script src="{{ asset('assets/js/imagesloaded.pkgd.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('assets/js/waypoints.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.counterup.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins.js') }}"></script>
+    <script src="{{ asset('assets/js/swiper-bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugin_plyr.js') }}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const lessonLinks = document.querySelectorAll('.lesson-link');
+            const videoIframe = document.getElementById('lessonVideoIframe');
+
+            lessonLinks.forEach(function(link) {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+
+                    const videoUrl = link.dataset.videoUrl;
+
+                    if (videoUrl) {
+                        videoIframe.src = videoUrl;
+                    } else {
+                        console.error('Video URL not found');
+                    }
+                });
+            });
+        });
+    </script>
+
+
+
+
+    @yield('footer')
+</body>
+
+</html>

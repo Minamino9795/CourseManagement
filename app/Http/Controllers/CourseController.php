@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CourseRequest;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\Lession;
 use App\Models\Level;
 use App\Traits\UploadFileTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -22,7 +23,7 @@ class CourseController extends Controller
     public function index(Request $request)
     {
         $this->authorize('viewAny', Course::class);
-        $paginate = 4;
+        $paginate = 10;
         $query = Course::select('*');
         $category = Category::get();
         $levels = Level::get();
@@ -94,6 +95,7 @@ class CourseController extends Controller
             $courses->save();
             return redirect()->route('courses.index')->with('success', __('Thêm thành công'));
         } catch (QueryException $e) {
+            // dd($e->getMessage());
             if ($courses->image_url) {
                 $this->deleteFile([$courses->image_url]);
             }
@@ -112,10 +114,16 @@ class CourseController extends Controller
             $this->authorize('view', $item);
             $categories = Category::get();
             $levels = Level::get();
+            
+            // Lấy tất cả bài học có liên quan đến khóa học
+            $lessions = Lession::where('course_id', $id)->get();
+            // dd($lessions);
+
             $params = [
                 'item' => $item,
                 'categories' => $categories,
-                'levels' => $levels
+                'levels' => $levels,
+                'lessions' => $lessions
             ];
             return view("admin.courses.show", $params);
         } catch (ModelNotFoundException $e) {
@@ -123,6 +131,7 @@ class CourseController extends Controller
             return redirect()->route('asset.index')->with('error', __('Không tìm thấy kết quả thích hợp'));
         }
     }
+    
 
     /**
      * Show the form for editing the specified resource.
