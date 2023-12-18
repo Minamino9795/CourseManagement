@@ -39,8 +39,7 @@
                                     <button class="btn btn-secondary" data-toggle="modal" data-target="#modalSaveSearch" type="submit">Tìm Kiếm</button>
                                 </div>
                             </div>
-                        </form>
-
+                        </div>
                     </div>
                 </div>
                 @include('admin.includes.global.alert')
