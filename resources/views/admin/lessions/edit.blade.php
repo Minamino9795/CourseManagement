@@ -28,7 +28,11 @@
                             </div>
                             <div class="col-md-6 mb-4">
                                 <label for="type">Loại bài học<abbr name="Trường bắt buộc">*</abbr></label>
-                                <input name="type" value="{{ $item->type }}" class="form-control" id="type" placeholder="Nhập loại bài học">
+                                <select name="type" class="form-control" id="type">
+                                    <option value="Bài đọc" {{ $item->type == 'Bài đọc' ? 'selected' : '' }}>Bài đọc</option>
+                                    <option value="Thực hành" {{ $item->type == 'Thực hành' ? 'selected' : '' }}>Thực hành</option>
+                                    <option value="Xem video" {{ $item->type == 'Xem video' ? 'selected' : '' }}>Xem video</option>
+                                </select>
                                 <small id="typeHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
