@@ -93,12 +93,12 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-4">
-                                <label for="image_url">Hình ảnh <abbr name="Trường bắt buộc">*</abbr></label>
+                                <label for="image_url">Hình ảnh <abbr name="Trường bắt buộc"></abbr></label>
                                 <input name="image_url" type="file" value="{{ old('image_url') }}" class="form-control" id="image_url">
                                 <small id="" class="form-text text-muted"></small>
                             </div>
                             <div class="col-md-6 mb-4">
-                                <label for="video_url">Video<abbr name="Trường bắt buộc">*</abbr></label>
+                                <label for="video_url">Video<abbr name="Trường bắt buộc"></abbr></label>
                                 <input type="file" class="form-control" name="video_url" placeholder="Video..." id="video" accept="video/*">
                                 <small class="form-text text-muted"></small>
                             </div>
@@ -119,4 +119,8 @@
 </div>
 </div>
 </div>
+<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('description');
+</script>
 @endsection

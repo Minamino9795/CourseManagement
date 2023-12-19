@@ -5,16 +5,13 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active">
-                    <a href="{{ route('courses.index') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Quản Lý
-                        Khóa Học</a>
+                    <a href="{{ route('courses.index') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Quản Lý Khóa Học</a>
                 </li>
             </ol>
         </nav>
-        <!-- <button type="button" class="btn btn-success btn-floated"><span class="fa fa-plus"></span></button> -->
         <div class="d-md-flex align-items-md-start">
             <h1 class="page-title mr-sm-auto">Chi Tiết Khóa Học</h1>
             <div class="btn-toolbar">
-
                 <a href="" class="btn btn-primary mr-2">
                     <i class="fa-solid fa fa-arrow-down"></i>
                     <span class="ml-1">Import Excel</span>
@@ -31,73 +28,76 @@
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active " href="">Tất Cả</a>
+                        <a class="nav-link active" href="">Tất Cả</a>
                     </li>
-
                 </ul>
-            </div>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>Khóa học</th>
-                            <th>Mô tả</th>
-                            <th>Hình ảnh</th>
-                            <th>Video</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        <tr>
-                            <td>
-                                <div class="d-flex px-2 py-1">
-                                    <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="mb-0 text-sm">{{ $item->id }}</h6>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p>{{ $item->name }}</p>
-                            </td>
-                            <style>
-                                .description-cell {
-                                    max-width: 500px;
-                                    text-overflow: ellipsis;
-                                }
-
-                                .description-cell p {
-                                    margin: 0;
-                                }
-                            </style>
-                            <td class="description-cell">
-                                <p>{{ $item->description }}</p>
-                            </td>
-                            <td>
-                                    @if ($item->image_url)
-                                    <img width="100" height="90" src="{{ asset($item->image_url) }}" alt="Image">
-                                    @else
-                                    Không có ảnh
-                                    @endif
-                                </td>
-                                <td class="video_url-cell">
-                                    @if ($item->video_url)
-                                    <video width="300" height="400" controls>
-                                        <source src="{{ asset('storage/videos/' . $item->video_url) }}" type="video/mp4">
-                                    </video>    
-                                    @else
-                                    <p>Không có video</p>
-                                    @endif
-                                </td>
-                    </tbody>
-                </table>
-
-
-            </div>
+            </div></br>
+            <form method="post">
+                <div class="form-row">
+                <label for="input01" class="col-md-3"><strong>Tên :</strong></label>
+                    <div class="col-md-9 mb-3">
+                        <div class="custom-file">
+                            <p>{{ $item->name }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label for="input02" class="col-md-3"><strong>Mô tả :</strong></label>
+                    
+                    <div class="col-md-9 mb-3">
+                        <p>{!!$item->description !!}</p>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label for="input02" class="col-md-3">  <strong>Hình ảnh :</strong></label>
+                    <div class="col-md-9 mb-3">
+                        <div class="image-container">
+                            @if ($item->image_url)
+                            <img class="course-image" src="{{ asset($item->image_url) }}" alt="Image">
+                            @else
+                            <p>Không có ảnh</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label for="input02" class="col-md-3"> <strong>Video:</strong></label>
+                    <div class="col-md-9 mb-3">
+                        <div class="video-container">
+                            @if ($item->video_url)
+                            <video class="course-video" controls>
+                                <source src="{{ asset('storage/videos/' . $item->video_url) }}" type="video/mp4">
+                            </video>
+                            @else
+                            <p>Không có video</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-</div><!-- /.page -->
-</div><!-- /.wrapper -->
 </div>
+<style>
+    /* Custom CSS for the page */
+.image-container {
+    display: flex;
+    align-items: center;
+}
+
+.course-image {
+    width: 100px;
+    height: 90px;
+}
+
+.video-container {
+    display: flex;
+    align-items: center;
+}
+
+.course-video {
+    width: 300px;
+    height: 400px;
+}
+</style>
 @endsection
