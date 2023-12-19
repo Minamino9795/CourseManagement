@@ -22,76 +22,90 @@
                         </li>
                     </ul>
                 </div>
-                <div class="table-responsive">
-                    <table class="table text-center">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Tên bài học</th>
-                                <th>Loại bài học</th>
-                                <th>Nội dung bài học</th>
-                                <th>Hình ảnh</th>
-                                <th>Video</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="d-flex px-2 py-1">
-                                        <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-sm">{{ $item->id }}</h6>
+                <div class="card-body px-0 pb-2">
+                    <div class="table align-items-center mb-0">
+                        <table class="table">
+                            <thead class="">
+                                <tr>
+                                    <td><strong>ID :</strong></td>
+                                    <td>{{ $item->id }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Tên bài học :</strong></td>
+                                    <td>{{ $item->name }}</td>
+                                </tr>
+                                <tr>
+
+                                    <td><strong>Loại bài học :</strong></td>
+                                    <td>{{ $item->type }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Nội dung bài học :</strong></td>
+                                    <style>
+                                        .content-wrapper.collapsed .content-text {
+                                            overflow: hidden;
+                                            text-overflow: ellipsis;
+                                            max-height: 60px;
+                                            width: 200px;
+                                            /* Chiều cao tối đa của nội dung khi thu gọn */
+                                        }
+
+                                        .content-wrapper.expanded .content-text {
+                                            max-height: initial;
+                                            width: 1000px;
+                                            /* Chiều cao tối đa của nội dung khi được mở rộng */
+                                        }
+                                    </style>
+
+                                    <td class="content">
+                                        <div class="content-wrapper collapsed" data-item-id="{{ $item->id }}">
+                                            <p class="content-text" width="12px">{{ $item->content }}</p>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="name">
-                                    <p>{{ $item->name }}</p>
-                                </td>
-                                <td>
-                                    <p>{{ $item->type }}</p>
-                                </td>
-                                <style>
-                                    .content-wrapper.collapsed .content-text {
-                                        overflow: hidden;
-                                        text-overflow: ellipsis;
-                                        max-height: 60px;
-                                        width: 300px; 
-                                        /* Chiều cao tối đa của nội dung khi thu gọn */
-                                    }
-                                </style>
+                                        <button class="view-more-button" onclick="expandContent({{ $item->id }})">Xem thêm</button>
+                                    </td>
+                                    <script>
+                                        function expandContent(itemId) {
+                                            var contentWrapper = document.querySelector('.content-wrapper[data-item-id="' + itemId + '"]');
+                                            var viewMoreButton = contentWrapper.querySelector('.view-more-button');
+                                            if (contentWrapper.classList.contains('collapsed')) {
+                                                contentWrapper.classList.remove('collapsed');
+                                                contentWrapper.classList.add('expanded');
+                                                viewMoreButton.textContent = 'Thu gọn';
+                                            } else {
+                                                contentWrapper.classList.remove('expanded');
+                                                contentWrapper.classList.add('collapsed');
+                                                viewMoreButton.textContent = 'Xem thêm';
+                                            }
+                                        }
+                                    </script>
+                                </tr>
+                                <tr>
+                                    <td><strong>Hình ảnh :</strong></td>
 
-                                <td class="content">
-                                    <div class="content-wrapper collapsed" data-item-id="{{ $item->id }}">
-                                        <p class="content-text"  width="12px">{{ $item->content }}</p>
-                                    </div>
-                                    <button class="view-more-button" onclick="expandContent({{ $item->id }})">Xem thêm</button>
-                                </td>
+                                    <td>
+                                        @if ($item->image_url)
+                                        <img width="100" height="90" src="{{ asset($item->image_url) }}" alt="Image">
+                                        @else
+                                        Không có ảnh
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Video:</strong></td>
 
-                                <script>
-                                    function expandContent(itemId) {
-                                        var contentWrapper = document.querySelector('.content-wrapper[data-item-id="' + itemId + '"]');
-                                        contentWrapper.classList.remove('collapsed');
-                                    }
-                                </script>
-                                <td>
-                                    @if ($item->image_url)
-                                    <img width="100" height="90" src="{{ asset($item->image_url) }}" alt="Image">
-                                    @else
-                                    Không có ảnh
-                                    @endif
-                                </td>
-                                <td class="video_url-cell">
-                                    @if ($item->video_url)
-                                    <video width="300" height="400" controls>
-                                        <source src="{{ asset('storage/videos/' . $item->video_url) }}" type="video/mp4">
-                                    </video>    
-                                    @else
-                                    <p>Không có video</p>
-                                    @endif
-                                </td>
-
-                            </tr>
-                        </tbody>
-                    </table>
+                                    <td class="video_url-cell">
+                                        @if ($item->video_url)
+                                        <video width="300" height="400" controls>
+                                            <source src="{{ asset('storage/videos/' . $item->video_url) }}" type="video/mp4">
+                                        </video>
+                                        @else
+                                        <p>Không có video</p>
+                                        @endif
+                                    </td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

@@ -37,24 +37,7 @@
                 </ul>
             </li>
             @endif
-            @if (Auth::user()->hasPermission('chapters_viewAny'))
-            <li class="menu-item has-child">
-                <a href="" class="menu-link">
-                    <span class="menu-icon">
-                        <i class="fas fa-bookmark"></i>
-                    </span>
-                    <span class="menu-text">Chương học</span>
-                </a>
-                <ul class="menu">
-                    <li class="menu-item">
-                        <a href="{{ route('chapters.index') }}" class="menu-link" tabindex="-1">
-                            Danh Sách Các Chương Học
-                        </a>
-                    </li>
-                </ul>
-                @endif
-            </li>
-            @if (Auth::user()->hasPermission('lessions_viewAny'))
+                @if (Auth::user()->hasPermission('lessions_viewAny'))
             <li class="menu-item has-child">
                 <a href="" class="menu-link">
                     <span class="menu-icon">

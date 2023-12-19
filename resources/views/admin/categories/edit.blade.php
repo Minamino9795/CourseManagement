@@ -32,7 +32,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="tf1">Mô tả <abbr name="Trường bắt buộc">*</abbr></label>
-                                <textarea name="description" type="text"class="form-control" id="" placeholder="Nhập mô tả">{{ $categories->description }}</textarea>
+                                <textarea name="description" type="text"class="form-control" id="description" placeholder="Nhập mô tả">{{ $categories->description }}</textarea>
 
                                 <small id="" class="form-text text-muted"></small>
                                 @error('description')
@@ -67,4 +67,8 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('description');
+</script>
 @endsection

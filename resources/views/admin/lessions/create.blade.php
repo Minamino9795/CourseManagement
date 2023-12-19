@@ -32,7 +32,7 @@
                             </div>
                             <div class="col-md-6 mb-4">
                                 <label for="type">Loại bài học<abbr name="Trường bắt buộc">*</abbr></label>
-                                <select name="type" class="form-control" id="type">     xml_error_string
+                                <select name="type" class="form-control" id="type"> xml_error_string
                                     <option value="">---Vui lòng chọn---</option>
                                     <option value="Bài đọc" {{ old('type') === 'Bài đọc' ? 'selected' : '' }}>Bài đọc</option>
                                     <option value="Thực hành" {{ old('type') === 'Thực hành' ? 'selected' : '' }}>Thực hành</option>
@@ -46,14 +46,6 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-4">
-                                <label for="content">Nội dung<abbr name="Trường bắt buộc">*</abbr></label>
-                                <textarea name="content" class="form-control" placeholder="Nhập mật nội dung">{{ old('content') }}</textarea>
-                                <small class="form-text text-muted"></small>
-                                @error('content')
-                                <div style="color: red">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-6 mb-4">
                                 <label for="duration">Khoảng thời gian<abbr name="Trường bắt buộc">*</abbr></label>
                                 <input name="duration" type="number" value="{{ old('duration') }}" class="form-control" placeholder="Nhập khoảng thời gian">
                                 <small class="form-text text-muted"></small>
@@ -61,18 +53,29 @@
                                 <div style="color: red">{{ $message }}</div>
                                 @enderror
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-6 mb-4">
                                 <label for="image">Ảnh</label>
                                 <input name="image_url" type="file" class="form-control" placeholder="Chọn ảnh">
                                 <small class="form-text text-muted"></small>
                             </div>
+                           
+                        </div>
+                        <div class="row">
                             <div class="col-md-6 mb-4">
-                                <label for="video_url">Video<abbr name="Trường bắt buộc">*</abbr></label>
+                                <label for="content">Nội dung<abbr name="Trường bắt buộc">*</abbr></label>
+                                <textarea name="content" class="form-control" placeholder="Nhập mật nội dung">{{ old('content') }}</textarea>
+                                <small class="form-text text-muted"></small>
+                                @error('content')
+                                <div style="color: red">{{ $message }}</div>
+                                @enderror
+                            </div>
+                           
+                            <div class="col-md-6 mb-4">
+                                <label for="video_url">Video<abbr name="Trường bắt buộc"></abbr></label>
                                 <input type="file" class="form-control" name="video_url" placeholder="Video..." id="video" accept="video/*">
                                 <small class="form-text text-muted"></small>
                             </div>
+
                         </div>
                         <div class="form-actions">
                             <a class="btn btn-secondary float-right" href="{{ route('lessions.index') }}">Hủy</a>
@@ -84,4 +87,5 @@
         </div>
     </div>
 </div>
+
 @endsection
