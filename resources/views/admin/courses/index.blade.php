@@ -144,6 +144,14 @@
                                                     <span class="sr-only">Show</span>
                                                 </a>
                                             @endif
+                                            @if (Auth::user()->hasPermission('courses_view'))
+                                                <span class="sr-only">Show</span>
+                                                <a href="{{ route('viewlession.show', $item->id) }}"
+                                                    class="btn btn-sm btn-icon btn-secondary">
+                                                    <i class="fas fa-play"></i></i>
+                                                    <span class="sr-only">Show</span>
+                                                </a>
+                                            @endif
                                             @if (Auth::user()->hasPermission('courses_update'))
                                                 <span class="sr-only">Edit</span> <a
                                                     href="{{ route('courses.edit', $item->id) }}"

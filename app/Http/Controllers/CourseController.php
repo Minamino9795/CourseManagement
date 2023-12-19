@@ -131,6 +131,30 @@ class CourseController extends Controller
             return redirect()->route('asset.index')->with('error', __('Không tìm thấy kết quả thích hợp'));
         }
     }
+    public function ViewLession(string $id)
+    {
+        try {
+            $item = Course::findOrFail($id);
+            $this->authorize('view', $item);
+            $categories = Category::get();
+            $levels = Level::get();
+            
+            // Lấy tất cả bài học có liên quan đến khóa học
+            $lessions = Lession::where('course_id', $id)->get();
+            // dd($lessions);
+
+            $params = [
+                'item' => $item,
+                'categories' => $categories,
+                'levels' => $levels,
+                'lessions' => $lessions
+            ];
+            return view("admin.courses.lessionview", $params);
+        } catch (ModelNotFoundException $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('courses.index')->with('error', __('Không tìm thấy kết quả thích hợp'));
+        }
+    }
     
 
     /**
