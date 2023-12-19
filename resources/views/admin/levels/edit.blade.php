@@ -23,7 +23,7 @@
                     <div class="card-body">
                         <legend>Thông tin cơ bản</legend>
                         <div class="form-group">
-                            <label for="name">Tên khóa học</label>
+                            <label for="name">Tên cấp độ</label>
                             <input type="text" name="name" value="{{ $item->name }}" class="form-control"
                                 placeholder="Nhập tên khóa học ">
                             <small class="form-text text-muted"></small>

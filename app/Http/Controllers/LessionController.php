@@ -29,9 +29,12 @@ class LessionController extends Controller
 		}
 		$query->orderBy('id', 'DESC');
 		$items = $query->paginate($limit);
+		$courses = Course::get();
+
 		// $items = $query->with('lessions')->paginate($limit);
 		$params =
 			[
+				'courses' => $courses,
 				'items' => $items,
 			];
 		return view('admin.lessions.index', $params);
@@ -42,10 +45,10 @@ class LessionController extends Controller
 	{
 		$this->authorize('create', Lession::class);
 		$items = Course::get();
-        $params = [
-            'items' => $items,
-        ];
-		return view('admin.lessions.create',$params);
+		$params = [
+			'items' => $items,
+		];
+		return view('admin.lessions.create', $params);
 	}
 	public function store(LessionRequest $request)
 	{
@@ -92,9 +95,11 @@ class LessionController extends Controller
 		try {
 			$item = Lession::findOrfail($id);
 			$this->authorize('update',  $item);
+			$courses = Course::get();
 
 			$params =
 				[
+					'courses' => $courses,
 					'item' => $item,
 				];
 			return view('admin.lessions.edit', $params);
@@ -105,6 +110,8 @@ class LessionController extends Controller
 	}
 	public function update(LessionRequest $request, string $id)
 	{
+		// dd(1);
+
 		try {
 			$items = Lession::findOrfail($id);
 			$items->name = $request->name;
@@ -112,6 +119,9 @@ class LessionController extends Controller
 			$items->content = $request->content;
 			$items->video_url = $request->video_url;
 			$items->duration = $request->duration;
+			$items->course_id = $request->course_id;
+
+
 			// xử lý ảnh
 			$fieldName = 'image_url';
 			if ($request->hasFile($fieldName)) {
@@ -170,7 +180,13 @@ class LessionController extends Controller
 	public function show($id)
 	{
 		$item = Lession::find($id);
-		return view('admin.lessions.show', compact('item'));
+		$courses = Course::get();
+
+		$params =
+			[
+				'courses' => $courses,
+				'item' => $item,
+			];
+		return view('admin.lessions.show',  $params);
 	}
-	
 }

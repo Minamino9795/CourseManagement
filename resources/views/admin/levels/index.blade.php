@@ -46,12 +46,12 @@
                                 <div class="row">
                                     <div class="col">
                                         <input name="name" value="{{ request('name') }}" class="form-control"
-                                            type="text" placeholder=" Tên khóa học...">
+                                            type="text" placeholder=" Tên khóa học">
                                     </div>
 
                                     <div class="col">
                                         <input name="level" value="{{ request('level') }}" class="form-control"
-                                            type="text" placeholder=" Cấp độ...">
+                                            type="text" placeholder=" Cấp độ">
                                     </div>
 
                                     <div class="col">
@@ -82,7 +82,7 @@
                             <thead>
                                 <tr>
                                     <th> STT </th>
-                                    <th> Tên khóa học</th>
+                                    <th> Tên cấp độ</th>
                                     <th> Cấp độ </th>
                                     <th> Trạng thái </th>
                                     <th> Chức năng </th>

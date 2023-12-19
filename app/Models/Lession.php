@@ -15,6 +15,8 @@ class Lession extends Model
         'image_url',
         'video_url',
         'duration',
+        'course_id',
+
    ];
    protected $primaryKey = 'id';
    protected $table = 'lessions';

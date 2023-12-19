@@ -39,65 +39,66 @@
                                     <button class="btn btn-secondary" data-toggle="modal" data-target="#modalSaveSearch" type="submit">Tìm Kiếm</button>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                @include('admin.includes.global.alert')
-                <div class="table-reponsive">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>STT</th>
-                                    <th>Tên</th>
-                                    <th>Loại bài học</th>
-                                    <th>Nội dung</th>
-                                    <th>Tuỳ chọn</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($items as $key => $item)
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td class="name">
-                                        <p>{{ $item->name }}</p>
-                                    </td>
-                                    <td>
-                                        <p>{{ $item->type }}</p>
-                                    </td>
-                                    <td>
-                                        <p>{!! Str::limit($item->content, 80) !!}</p>
-                                    </td>
-                                    <td>
-                                        @if (Auth::user()->hasPermission('lessions_update'))
-                                        <a href="{{ route('lession.show', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-secondary">
-                                            <i class="fa fa-eye"></i>
-                                            <span class="sr-only">Show</span>
-                                        </a>
-                                        <span class="sr-only">Edit</span>
-                                        <a href="{{ route('lessions.edit', $item->id) }}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span class="sr-only">Remove</span></a>
-                                        @endif
-                                        @if (Auth::user()->hasPermission('lessions_delete'))
-                                        <form action="{{ route('lessions.destroy', $item->id) }}" method="POST" class="d-inline">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button type="submit" onclick="return confirm('Bạn có muốn xóa không ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i>
-                                            </button>
-
-                                        </form>
-                                        @endif
-                                    </td>
-                                </tr>
-                                @endforeach
-
-                            </tbody>
-                        </table>
-                        <div>
-                        </div>
-                    </div>
-                    <div style="float:right">
-                        {{ $items->appends(request()->query())->links() }}
                     </div>
                 </div>
             </div>
-            @endsection
+            @include('admin.includes.global.alert')
+            <div class="table-reponsive">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên</th>
+                                <th>Loại bài học</th>
+                                <th>Nội dung</th>
+                                <th>Tuỳ chọn</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($items as $key => $item)
+                            <tr>
+                                <td>{{ $key + 1 }}</td>
+                                <td class="name">
+                                    <p>{{ $item->name }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $item->type }}</p>
+                                </td>
+
+                                <td>
+                                    <p>{!! Str::limit($item->content, 80) !!}</p>
+                                </td>
+                                <td>
+                                    @if (Auth::user()->hasPermission('lessions_update'))
+                                    <a href="{{ route('lession.show', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-secondary">
+                                        <i class="fa fa-eye"></i>
+                                        <span class="sr-only">Show</span>
+                                    </a>
+                                    <span class="sr-only">Edit</span>
+                                    <a href="{{ route('lessions.edit', $item->id) }}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span class="sr-only">Remove</span></a>
+                                    @endif
+                                    @if (Auth::user()->hasPermission('lessions_delete'))
+                                    <form action="{{ route('lessions.destroy', $item->id) }}" method="POST" class="d-inline">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" onclick="return confirm('Bạn có muốn xóa không ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i>
+                                        </button>
+
+                                    </form>
+                                    @endif
+                                </td>
+                            </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
+                    <div>
+                    </div>
+                </div>
+                <div style="float:right">
+                    {{ $items->appends(request()->query())->links() }}
+                </div>
+            </div>
+        </div>
+        @endsection

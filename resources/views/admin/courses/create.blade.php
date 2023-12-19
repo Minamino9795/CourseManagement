@@ -81,7 +81,7 @@
                                     <option>--Vui lòng chọn--</option>
                                     @foreach ($levels as $level)
                                     <option value="{{ $level->id }}" {{ old('level_id') == $level->id ? 'selected' : '' }}>
-                                        {{ $level->name }}
+                                        {{ $level->level }}
                                     </option>
                                     @endforeach
                                 </select>

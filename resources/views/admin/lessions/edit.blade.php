@@ -40,15 +40,26 @@
                             </div>
                             <div class="col-md-6 mb-4">
                                 <label for="image">Ảnh</label>
-
                                 <input type="file" class="form-control-file" id="image_url" name="image_url">
                                 <input type="hidden" name="old_image" value="{{ $item->image_url }}"><br>
                                 <img src="{{ asset($item->image_url) }}" width="90px" height="90px" id="blah1" alt="">
-
-
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label for="course_id">Khóa Học<abbr name="Trường bắt buộc">*</abbr></label>
+                                <select name="course_id" class="form-control">
+                                    @foreach ($courses as $course)
+                                    <option value="{{ $course->id }}" {{ $course->id == old('course_id', $item->course_id) ? 'selected' : '' }}>
+                                        {{ $course->name }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                                <small id="" class="form-text text-muted"></small>
+                                @error('course_id')
+                                <div style="color: red">{{ $message }}</div>
+                                @enderror
+                            </div>
                             <div class="col-md-6 mb-4">
                                 <label for="content">Nội dung bài</label>
                                 <textarea name="content" class="form-control" id="content" placeholder="Nhập nội dung bài học">{{ $item->content }}</textarea>
@@ -66,7 +77,7 @@
                                     </video>
                                 </div>
 
-                                <small id="videoUrlHelp" class="form-text text-muted"></small>
+
                             </div>
 
                             <script>

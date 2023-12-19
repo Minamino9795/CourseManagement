@@ -103,6 +103,10 @@
                                         @endif
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td><strong>Tên khóa học:</strong></td>
+                                    <td>{{ $item->course->name }}</td>
+                                </tr>
                             </thead>
                         </table>
                     </div>
