@@ -19,7 +19,7 @@ class ChapterController extends Controller
     public function index(Request $request)
     {
         $this->authorize('viewAny', Chapter::class);
-        $limit = $request->limit ? $request->limit : 4;
+        $limit = $request->limit ? $request->limit : 5;
         $query = Chapter::select('*');
         if (isset($request->s)) {
             $query->whereHas('course', function ($query) use ($request) {

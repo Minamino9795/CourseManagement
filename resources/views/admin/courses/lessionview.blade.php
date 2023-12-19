@@ -66,6 +66,8 @@
                     <div class="tution sp_bottom_100 sp_top_50">
                         <div class="container-fluid full__width__padding">
                             <header class="page-title-bar">
+
+                                <h1 class="page-title mr-sm-auto">Khóa Học Online</h1>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item active">
@@ -85,18 +87,13 @@
                                                     data-bs-toggle="collapse" data-bs-target="#collapseOne"
                                                     aria-expanded="true" aria-controls="collapseOne">
 
-                                                    Bài Học
+                                                    Danh sách bài học
                                                 </button>
                                             </h2>
                                             <div id="collapseOne" class="accordion-collapse collapse show"
                                                 aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
-
-
-
-
-
-                                                    @foreach ($lessions as $lession)
+                                                    @foreach ($lessions as $key => $lession)
                                                         <div class="scc__wrap" data-lesson-id="{{ $lession->id }}">
                                                             <div class="scc__info">
                                                                 <i class="icofont-file-text"></i>
@@ -104,51 +101,41 @@
                                                                     <a href="#" class="lesson-link"
                                                                         @if ($lession->video_url) data-video-url="{{ asset('storage/videos/' . $lession->video_url) }}" @endif
                                                                         @if ($lession->content) data-content="{{ $lession->content }}" @endif>
-                                                                        <span>{{ $lession->name }}</span>
+                                                                        <span>Bài {{ $key + 1 }}:
+                                                                            {{ $lession->name }}</span>
                                                                     </a>
                                                                 </h5>
                                                             </div>
                                                         </div>
                                                     @endforeach
-
-
-
-
                                                 </div>
                                             </div>
 
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12" data-aos="fade-up">
                                     <div class="lesson__content__main">
                                         <div class="lesson__content__wrap">
                                             <h3>Video Khóa Học {{ $item->name }}</h3>
                                         </div>
-
                                         <div class="plyr__video-embed rbtplayer">
                                             <div class="video-wrapper">
 
                                                 <iframe id="lessonVideoIframe"
                                                     src="{{ asset('storage/videos/' . $item->video_url) }}"
                                                     allowfullscreen allow="autoplay"></iframe>
-
-
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                                 <header class="page-title-bar">
                                     <nav aria-label="breadcrumb">
 
                                     </nav>
-
                                 </header>
                                 <div class="page-section">
                                     <div class="row">
-
                                         <div>
                                             <div class="card card-fluid">
                                                 <h6 class="card-header"> Nội dung bài học </h6>
@@ -267,7 +254,7 @@
                     } else if (content) {
                         contentContainer.innerHTML = content;
                         contentContainer.style.display =
-                        'block'; // Hiển thị nội dung khi không có video
+                            'block'; // Hiển thị nội dung khi không có video
                         videoIframe.src = ''; // Đặt src của iframe về trống
                     }
 

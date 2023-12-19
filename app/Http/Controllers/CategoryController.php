@@ -19,7 +19,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $this->authorize('viewAny', Category::class);
-        $paginate = 3;
+        $paginate = 5;
         $query = Category::select('*');
 
         if (isset($request->searchname)) {
