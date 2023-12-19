@@ -32,7 +32,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <input name="search" value="{{ request('search') }}" class="form-control"
-                                                type="text" placeholder=" tên...">
+                                                type="text" placeholder=" Tên">
                                         </div>
                                         <div class="col-lg-2">
                                             <button class="btn btn-secondary" data-toggle="modal"
