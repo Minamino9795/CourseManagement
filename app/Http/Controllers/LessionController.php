@@ -117,7 +117,6 @@ class LessionController extends Controller
 			$items->name = $request->name;
 			$items->type = $request->type;
 			$items->content = $request->content;
-			$items->video_url = $request->video_url;
 			$items->duration = $request->duration;
 			$items->course_id = $request->course_id;
 
