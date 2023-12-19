@@ -100,15 +100,19 @@
                                                         <div class="scc__wrap" data-lesson-id="{{ $lession->id }}">
                                                             <div class="scc__info">
                                                                 <i class="icofont-file-text"></i>
-                                                                <h5> <a href="#" class="lesson-link"
-                                                                        data-video-url="{{ asset('storage/videos/' . $lession->video_url) }}">
+                                                                <h5>
+                                                                    <a href="#" class="lesson-link"
+                                                                        @if ($lession->video_url) data-video-url="{{ asset('storage/videos/' . $lession->video_url) }}" @endif
+                                                                        @if ($lession->content) data-content="{{ $lession->content }}" @endif>
                                                                         <span>{{ $lession->name }}</span>
                                                                     </a>
-                                                                </h5>
                                                                 </h5>
                                                             </div>
                                                         </div>
                                                     @endforeach
+
+
+
 
                                                 </div>
                                             </div>
@@ -121,58 +125,57 @@
                                     <div class="lesson__content__main">
                                         <div class="lesson__content__wrap">
                                             <h3>Video Khóa Học {{ $item->name }}</h3>
-
                                         </div>
 
                                         <div class="plyr__video-embed rbtplayer">
                                             <div class="video-wrapper">
-                                                <iframe id="lessonVideoIframe" allowfullscreen
-                                                    allow="autoplay"></iframe>
+
+                                                <iframe id="lessonVideoIframe"
+                                                    src="{{ asset('storage/videos/' . $item->video_url) }}"
+                                                    allowfullscreen allow="autoplay"></iframe>
+
 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <header class="page-title-bar">
                                     <nav aria-label="breadcrumb">
-                                        
+
                                     </nav>
-                                    
+
                                 </header>
                                 <div class="page-section">
                                     <div class="row">
-                                       
-                                        <div class="col-lg-8">
+
+                                        <div>
                                             <div class="card card-fluid">
                                                 <h6 class="card-header"> Nội dung bài học </h6>
                                                 <div class="card-body">
                                                     <div class="media mb-3">
-                                                       
+
                                                         <div class="media-body pl-3">
-                                                            <div id="progress-avatar" class="progress progress-xs fade">
+                                                            <div id="progress-avatar"
+                                                                class="progress progress-xs fade">
                                                                 <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
-                                                                    role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                    role="progressbar" aria-valuemin="0"
+                                                                    aria-valuemax="100"></div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <form method="post">
                                                         <div class="form-row">
                                                             <label for="input01" class="col-md-3"></label>
-                            
+                                                            <div id="lessonContentContainer"> </div>
                                                             <div class="col-md-9 mb-3">
                                                                 <div class="custom-file">
-                                                                    <p>nội dung</p>
                                                                 </div>
                                                             </div>
                                                         </div>
 
                                                         <hr>
-                                                        <div class="form-actions">
-                                                            <a class="btn btn-dark" href="{{ route('courses.index') }}">
-                                                                <i class="fa fa-arrow-left mr-2"></i> Quay lại
-                                                            </a>
-                                                        </div>
+
                                                     </form>
                                                 </div>
                                             </div>
@@ -245,29 +248,34 @@
             const lessonLinks = document.querySelectorAll('.lesson-link');
             const videoIframe = document.getElementById('lessonVideoIframe');
             const contentContainer = document.getElementById('lessonContentContainer');
-    
+
             lessonLinks.forEach(function(link) {
                 link.addEventListener('click', function(event) {
                     event.preventDefault();
-    
+
                     const videoUrl = link.dataset.videoUrl;
                     const content = link.dataset.content;
-    
-                    if (videoUrl) {
+
+                    if (videoUrl && content) {
                         videoIframe.src = videoUrl;
-                        contentContainer.style.display = 'none'; // Hide content if video is present
+                        contentContainer.innerHTML = content;
+                        contentContainer.style.display = 'block'; // Hiển thị cả nội dung và video
+                    } else if (videoUrl) {
+                        videoIframe.src = videoUrl;
+                        contentContainer.innerHTML = ''; // Đặt nội dung về trống khi có video
+                        contentContainer.style.display = 'none'; // Ẩn nội dung
                     } else if (content) {
                         contentContainer.innerHTML = content;
-                        contentContainer.style.display = 'block'; // Show content if no video
-                        videoIframe.src = ''; // Clear video source
-                    } else {
-                        console.error('Video URL and content not found');
+                        contentContainer.style.display =
+                        'block'; // Hiển thị nội dung khi không có video
+                        videoIframe.src = ''; // Đặt src của iframe về trống
                     }
+
                 });
             });
         });
     </script>
-    
+
 
 
 
