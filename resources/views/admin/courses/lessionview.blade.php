@@ -162,7 +162,7 @@
                             
                                                             <div class="col-md-9 mb-3">
                                                                 <div class="custom-file">
-                                                                    <p>{{ $item->Lessions->content }}</p>
+                                                                    <p>nội dung</p>
                                                                 </div>
                                                             </div>
                                                         </div>

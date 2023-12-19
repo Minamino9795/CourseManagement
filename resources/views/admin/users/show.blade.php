@@ -14,7 +14,6 @@
     </header>
     <div class="page-section">
         <div class="row">
-           
             <div class="col-lg-8">
                 <div class="card card-fluid">
                     <h6 class="card-header"> Hồ sơ công khai </h6>

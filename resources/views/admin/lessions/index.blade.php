@@ -66,7 +66,7 @@
                                         <p>{{ $item->type }}</p>
                                     </td>
                                     <td>
-                                        <p>{{ Str::limit($item->content, 80) }}</p>
+                                        <p>{!! Str::limit($item->content, 80) !!}</p>
                                     </td>
                                     <td>
                                         @if (Auth::user()->hasPermission('lessions_update'))

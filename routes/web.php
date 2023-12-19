@@ -41,7 +41,6 @@ use Illuminate\Support\Facades\Route;
     Route::put('/group_role/{id}', [GroupController::class, 'group_role'])->name('groups.group_role');
     Route::resource('levels', \App\Http\Controllers\LevelController::class);
     Route::resource('categories', CategoryController::class);
-    Route::resource('chapters', \App\Http\Controllers\ChapterController::class);
     Route::resource('lessions', LessionController::class);
     Route::get('/viewlession/{id}', [CourseController::class, 'ViewLession'])->name('viewlession.show'); 
 
