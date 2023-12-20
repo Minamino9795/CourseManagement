@@ -20,6 +20,8 @@ class LessionController extends Controller
 
 		$limit = $request->limit ? $request->limit : 10;
 		$query = Lession::select('*');
+        $courses = Course::get();
+
 
 		if (isset($request->searchname)) {
 			$query->where('name', 'LIKE', "%$request->searchname%");
@@ -27,15 +29,19 @@ class LessionController extends Controller
 		if (isset($request->search)) {
 			$query->where('type', 'LIKE', "%$request->search%");
 		}
+		if (isset($request->searchcourse_id)) {
+            $query->where('course_id', $request->searchcourse_id);
+        }
 		$query->orderBy('id', 'DESC');
 		$items = $query->paginate($limit);
-		$courses = Course::get();
 
 		// $items = $query->with('lessions')->paginate($limit);
 		$params =
 			[
 				'courses' => $courses,
 				'items' => $items,
+				'request' => $request
+
 			];
 		return view('admin.lessions.index', $params);
 	}

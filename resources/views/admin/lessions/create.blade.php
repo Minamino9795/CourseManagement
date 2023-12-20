@@ -6,7 +6,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item active">
-                            <a href="">
+                            <a href="{{ route('lessions.index') }}">
                                 <i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Quản Lý Bài Học
                             </a>
                         </li>
