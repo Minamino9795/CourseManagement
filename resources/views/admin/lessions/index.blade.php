@@ -77,7 +77,7 @@
                                         <th>STT</th>
                                         <th>Tên</th>
                                         <th>Loại bài học</th>
-                                        <th>Nội dung</th>
+                                        {{-- <th>Nội dung</th> --}}
                                         <th>Tuỳ chọn</th>
                                     </tr>
                                 </thead>
@@ -97,9 +97,9 @@
                                             <p>{{ $item->type }}</p>
                                         </td>
 
-                                        <td>
+                                        {{-- <td>
                                             <p>{!! Str::limit($item->content, 80) !!}</p>
-                                        </td>
+                                        </td> --}}
                                         <td>
                                             @if (Auth::user()->hasPermission('lessions_update'))
                                             <a href="{{ route('lession.show', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-secondary">
