@@ -40,12 +40,12 @@
                                 <div class="row">
                                     <div class="col">
                                         <input name="searchname" class="form-control" type="text"
-                                            placeholder=" Tìm theo tên khách hàng..." value="{{ request('searchname') }}">
+                                            placeholder=" Tìm theo tên khách hàng" value="{{ request('searchname') }}">
 
                                     </div>
                                     <div class="col">
                                         <input name="searchphone" class="form-control" type="text"
-                                            placeholder=" Số điện thoại..." value="{{ request('searchphone') }}">
+                                            placeholder=" Số điện thoại" value="{{ request('searchphone') }}">
 
                                     </div>
                                     <div class="col">

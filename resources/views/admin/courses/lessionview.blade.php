@@ -67,7 +67,7 @@
                         <div class="container-fluid full__width__padding">
                             <header class="page-title-bar">
 
-                                <h1 class="page-title mr-sm-auto">Khóa Học Online</h1>
+                                <h1 class="page-title mr-sm-auto">Khóa Học Online {{ $item->name }}</h1>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item active">
@@ -101,7 +101,7 @@
                                                                     <a href="#" class="lesson-link"
                                                                         @if ($lession->video_url) data-video-url="{{ asset('storage/videos/' . $lession->video_url) }}" @endif
                                                                         @if ($lession->content) data-content="{{ $lession->content }}" @endif>
-                                                                        <span>Bài {{ $key + 1 }}:
+                                                                        <span>Bài {{ $key + 1 }}: [{{ $lession->type  }}]
                                                                             {{ $lession->name }}</span>
                                                                     </a>
                                                                 </h5>

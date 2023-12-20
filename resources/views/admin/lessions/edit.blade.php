@@ -28,7 +28,11 @@
                             </div>
                             <div class="col-md-6 mb-4">
                                 <label for="type">Loại bài học<abbr name="Trường bắt buộc">*</abbr></label>
-                                <input name="type" value="{{ $item->type }}" class="form-control" id="type" placeholder="Nhập loại bài học">
+                                <select name="type" class="form-control" id="type">
+                                    <option value="Bài đọc" {{ $item->type == 'Bài đọc' ? 'selected' : '' }}>Bài đọc</option>
+                                    <option value="Thực hành" {{ $item->type == 'Thực hành' ? 'selected' : '' }}>Thực hành</option>
+                                    <option value="Xem video" {{ $item->type == 'Xem video' ? 'selected' : '' }}>Xem video</option>
+                                </select>
                                 <small id="typeHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
@@ -38,14 +42,7 @@
                                 <input name="duration" value="{{ $item->duration }}" class="form-control" id="duration" placeholder="Nhập khoảng thời gian">
                                 <small id="durationHelp" class="form-text text-muted"></small>
                             </div>
-                            <div class="col-md-6 mb-4">
-                                <label for="image">Ảnh</label>
-                                <input type="file" class="form-control-file" id="image_url" name="image_url">
-                                <input type="hidden" name="old_image" value="{{ $item->image_url }}"><br>
-                                <img src="{{ asset($item->image_url) }}" width="90px" height="90px" id="blah1" alt="">
-                            </div>
-                        </div>
-                        <div class="row">
+
                             <div class="col-md-6 mb-4">
                                 <label for="course_id">Khóa Học<abbr name="Trường bắt buộc">*</abbr></label>
                                 <select name="course_id" class="form-control">
@@ -60,6 +57,10 @@
                                 <div style="color: red">{{ $message }}</div>
                                 @enderror
                             </div>
+
+
+                        </div>
+                        <div class="row">
                             <div class="col-md-6 mb-4">
                                 <label for="content">Nội dung bài</label>
                                 <textarea name="content" class="form-control" id="content" placeholder="Nhập nội dung bài học">{{ $item->content }}</textarea>
@@ -76,8 +77,14 @@
                                         Your browser does not support the video tag.
                                     </video>
                                 </div>
-
-
+                                
+                                
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label for="image">Ảnh</label>
+                                <input type="file" class="form-control-file" id="image_url" name="image_url">
+                                <input type="hidden" name="old_image" value="{{ $item->image_url }}"><br>
+                                <img src="{{ asset($item->image_url) }}" width="90px" height="90px" id="blah1" alt="">
                             </div>
 
                             <script>
@@ -107,5 +114,8 @@
         </div>
     </div>
 </div>
-
+<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('content');
+</script>
 @endsection
