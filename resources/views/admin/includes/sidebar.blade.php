@@ -10,7 +10,7 @@
             <li class="menu-header">Danh Mục </li>
             @if (Auth::user()->hasPermission('categories_viewAny'))
             <li class="menu-item has-child">
-                <a href="" class="menu-link"><span class="menu-icon"><i class="fas fa-users"></i></span>
+                <a href="{{ route('categories.index') }}" class="menu-link"><span class="menu-icon"><i class="fas fa-users"></i></span>
                     <span class="menu-text">Danh mục</span></a>
                 <ul class="menu">
                     <li class="menu-subhead">Danh mục</li>
@@ -22,7 +22,7 @@
             </li>
             @if (Auth::user()->hasPermission('courses_viewAny'))
             <li class="menu-item has-child">
-                <a href="" class="menu-link">
+                <a href="{{ route('courses.index') }}" class="menu-link">
                     <span class="menu-icon">
                         <i class="fas fa-book"></i>
                     </span>
@@ -39,7 +39,7 @@
             @endif
                 @if (Auth::user()->hasPermission('lessions_viewAny'))
             <li class="menu-item has-child">
-                <a href="" class="menu-link">
+                <a href="{{ route('lessions.index') }}" class="menu-link">
                     <span class="menu-icon">
                         <i class="fas fa-chalkboard-teacher"></i>
                     </span>
@@ -56,7 +56,7 @@
             @endif
             @if (Auth::user()->hasPermission('levels_viewAny'))
             <li class="menu-item has-child">
-                <a href="" class="menu-link">
+                <a href="{{ route('levels.index') }}" class="menu-link">
                     <span class="menu-icon">
                         <i class="fas fa-level-up-alt"></i>
                     </span>
@@ -73,7 +73,7 @@
             @endif
             @if (Auth::user()->hasPermission('groups_viewAny'))
             <li class="menu-item has-child">
-                <a href="" class="menu-link">
+                <a href="{{ route('groups.index') }}" class="menu-link">
                     <span class="menu-icon">
                         <i class="fas fa-lock"></i>
                     </span>
@@ -90,7 +90,7 @@
             @endif
             @if (Auth::user()->hasPermission('users_viewAny'))
             <li class="menu-item has-child">
-                <a href="" class="menu-link">
+                <a href="{{ route('users.index') }}" class="menu-link">
                     <span class="menu-icon">
                         <i class="fas fa-user"></i>
                     </span>
@@ -107,7 +107,7 @@
             @endif
             @if (Auth::user()->hasPermission('orders_viewAny'))
             <li class="menu-item has-child">
-                <a href="" class="menu-link">
+                <a href="{{ route('orders.index') }}" class="menu-link">
                     <span class="menu-icon">
                         <i class="fas fa-shopping-cart"></i>
                     </span>

@@ -24,7 +24,7 @@
                         <span class="user-avatar user-avatar-md"><img src="{{ asset($current_user->image) }}" alt=""></span>
                         <span class="account-summary pr-lg-4 d-none d-lg-block">
                             <span class="account-name">{{ auth()->user()->name }}</span>
-                            <span class="account-description">Đang hoạt động</span>
+                            <span class="account-description">Đang hoạt động <i class="fas fa-circle text-success"></i></span>
                         </span>
                     </button>
                     <div class="dropdown-menu">

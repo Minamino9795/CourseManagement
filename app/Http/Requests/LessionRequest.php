@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class LessionRequest extends FormRequest
 {
@@ -26,6 +27,10 @@ class LessionRequest extends FormRequest
             'type' => 'required',
             'content' => 'required',
             'duration' => 'required',
+            'course_id' => [
+                'required',
+                Rule::notIn(['--Vui lòng chọn--']),
+            ],
             
         ];
         if ($this->old_image) {
@@ -40,6 +45,8 @@ class LessionRequest extends FormRequest
             'type.required' => 'Loại bài học bắt buộc nhập',
             'content.required' => 'Nội dung bắt buộc nhập',
             'duration.required' => 'Thời gian bắt buộc nhập',
+            'course_id.requied' => 'vui lòng chọn khóa học',
+            'course_id.not_in' => 'Vui lòng chọn một giá trị cho khóa học.',
         ];
     }
 }
