@@ -86,9 +86,11 @@
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
                                         <td class="name">
-                                            <a class="tile tile-img mr-1">
+                                            @if ($item->image_url)
+                                            <a class="tile tile-img mr-1" href="{{ route('lession.show', ['id' => $item->id]) }}">
                                                 <img class="img-fluid" src="{{ asset($item->image_url) }}" alt="">
                                             </a>
+                                            @endif
                                             <a>{{ $item->name }}</a>
                                         </td>
                                         <td>
