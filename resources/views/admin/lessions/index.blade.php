@@ -90,7 +90,10 @@
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td class="name">
-                                                    <p>{{ $item->name }}</p>
+                                                    <a class="tile tile-img mr-1">
+                                                        <img class="img-fluid" src="{{ asset($item->image_url) }}" alt="">
+                                                    </a>
+                                                    <a>{{ $item->name }}</a>
                                                 </td>
                                                 <td>
                                                     <p>{{ $item->type }}</p>
@@ -124,6 +127,7 @@
                                                             </button>
 
                                                         </form>
+                                                       
                                                     @endif
                                                 </td>
                                             </tr>

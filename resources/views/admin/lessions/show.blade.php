@@ -1,117 +1,235 @@
-    @extends('admin.layouts.master')
-    @section('content')
-    <div class="page-inner">
-        <header class="page-title-bar">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item active">
-                        <a href="{{ route('lessions.index') }}">
-                            <i class="breadcrumb-icon fa fa-angle-left mr-2"></i>
-                            Quản Lý Bài Học
-                        </a>
-                    </li>
-                </ol>
-            </nav>
-        </header>
-        <div class="page-section">
-            <div class="card card-fluid">
-                <div class="card-header">
-                    <ul class="nav nav-tabs card-header-tabs">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="">Tất Cả</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="card-body px-0 pb-2">
-                    <div class="table align-items-center mb-0">
-                        <table class="table">
-                            <thead class="">
-                                <tr>
-                                    <td><strong>ID :</strong></td>
-                                    <td>{{ $item->id }}</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Tên bài học :</strong></td>
-                                    <td>{{ $item->name }}</td>
-                                </tr>
-                                <tr>
+</html>
+<!DOCTYPE html>
+<html lang="en">
 
-                                    <td><strong>Loại bài học :</strong></td>
-                                    <td>{{ $item->type }}</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Nội dung bài học :</strong></td>
-                                    <style>
-                                        .content-wrapper.collapsed .content-text {
-                                            overflow: hidden;
-                                            text-overflow: ellipsis;
-                                            max-height: 60px;
-                                            width: 200px;
-                                            /* Chiều cao tối đa của nội dung khi thu gọn */
-                                        }
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('apple-touch-icon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/favicon.ico') }}">
+    <meta name="theme-color" content="#3063A0">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/stylesheets/theme.min.css') }}" data-skin="default">
+    <link rel="stylesheet" href="{{ asset('assets/stylesheets/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/aos.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/icofont.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/plugins_plyr.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link href="
+        https://cdn.jsdelivr.net/npm/@icon/icofont@1.0.1-alpha.1/icofont.min.css
+        "
+        rel="stylesheet">
+    @yield('header')
+</head>
 
-                                        .content-wrapper.expanded .content-text {
-                                            max-height: initial;
-                                            width: 1000px;
-                                            /* Chiều cao tối đa của nội dung khi được mở rộng */
-                                        }
-                                    </style>
+<body class=" default-skin pace-done">
+    <div class="app">
+        @include('admin.includes.header');
 
-                                    <td class="content">
-                                        <div class="content-wrapper collapsed" data-item-id="{{ $item->id }}">
-                                            <p class="content-text" width="12px">{!! $item->content !!}</p>
+        <aside class="app-aside app-aside-expand-md app-aside-light">
+            <div class="aside-content">
+                <header class="aside-header d-block d-md-none">
+                    <button class="btn-account" type="button" data-toggle="collapse"
+                        data-target="#dropdown-aside"><span class="user-avatar user-avatar-lg"><img
+                                src="assets/images/avatars/profile.jpg" alt=""></span> <span
+                            class="account-icon"><span class="fa fa-caret-down fa-lg"></span></span> <span
+                            class="account-summary"><span class="account-name">Beni Arisandi</span> <span
+                                class="account-description">Marketing Manager</span></span></button>
+                    <div id="dropdown-aside" class="dropdown-aside collapse">
+                        <div class="pb-3">
+                            <a class="dropdown-item" href="user-profile.html"><span
+                                    class="dropdown-icon oi oi-person"></span> Profile</a> <a class="dropdown-item"
+                                href="auth-signin-v1.html"><span class="dropdown-icon oi oi-account-logout"></span>
+                                Logout</a>
+                            <div class="dropdown-divider"></div><a class="dropdown-item" href="#">Help
+                                Center</a>
+                            <a class="dropdown-item" href="#">Ask Forum</a> <a class="dropdown-item"
+                                href="#">Keyboard Shortcuts</a>
+                        </div>
+                    </div>
+                </header>
+                @include('admin.includes.sidebar')
+                <footer class="aside-footer border-top p-2">
+                </footer>
+            </div>
+        </aside>
+        <main class="app-main">
+            <div class="wrapper">
+                <div class="page">
+                    <div class="tution sp_bottom_100 sp_top_50">
+                        <div class="container-fluid full__width__padding">
+                            <header class="page-title-bar">
+
+                                <h1 class="page-title mr-sm-auto">Xem Chi Tiết Bài Học: {{ $item->name }} </h1>
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item active">
+                                            <a href="{{ route('lessions.index') }}"><i
+                                                    class="breadcrumb-icon fa fa-angle-left mr-2"></i>Quay lại</a>
+                                        </li>
+                                    </ol>
+                                </nav>
+                            </header>
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12" data-aos="fade-up">
+
+                                    <div class="accordion content__cirriculum__wrap" id="accordionExample">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingOne">
+                                                <button class="accordion-button" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                                                    aria-expanded="true" aria-controls="collapseOne">
+
+                                                    Danh sách bài học
+                                                </button>
+                                            </h2>
+                                            <div id="collapseOne" class="accordion-collapse collapse show"
+                                                aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+
+                                                    <div class="scc__wrap" data-lesson-id="">
+                                                        <div class="scc__info">
+                                                            <i class="icofont-file-text"></i>
+                                                            <h5>
+                                                                <a href="#" class="lesson-link">
+                                                                    <span>Bài học: [{{ $item->type }}]
+                                                                        {{ $item->name }}
+                                                                    </span>
+                                                                </a>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <button class="view-more-button" onclick="expandContent({{ $item->id }})">Xem thêm</button>
-                                    </td>
-                                    <script>
-                                        function expandContent(itemId) {
-                                            var contentWrapper = document.querySelector('.content-wrapper[data-item-id="' + itemId + '"]');
-                                            var viewMoreButton = contentWrapper.querySelector('.view-more-button');
-                                            if (contentWrapper.classList.contains('collapsed')) {
-                                                contentWrapper.classList.remove('collapsed');
-                                                contentWrapper.classList.add('expanded');
-                                                viewMoreButton.textContent = 'Thu gọn';
-                                            } else {
-                                                contentWrapper.classList.remove('expanded');
-                                                contentWrapper.classList.add('collapsed');
-                                                viewMoreButton.textContent = 'Xem thêm';
-                                            }
-                                        }
-                                    </script>
-                                </tr>
-                                <tr>
-                                    <td><strong>Hình ảnh :</strong></td>
-
-                                    <td>
-                                        @if ($item->image_url)
-                                        <img width="100" height="90" src="{{ asset($item->image_url) }}" alt="Image">
-                                        @else
-                                        Không có ảnh
-                                        @endif
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Video:</strong></td>
-
-                                    <td class="video_url-cell">
+                                    </div>
+                                </div>
+                                <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12" data-aos="fade-up">
+                                    <div class="lesson__content__main">
+                                        <div class="lesson__content__wrap">
+                                            <h3>Video Bài Học</h3>
+                                        </div>
                                         @if ($item->video_url)
-                                        <video width="300" height="400" controls>
-                                            <source src="{{ asset('storage/videos/' . $item->video_url) }}" type="video/mp4">
-                                        </video>
+                                            <div class="plyr__video-embed rbtplayer">
+                                                <div class="video-wrapper">
+                                                    <iframe id="lessonVideoIframe"
+                                                        src="{{ asset('storage/videos/' . $item->video_url) }}"
+                                                        allowfullscreen allow="autoplay"></iframe>
+                                                </div>
+                                            </div>
                                         @else
-                                        <p>Không có video</p>
+                                            <p>Không có video cho bài học này.</p>
                                         @endif
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Tên khóa học:</strong></td>
-                                    <td>{{ $item->course->name }}</td>
-                                </tr>
-                            </thead>
-                        </table>
+                                    </div>
+                                </div>
+                                <header class="page-title-bar">
+                                    <nav aria-label="breadcrumb">
+
+                                    </nav>
+                                </header>
+                                <div class="page-section">
+                                    <div class="row">
+                                        <div>
+                                            <div class="card card-fluid">
+                                                <h6 class="card-header"> Nội dung bài học: </h6>
+                                                <div class="card-body">
+                                                    <div class="media mb-3">
+
+                                                        <div class="media-body pl-3">
+                                                            <div id="progress-avatar"
+                                                                class="progress progress-xs fade">
+                                                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                                                                    role="progressbar" aria-valuemin="0"
+                                                                    aria-valuemax="100"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <form method="post">
+                                                        <div class="form-row">
+
+                                                            {!! $item->content !!}
+                                                            <div class="col-md-9 mb-3">
+                                                                <div class="custom-file">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <hr>
+
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <style>
+                                    .video-wrapper {
+                                        position: relative;
+                                        overflow: hidden;
+                                        padding-bottom: 56.25%;
+
+                                    }
+
+                                    .video-wrapper iframe {
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;
+                                        width: 100%;
+                                        height: 100%;
+                                    }
+                                </style>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="page-inner">
+                    <header class="page-title-bar">
+                        <h1 class="page-title"></h1>
+                    </header>
+                    <div class="page-section">
+                        <div class="section-block">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     </div>
-    @endsection
+    </main>
+    </div>
+    <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/popper.js/umd/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/pace-progress/pace.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/stacked-menu/js/stacked-menu.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+    <script src="assets/javascript/theme.min.js"></script>
+    <script src="{{ asset('assets/js/vendor/modernizr-3.5.0.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('assets/js/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ asset('assets/js/slick.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.meanmenu.min.js') }}"></script>
+    <script src="{{ asset('assets/js/ajax-form.js') }}"></script>
+    <script src="{{ asset('assets/js/wow.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.scrollUp.min.js') }}"></script>
+    <script src="{{ asset('assets/js/imagesloaded.pkgd.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('assets/js/waypoints.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.counterup.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins.js') }}"></script>
+    <script src="{{ asset('assets/js/swiper-bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugin_plyr.js') }}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
+
+    @yield('footer')
+</body>
+
+</html>

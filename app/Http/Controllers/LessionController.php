@@ -171,7 +171,7 @@ class LessionController extends Controller
 	{
 		try {
 			$item = Lession::findOrFail($id);
-			$this->authorize('delete', $item);
+			$this->authorize('delete', $item);		
 			$item->delete();
 			return redirect()->route('lessions.index')->with('success', __('Xóa thành công'));
 		} catch (ModelNotFoundException $e) {

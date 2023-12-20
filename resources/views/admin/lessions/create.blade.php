@@ -81,7 +81,7 @@
                                 <small class="form-text text-muted"></small>
                             </div>
                             <div class="col-md-6 mb-4">
-                                <label for="video_url">Video<abbr name="Trường bắt buộc">*</abbr></label>
+                                <label for="video_url">Video<abbr name="Trường bắt buộc"></abbr></label>
                                 <input type="file" class="form-control" name="video_url" placeholder="Video..." id="video" accept="video/*">
                                 <small class="form-text text-muted"></small>
                             </div>
