@@ -65,9 +65,10 @@
                             </div>
 
 
+                            
                             <div class="col-md-6 mb-4">
                                 <label for="duration">Khoảng thời gian<abbr name="Trường bắt buộc">*</abbr></label>
-                                <input name="duration" type="number" value="{{ old('duration') }}" class="form-control" placeholder="Nhập khoảng thời gian">
+                                <input name="duration" type="number" value="{{ old('duration', '0') }}" class="form-control" placeholder="Nhập khoảng thời gian" id="duration">
                                 <small class="form-text text-muted"></small>
                                 @error('duration')
                                 <div style="color: red">{{ $message }}</div>
@@ -81,11 +82,13 @@
                                 <small class="form-text text-muted"></small>
                             </div>
                             <div class="col-md-6 mb-4">
-                                <label for="video_url">Video<abbr name="Trường bắt buộc"></abbr></label>
-                                <input type="file" class="form-control" name="video_url" placeholder="Video..." id="video" accept="video/*">
+                                <label for="video_url">Chọn video<abbr name="Trường bắt buộc">*</abbr></label>
+                                <input type="file" class="form-control" name="video_url" id="video" accept="video/*" onChange="updateDuration()">
                                 <small class="form-text text-muted"></small>
+                               
                             </div>
                         </div>
+                        
 
 
                         <div class="form-group">
@@ -110,5 +113,32 @@
 <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
 <script>
     CKEDITOR.replace('content');
+</script>
+<script>
+    function updateDuration() {
+        // Lấy ra file video
+        var videoInput = document.getElementById('video');
+        var videoFile = videoInput.files[0];
+
+        // Lấy ra ô input duration
+        var durationInput = document.getElementById('duration');
+
+        // Nếu có file video, thực hiện cập nhật giá trị của ô duration
+        if (videoFile) {
+            var video = document.createElement('video');
+            video.src = URL.createObjectURL(videoFile);
+
+            video.onloadedmetadata = function() {
+                // Lấy thời lượng video
+                var duration = Math.round(video.duration);
+
+                // Cập nhật giá trị của ô duration trong form
+                durationInput.value = duration;
+            };
+        } else {
+            // Nếu không có video, đặt giá trị của ô duration là trống
+            durationInput.value = ' 0 ';
+        }
+    }
 </script>
 @endsection
