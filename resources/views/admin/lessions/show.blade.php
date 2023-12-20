@@ -59,7 +59,7 @@
 
                                     <td class="content">
                                         <div class="content-wrapper collapsed" data-item-id="{{ $item->id }}">
-                                            <p class="content-text" width="12px">{{ $item->content }}</p>
+                                            <p class="content-text" width="12px">{!! $item->content !!}</p>
                                         </div>
                                         <button class="view-more-button" onclick="expandContent({{ $item->id }})">Xem thêm</button>
                                     </td>
