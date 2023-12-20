@@ -67,6 +67,7 @@
                                 </div>
                         </div>
                     </div>
+
                     @include('admin.includes.global.alert')
                     <div class="table-reponsive">
                         <div class="table-responsive">
@@ -85,7 +86,10 @@
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
                                         <td class="name">
-                                            <p>{{ $item->name }}</p>
+                                            <a class="tile tile-img mr-1">
+                                                <img class="img-fluid" src="{{ asset($item->image_url) }}" alt="">
+                                            </a>
+                                            <a>{{ $item->name }}</a>
                                         </td>
                                         <td>
                                             <p>{{ $item->type }}</p>
@@ -102,15 +106,16 @@
                                             </a>
                                             <span class="sr-only">Edit</span>
                                             <a href="{{ route('lessions.edit', $item->id) }}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span class="sr-only">Remove</span></a>
-                                            @endif  
+                                            @endif
                                             @if (Auth::user()->hasPermission('lessions_delete'))
                                             <form action="{{ route('lessions.destroy', $item->id) }}" method="POST" class="d-inline">
                                                 @method('DELETE')
                                                 @csrf
-                                                <button type="submit" onclick="return confirm('Bạn có muốn xóa không ?')" class="btn btn-sm btn-icon btn-secondary">
-                                                    <i class="far fa-trash-alt"></i>
+                                                <button type="submit" onclick="return confirm('Bạn có muốn xóa không ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i>
                                                 </button>
+
                                             </form>
+
                                             @endif
                                         </td>
                                     </tr>
@@ -121,10 +126,12 @@
                             <div>
                             </div>
                         </div>
-                      
-                      
+                        <div style="float:right">
+                            {{ $items->appends(request()->query())->links() }}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        @endsection
+    </div>
+    @endsection
