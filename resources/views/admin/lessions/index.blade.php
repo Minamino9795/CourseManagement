@@ -5,7 +5,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active">
-                    <a href="{{ route('categories.index') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang
+                    <a href="{{ route('lessions.index') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang
                         Chủ</a>
                 </li>
             </ol>
@@ -39,7 +39,7 @@
                             <form action="{{ route('lessions.index') }}" method="GET" class="search-form">
                                 <div class="row">
                                     <div class="col">
-                                        <input name="searchname" class="form-control" type="text" placeholder=" Tên" value="{{ request('searchname') }}">
+                                        <input name="searchname" class="form-control" type="text" placeholder=" Tên bài học" value="{{ request('searchname') }}">
                                     </div>
                                     <div class="col">
                                         <select name="type" class="form-control" id="type">
