@@ -46,13 +46,10 @@
                                 <div class="row">
                                     <div class="col">
                                         <input name="name" value="{{ request('name') }}" class="form-control"
-                                            type="text" placeholder=" Tên khóa học">
+                                            type="text" placeholder=" Tên cấp độ">
                                     </div>
 
-                                    <div class="col">
-                                        <input name="level" value="{{ request('level') }}" class="form-control"
-                                            type="text" placeholder=" Cấp độ">
-                                    </div>
+                                    
 
                                     <div class="col">
                                         <select name="searchstatus" class="form-control">
@@ -148,6 +145,25 @@
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var selectedLevel = "{{ request('searchlevel') }}";
+            if (selectedLevel) {
+                $('select[name="searchlevel"]').val(selectedLevel);
+            }
+            $('select[name="searchlevel"]').change(function() {
+                selectedLevel = $(this).val();
+            });
+            $('#form-search').submit(function() {
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'searchlevel',
+                    value: selectedLevel
+                }).appendTo($(this));
+                return true;
+            });
+        });
+    </script>
     <script>
         $(document).ready(function() {
             var selectedStatus = "{{ request('searchstatus') }}";

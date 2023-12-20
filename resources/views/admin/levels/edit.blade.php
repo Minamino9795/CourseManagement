@@ -25,14 +25,14 @@
                         <div class="form-group">
                             <label for="name">Tên cấp độ</label>
                             <input type="text" name="name" value="{{ $item->name }}" class="form-control"
-                                placeholder="Nhập tên khóa học ">
+                                placeholder="Nhập tên cấp độ ">
                             <small class="form-text text-muted"></small>
                         </div>
 
                         <div class="form-group">
-                            <label for="level">Tên cấp độ</label>
+                            <label for="level">Cấp độ</label>
                             <input type="text" name="level" value="{{ $item->level }}" class="form-control"
-                                placeholder="Nhập tên cấp độ ">
+                                placeholder="Nhập cấp độ ">
                             <small class="form-text text-muted"></small>
                         </div>
                         <div class="form-group">

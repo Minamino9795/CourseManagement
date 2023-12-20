@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Level;
 use App\Http\Requests\CreateLevelRequest;
-use App\Http\Requests\StoreLevelRequest;
-
-;
+use App\Http\Requests\StoreLevelRequest;;
 
 use Illuminate\Http\Request;
 use App\Traits\UploadFileTrait;
@@ -32,8 +30,8 @@ class LevelController extends Controller
         if (isset($request->name)) {
             $query->where('name', 'LIKE', "%$request->name%");
         }
-        if (isset($request->level)) {
-            $query->where('level', 'LIKE', "%$request->level%");
+        if (isset($request->searchlevel)) {
+            $query->where('level', $request->searchlevel);
         }
         if (isset($request->searchstatus)) {
             $query->where('status', $request->searchstatus);
@@ -43,6 +41,7 @@ class LevelController extends Controller
         $items = $query->paginate($limit);
         $params = [
             'items' => $items,
+
         ];
         return view("admin.levels.index", $params);
     }
