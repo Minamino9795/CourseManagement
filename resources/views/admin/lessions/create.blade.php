@@ -1,19 +1,19 @@
 @extends('admin.layouts.master')
 @section('content')
-    <div class="page">
-        <div class="page-inner">
-            <header class="page-title-bar">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item active">
-                            <a href="{{ route('lessions.index') }}">
-                                <i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Quản Lý Bài Học
-                            </a>
-                        </li>
-                    </ol>
-                </nav>
-                <h1 class="page-title">Thêm Bài Học</h1>
-            </header>
+<div class="page">
+    <div class="page-inner">
+        <header class="page-title-bar">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active">
+                        <a href="{{ route('lessions.index') }}">
+                            <i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Quản Lý Bài Học
+                        </a>
+                    </li>
+                </ol>
+            </nav>
+            <h1 class="page-title">Thêm Bài Học</h1>
+        </header>
 
         <div class="page-section">
             <form action="{{ route('lessions.store') }}" method="POST" enctype="multipart/form-data">
@@ -86,22 +86,22 @@
                                 <small class="form-text text-muted"></small>
                             </div>
                         </div>
-                        <div class="row">
 
-                            <div class="col-md-6 mb-4">
-                                <label for="content">Nội dung<abbr name="Trường bắt buộc">*</abbr></label>
-                                <textarea name="content" class="form-control" id="content" placeholder="Nhập nội dung">{{ old('content') }}</textarea>
-                                <small class="form-text text-muted"></small>
-                                @error('content')
-                                <div style="color: red">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-actions">
-                            <a class="btn btn-secondary float-right" href="{{ route('lessions.index') }}">Hủy</a>
-                            <button class="btn btn-primary ml-auto" type="submit">Lưu</button>
+
+                        <div class="form-group">
+                            <label for="content">Nội dung<abbr name="Trường bắt buộc">*</abbr></label>
+                            <textarea name="content" class="form-control" id="content" placeholder="Nhập nội dung">{{ old('content') }}</textarea>
+                            <small class="form-text text-muted"></small>
+                            @error('content')
+                            <div style="color: red">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
+                    <div class="form-actions">
+                        <a class="btn btn-secondary float-right" href="{{ route('lessions.index') }}">Hủy</a>
+                        <button class="btn btn-primary ml-auto" type="submit">Lưu</button>
+                    </div>
+
                 </div>
             </form>
         </div>

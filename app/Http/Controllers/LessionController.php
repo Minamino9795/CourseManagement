@@ -20,7 +20,7 @@ class LessionController extends Controller
 
 		$limit = $request->limit ? $request->limit : 10;
 		$query = Lession::select('*');
-        $courses = Course::get();
+		$courses = Course::get();
 
 
 		if (isset($request->searchname)) {
@@ -30,8 +30,8 @@ class LessionController extends Controller
 			$query->where('type', 'LIKE', "%$request->type%");
 		}
 		if (isset($request->searchcourse_id)) {
-            $query->where('course_id', $request->searchcourse_id);
-        }
+			$query->where('course_id', $request->searchcourse_id);
+		}
 		$query->orderBy('id', 'DESC');
 		$items = $query->paginate($limit);
 
@@ -167,7 +167,7 @@ class LessionController extends Controller
 		}
 	}
 	// xoas
-	public function destroy(string $id)
+	public function destroy(int $id)
 	{
 		try {
 			$item = Lession::findOrFail($id);
