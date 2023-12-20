@@ -33,11 +33,16 @@
                                     <input name="searchname" class="form-control" type="text" placeholder=" Tên" value="{{ request('searchname') }}">
                                 </div>
                                 <div class="col">
-                                    <input name="search" class="form-control" type="text" placeholder=" Loại bài học " value="{{ request('search') }}">
+                                    <select name="type" class="form-control" id="type">
+                                        <option value="">Chọn loại bài học</option>
+                                        <option value="Bài đọc" {{ request('type') === 'Bài đọc' ? 'selected' : '' }}>Bài đọc</option>
+                                        <option value="Thực hành" {{ request('type') === 'Thực hành' ? 'selected' : '' }}>Thực hành</option>
+                                        <option value="Xem video" {{ request('type') === 'Xem video' ? 'selected' : '' }}>Xem video</option>
+                                    </select>
                                 </div>
                                 <div class="col">
                                     <select name="searchcourse_id" class="form-control">
-                                        <option value=""> Danh mục</option>
+                                        <option value=""> Chọn khóa học</option>
                                         @foreach ($courses as $key => $course)
                                             <option value="{{ $course->id }}"
                                                 {{ $request->searchcourse_id == $course->id ? 'selected' : '' }}>

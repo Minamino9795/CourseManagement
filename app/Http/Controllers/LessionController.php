@@ -26,8 +26,8 @@ class LessionController extends Controller
 		if (isset($request->searchname)) {
 			$query->where('name', 'LIKE', "%$request->searchname%");
 		}
-		if (isset($request->search)) {
-			$query->where('type', 'LIKE', "%$request->search%");
+		if (isset($request->type)) {
+			$query->where('type', 'LIKE', "%$request->type%");
 		}
 		if (isset($request->searchcourse_id)) {
             $query->where('course_id', $request->searchcourse_id);
